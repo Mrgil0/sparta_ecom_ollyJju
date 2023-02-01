@@ -1,16 +1,24 @@
 const express = require('express')
 const dotenv = require('dotenv')
+const router = require('./routes')
+const app = express()
+/* .env */
 dotenv.config()
 
-const app = express()
+
+/* middleware */
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.send('HiHi')
-})
 
+/* routes */
+app.post('/api', router)
+
+
+
+
+
+
+/* server */
 app.listen(process.env.PORT, async () => {
   console.log('server started!')
-  await sequelize.authenticate()
-  console.log('DB authenticate!')
 })
