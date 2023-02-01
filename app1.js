@@ -11,7 +11,7 @@ app.use(express.json())
 
 
 /* routes */
-app.post('/api', router)
+app.use('/api', router)
 
 
 
