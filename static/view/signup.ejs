@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/modal.css" rel="stylesheet" type="text/css">
+    <link href="../css/register.css" rel="stylesheet" type="text/css">
+    <link href="../css/home.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div class="container-fluid">
+</div>
+<div class="main_container" style="display:flex; flex-direction:column; justify-content: center; align-items: center; min-height: 500px;">
+    <div class="container" id="join_form">
+        <form class="form">
+            <h2 class="form_title">회원 가입</h2><br>
+            <div id="id_box">
+                <input type="text" name="user_id" id="user_id" class="form-control" style="display: inline-block" placeholder="아이디"/>
+                <button type="button" class="btn btn-primary" id="user_id_check_btn" onclick="idCheck()">확인</button>
+            </div><br>
+            <input type="password" placeholder="비밀번호" name="password" id="password" class="form-control" /><br>
+            <input type="password" placeholder="비밀번호 확인" id="password_chk" class="form-control" />
+            <div id="check_box"><font id="chkNotice" size="2"></font></div><br>
+            <input type="tel" placeholder="휴대폰 번호(010-0000-0000)" name="phone" id="phone" class="form-control" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"/><br>
+            <div class="dropdown">
+                <button class="btn btn-outline-info dropdown-toggle" id="dropdown_toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                손님 / 사장 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">손님</a></li>
+                    <li><a class="dropdown-item" href="#">사장</a></li>
+                </ul>
+            </div><br>
+            <button class="btn btn-info" type="button" id="register_button" onclick="register()">회원 가입</button>
+        </form>
+    </div>
+    <div class="right-sidebar">
+    </div>
+</div>
+</body>
+<%-include('component/modal.ejs')%>
+<script type="text/javascript" src="../js/modal.js"></script>
+<script>
+    let refresh = 0
+    let id_check = false
+    let changed = document.querySelectorAll(".dropdown-item")
+    changed.forEach(element=>{
+        element.addEventListener("click", e=>{  // changed 모든 요소의 클릭이벤트
+            let type_text = e.target.innerHTML               // 클릭한 타켓의 값
+            $('#dropdown_toggle').text(type_text)
+        })
+    })
+    validateUserData = (id, password) => {
+        const idRegex = /^[a-zA-Z0-9]{3,15}$/     // 영어 & 숫자가 나오면서 3-15글자 사이여야 통과됨
+        const pwRegex = /^[a-zA-Z0-9]{4,15}$/
+        if(idRegex.test(id) === false){
+            return 'ID 형식이 일치하지 않습니다.'
+        } else if(pwRegex.test(password) === false){
+            return '패스워드 형식이 일치하지 않습니다.'
+        } else if(password.includes(id)){
+            return '패스워드에 닉네임이 포함되어 있습니다.'
+        }
+        return false;
+    }
+    function register(){
+        let user_id = $('#user_id').val()
+        let password = $('#password').val()
+        let password_chk = $('#password_chk').val()
+        let phone = $('#phone').val()
+        let category = $('#dropdown_toggle').text()
+
+        if([user_id, password, phone].includes('') || category.includes('선택')){
+            modalOpen('칸이 비어있습니다.')
+            return
+        }
+        if(password != password_chk){
+            modalOpen('비밀번호가 일치하지 않습니다.')
+            return
+        }
+        if(!id_check){
+            modalOpen('아이디 중복체크가 필요합니다.')
+            return
+        }
+        let val = validateUserData(user_id, password)
+        if(val){
+            alert(val)
+            modalOpen(val)
+            return
+        }
+        $.ajax({
+            type : "POST",
+            url : "/users/register",
+            data : {'id_give': user_id, 'pw_give': password, 'ph_give': phone, 'cate_give': category},
+            success : function (response){
+                let result = response['msg']
+                if(result === true && category === '손님'){
+                    refresh = 1
+                    url = '/login'
+                    modalOpen('회원가입 완료\n1000000포인트가 적립되었습니다.')
+                }else if(result === true && category === '사장'){
+                    refresh = 1
+                    url = '/login'
+                    modalOpen('회원가입 완료\n0포인트가 적립되었습니다.')
+                }else{
+                    modalOpen('회원가입 실패')
+                }
+                id_check = false
+            }
+        })
+    }
+    function idCheck(){
+        let user_id = $('#user_id').val()
+        $.ajax({
+            type : "GET",
+            url : "/users/idCheck/" + user_id,
+            success : function (response){
+                let result = response['msg']
+                if(result === true){
+                    id_check = false
+                    modalOpen('중복된 닉네임이 있습니다.')
+                }else{
+                    id_check = true
+                    modalOpen('중복된 닉네임이 없습니다.')
+                }
+            }
+        })
+    }
+</script>
+</html>
