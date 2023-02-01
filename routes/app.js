@@ -1,6 +1,7 @@
 const express = require('express')
 const {Server} = require("http");
 const cookies = require("cookie-parser");
+const user = require("./users.routes")
 
 const app = express()
 app.use(cookies()); 
@@ -14,5 +15,7 @@ const http = Server(app);
 app.get('/', (req, res) => {
   res.send('HiHi')
 })
+
+app.use("/users", [user]);
 
 module.exports = http;
