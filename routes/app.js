@@ -7,6 +7,7 @@ const http = Server(app);
 /* router URL */
 const user = require("./users.routes");
 const product = require("./product.routes");
+const page = require("./pages.routes");
 
 /* ejs */
 app.use(express.static("static"));
@@ -21,5 +22,6 @@ app.use(express.urlencoded({ extended: true }));
 /* router */
 app.use("/users", [user]);
 app.use("/api", [product]);
+app.use("/page", [page])
 
 module.exports = http;
