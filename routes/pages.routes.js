@@ -17,7 +17,7 @@ router.get('/signup', (req, res) => {
 
 //이호균 page
 const { User, /*Items*/ } = require('../models') // User 테이블 연결
-const authMiddleware = require('../middleware/auth') // 미들웨어 연결
+const authMiddleware = require('../middlewares/auth.middleware') // 미들웨어 연결
 
 router.get('/', /*authMiddleware,*/ async (req, res) => {
   const {user} = res.locals // 로그인된 유저를 가져옵니다.
