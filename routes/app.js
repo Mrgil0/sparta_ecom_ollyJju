@@ -9,7 +9,7 @@ const user = require("./users.routes");
 const product = require("./product.routes");
 const page = require("./pages.routes");
 const addproduct = require("./addProduct.routes");
-const my_pageRouter = require('./routes/my_page')
+
 
 /* ejs */
 app.use(express.static("static"));
@@ -27,6 +27,6 @@ app.use("/users", [user]);
 app.use("/product", [product]);
 app.use("/page", [page]);
 app.use("/add", [addproduct]);
-app.use('/mypage', my_pageRouter)
+
 
 module.exports = http;
