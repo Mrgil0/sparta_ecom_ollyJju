@@ -3,7 +3,7 @@ const router = express.Router();
 
 //길재형 page
 router.get('/signin', (req, res) => {
-	res.render('signin', {user: null})
+	res.render('signin', {user: null}) //랜더 될 'signin'은 view안의 ejs 파일명과 일치해야함
 });
 
 router.get('/signup', (req, res) => {

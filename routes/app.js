@@ -10,7 +10,6 @@ const product = require("./product.routes");
 const page = require("./pages.routes");
 const addproduct = require("./addProduct.routes");
 
-
 /* ejs */
 app.use(express.static("static"));
 app.set("view engine", "ejs");

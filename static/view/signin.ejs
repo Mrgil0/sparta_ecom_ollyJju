@@ -10,20 +10,19 @@
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>돈세탁 로그인</title>
+    <title>올리쮸 로그인</title>
 </head>
 <body>
 <div class="container-fluid">
-    <%-include('component/header.ejs')%>
 </div>
 <main class="main_container" style="display:flex; flex-direction:column; justify-content: center; align-items: center; min-height: 500px;">
     <form class="form">
         <h2 class="form_title">로그인</h2><br>
-        <input type="text" placeholder="아이디" name="user_id" id="login_user_id" class="form-control" /><br>
-        <input type="password" placeholder="비밀번호" name="password" id="login_password" class="form-control" /><br>
+        <input type="text" placeholder="이메일" name="user_email" id="login_user_email" class="form-control" /><br>
+        <input type="password" placeholder="비밀번호" name="user_password" id="login_user_password" class="form-control" /><br>
         <div class="form_button">
-            <button class="btn btn-success" type="button" id="login_button" onclick="login()">로그인</button>
-            <button class="btn btn-info" id="register_button" type="button" onclick="location.href='/register'">회원가입</button>
+            <button class="btn btn-success" type="button" id="login_button" onclick="signin()">로그인</button>
+            <button class="btn btn-info" id="signup_button" type="button" onclick="location.href='/signup'">회원가입</button>
         </div>
     </form>
 </main>
@@ -32,17 +31,17 @@
 <script type="text/javascript" src="../js/modal.js"></script>
 <script>
     let refresh = 0;
-    function login(){
-        let user_id = $('#login_user_id').val()
-        let password = $('#login_password').val()
-        if(user_id === '' || password === ''){
+    function signin(){
+        let user_email = $('#login_user_email').val()
+        let user_password = $('#login_user_password').val()
+        if(user_email === '' || user_password === ''){
             modalOpen('칸이 비어있습니다.')
             return
         }
         $.ajax({
             type : "POST",
-            url : "/users/login",
-            data : {'id_give': user_id, 'pw_give': password},
+            url : "/users/signin",
+            data : {'email_give': user_email, 'pw_give': user_password},
             success : function (response){
                 let result = response['msg']
                 if(result === false){
