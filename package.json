@@ -12,11 +12,14 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
     "express": "^4.18.2",
     "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.1.0",
+    "nodemailer": "^6.9.1",
     "sequelize": "^6.28.0",
+    "sequelize-auto": "^0.8.8",
     "sequelize-cli": "^6.6.0"
   },
   "devDependencies": {
