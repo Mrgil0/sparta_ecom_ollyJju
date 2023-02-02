@@ -8,13 +8,14 @@ class ProductRepository {
       });
 
       const returndata = data.map((data) => {
-        const { id, productImage, productName, price } = data;
+        const { id, productImage, productName, price, category } = data;
 
         return {
           id,
           productImage,
           productName,
           price,
+          category
         };
       });
 
