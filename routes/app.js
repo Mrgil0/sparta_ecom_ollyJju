@@ -27,6 +27,6 @@ app.use("/users", [user]);
 app.use("/product", [product]);
 app.use("/page", [page]);
 app.use("/add", [addproduct]);
-app.use('/mypage', my_pageRouter)
+
 
 module.exports = http;

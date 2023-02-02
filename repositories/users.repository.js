@@ -34,12 +34,12 @@ class UserRepository {
         return true;
     }
     decreasePoint = async (idx, point) => {
-        await users.update({userIdx: idx, point: point}, {where: {userIdx: Number(idx)}});
+        await users.update({user_Idx: idx, point: point}, {where: {userIdx: Number(idx)}});
 
         return true;
     }
-    increasePoint = async (id, point) => {
-        await users.update({userId: id, point: point}, {where: {userId: id}});
+    increasePoint = async (idx, point) => {
+        await users.update({user_Idx: idx, point: point}, {where: {userId: id}});
 
         return true;
     }
