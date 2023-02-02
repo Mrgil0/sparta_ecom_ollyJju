@@ -1,6 +1,5 @@
 const UserService = require('../services/users.service');
 const jwt = require("jsonwebtoken");
-const { smtpTransport } = require('../config/email');
 require('dotenv').config();
 const env = process.env;
 
@@ -27,29 +26,29 @@ class UsersController{
         return res.send({'msg': true});
     }
 
-    sendEmail = async (req, res, next) => {
-        const { email_give } = req.body;
-        const number = generateRandom(111111,999999)
+    // sendEmail = async (req, res, next) => {
+    //     const { email_give } = req.body;
+    //     const number = generateRandom(111111,999999)
 
-        const mailOptions = {
-            from: "올리와사고싶쮸",
-            to: email_give,
-            subject: "[올리쮸]인증 관련 이메일 입니다",
-            text: "오른쪽 숫자 6자리를 입력해주세요 : " + number
-        };
+    //     const mailOptions = {
+    //         from: "올리와사고싶쮸",
+    //         to: email_give,
+    //         subject: "[올리쮸]인증 관련 이메일 입니다",
+    //         text: "오른쪽 숫자 6자리를 입력해주세요 : " + number
+    //     };
 
-        const result = await smtpTransport.sendMail(mailOptions, (error, responses) => {
-            if (error) {
-                return res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMsg.AUTH_EMAIL_FAIL))
-            } else {
-              /* 클라이언트에게 인증 번호를 보내서 사용자가 맞게 입력하는지 확인! */
-                return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMsg.AUTH_EMAIL_SUCCESS, {
-                    number: number
-                }))
-            }
-            smtpTransport.close();
-        });
-    }
+    //     const result = await smtpTransport.sendMail(mailOptions, (error, responses) => {
+    //         if (error) {
+    //             return res.status(statusCode.OK).send(util.fail(statusCode.BAD_REQUEST, responseMsg.AUTH_EMAIL_FAIL))
+    //         } else {
+    //           /* 클라이언트에게 인증 번호를 보내서 사용자가 맞게 입력하는지 확인! */
+    //             return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMsg.AUTH_EMAIL_SUCCESS, {
+    //                 number: number
+    //             }))
+    //         }
+    //         smtpTransport.close();
+    //     });
+    // }
 
     checkEmail = async (req, res, next) => {
         const { user_email } = req.params;
@@ -70,7 +69,7 @@ class UsersController{
             return res.status(200).send({ 'msg': true });
         } else{
             console.log('회원가입 실패')
-            return res.status(201).send({ 'msg': false });
+            return res.status(400).send({ 'msg': false });
         }
         
     }

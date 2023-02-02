@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "cross-env nodemon server.js",
+    "test": "cross-env NODE_ENV=test jest --verbose --forceExit",
+    "test:silent": "NODE_ENV=test jest --silent --forceExit",
+    "test:coverage": "NODE_ENV=test jest --coverage --forceExit",
+    "test:unit": "NODE_ENV=test jest __tests__/unit --forceExit",
+    "test:integration": "NODE_ENV=test jest __tests__/integration --verbose --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +17,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",

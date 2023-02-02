@@ -2,9 +2,9 @@ class UserRepository {
     constructor(UserModel) {
         this.users = UserModel;
     }
-    findUser = async (id, password) => {
+    findUser = async (email, password) => {
         const user = await users.findOne({
-            where: { userId: id, password: password}
+            where: { user_email: email, user_password: password}
         });
 
         return user;
