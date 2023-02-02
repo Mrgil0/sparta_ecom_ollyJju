@@ -1,18 +1,19 @@
-const { user : Users } = require('../models');
-
 class UserRepository {
+    constructor(UserModel) {
+        this.users = UserModel;
+    }
     findUser = async (id, password) => {
-        const user = await Users.findOne({
+        const user = await users.findOne({
             where: { userId: id, password: password}
         });
 
         return user;
     }
-    findUserbyId = async (id) => {
+    findUserbyEmail = async (email) => {
         try{
-            const user = await Users.findAll({
+            const user = await users.findAll({
                 where: {
-                    userId : id,
+                    user_email : email,
                 }
             })
             return user;
@@ -22,13 +23,10 @@ class UserRepository {
             return false;
         }
     }
-    createUser = async (id, password, phone, category) => {
+    createUser = async (user_email, user_password, user_name, user_phone, user_address) => {
         let point = 0;
-        if(category === '손님'){
-            point = 1000000
-        }
         try{
-            await Users.create({userId:id, password, phone, category, point: point})
+            await users.create({user_email, user_password, user_name, user_phone, user_address, user_type:'guest', user_point: point})
         }catch(err){
             console.log('##유저 가입 에러' + err);
             return false;
@@ -36,12 +34,12 @@ class UserRepository {
         return true;
     }
     decreasePoint = async (idx, point) => {
-        await Users.update({userIdx: idx, point: point}, {where: {userIdx: Number(idx)}});
+        await users.update({userIdx: idx, point: point}, {where: {userIdx: Number(idx)}});
 
         return true;
     }
     increasePoint = async (id, point) => {
-        await Users.update({userId: id, point: point}, {where: {userId: id}});
+        await users.update({userId: id, point: point}, {where: {userId: id}});
 
         return true;
     }

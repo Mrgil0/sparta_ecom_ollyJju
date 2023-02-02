@@ -11,7 +11,7 @@
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Title</title>
+    <title>올리쮸 회원가입</title>
 </head>
 <body>
 <div class="container-fluid">
@@ -21,23 +21,16 @@
         <form class="form">
             <h2 class="form_title">회원 가입</h2><br>
             <div id="id_box">
-                <input type="text" name="user_id" id="user_id" class="form-control" style="display: inline-block" placeholder="아이디"/>
-                <button type="button" class="btn btn-primary" id="user_id_check_btn" onclick="idCheck()">확인</button>
+                <input type="text" name="user_email" id="user_email" class="form-control" style="display: inline-block" placeholder="이메일"/>
+                <button type="button" class="btn btn-primary" id="user_id_check_btn" onclick="emailCheck()">인증하기</button>
             </div><br>
             <input type="password" placeholder="비밀번호" name="password" id="password" class="form-control" /><br>
             <input type="password" placeholder="비밀번호 확인" id="password_chk" class="form-control" />
             <div id="check_box"><font id="chkNotice" size="2"></font></div><br>
-            <input type="tel" placeholder="휴대폰 번호(010-0000-0000)" name="phone" id="phone" class="form-control" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"/><br>
-            <div class="dropdown">
-                <button class="btn btn-outline-info dropdown-toggle" id="dropdown_toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                손님 / 사장 선택
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">손님</a></li>
-                    <li><a class="dropdown-item" href="#">사장</a></li>
-                </ul>
-            </div><br>
-            <button class="btn btn-info" type="button" id="register_button" onclick="register()">회원 가입</button>
+            <input type="text" placeholder="이름" id="user_name" class="form-control" />
+            <input type="tel" placeholder="휴대폰 번호(010-0000-0000)" name="user_phone" id="user_phone" class="form-control" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"/><br>
+            <input type="text" placeholder="주소" id="user_address" class="form-control" />
+            <button class="btn btn-info" type="button" id="register_button" onclick="signup()">회원 가입</button>
         </form>
     </div>
     <div class="right-sidebar">
@@ -49,13 +42,6 @@
 <script>
     let refresh = 0
     let id_check = false
-    let changed = document.querySelectorAll(".dropdown-item")
-    changed.forEach(element=>{
-        element.addEventListener("click", e=>{  // changed 모든 요소의 클릭이벤트
-            let type_text = e.target.innerHTML               // 클릭한 타켓의 값
-            $('#dropdown_toggle').text(type_text)
-        })
-    })
     validateUserData = (id, password) => {
         const idRegex = /^[a-zA-Z0-9]{3,15}$/     // 영어 & 숫자가 나오면서 3-15글자 사이여야 통과됨
         const pwRegex = /^[a-zA-Z0-9]{4,15}$/
@@ -68,14 +54,14 @@
         }
         return false;
     }
-    function register(){
-        let user_id = $('#user_id').val()
+    function signup(){
+        let user_email = $('#user_email').val()
         let password = $('#password').val()
         let password_chk = $('#password_chk').val()
-        let phone = $('#phone').val()
-        let category = $('#dropdown_toggle').text()
-
-        if([user_id, password, phone].includes('') || category.includes('선택')){
+        let user_name = $('#user_name').val()
+        let user_phone = $('#user_phone').val()
+        let user_address = $('#user_address').val()
+        if([user_email, password, user_name, user_phone, user_address].includes('')){
             modalOpen('칸이 비어있습니다.')
             return
         }
@@ -95,8 +81,8 @@
         }
         $.ajax({
             type : "POST",
-            url : "/users/register",
-            data : {'id_give': user_id, 'pw_give': password, 'ph_give': phone, 'cate_give': category},
+            url : "/users/signup",
+            data : {'email_give': user_email, 'pw_give': password, 'name_give': user_name, 'phone_give': user_phone, 'address_give':user_address},
             success : function (response){
                 let result = response['msg']
                 if(result === true && category === '손님'){
@@ -114,11 +100,12 @@
             }
         })
     }
-    function idCheck(){
-        let user_id = $('#user_id').val()
+    function emailCheck(){
+        let user_email = $('#user_email').val()
         $.ajax({
-            type : "GET",
-            url : "/users/idCheck/" + user_id,
+            type : "POST",
+            url : "/users/emailCheck/",
+            data : {'email_give': user_email},
             success : function (response){
                 let result = response['msg']
                 if(result === true){
