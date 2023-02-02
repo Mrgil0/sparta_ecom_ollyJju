@@ -22,6 +22,16 @@ class ProductService {
       throw error;
     }
   };
+
+  findProductId = async (productId) => {
+    try {
+      const dbproductId = await this.productRepository.findProductId(productId);
+
+      return dbproductId;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = ProductService;

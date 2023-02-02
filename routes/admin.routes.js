@@ -3,7 +3,7 @@ const router = express();
 const { Item } = require("../models");
 
 
-router.post("/product", async (req, res) => {
+router.post("/", async (req, res) => {
   const { productImage, productName, productInfo, price, category } = req.body;
   await Item.create({
     productImage,

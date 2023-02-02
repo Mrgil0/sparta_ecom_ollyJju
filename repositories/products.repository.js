@@ -1,3 +1,4 @@
+const db = require("../models");
 const { Item } = require("../models");
 
 class ProductRepository {
@@ -15,7 +16,7 @@ class ProductRepository {
           productImage,
           productName,
           price,
-          category
+          category,
         };
       });
 
@@ -33,6 +34,19 @@ class ProductRepository {
       });
 
       return data;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  findProductId = async (productId) => {
+    try {
+      const dbproductId = await Item.findOne({
+        where: { id: productId },
+      });
+
+      return dbproductId.id;
     } catch (error) {
       error.status = 500;
       throw error;
