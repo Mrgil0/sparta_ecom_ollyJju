@@ -1,8 +1,8 @@
 const UserRepository = require('../repositories/users.repository');
-const { User } = require('../models');
+
 
 class UserService {
-    userRepository = new UserRepository(User);
+    userRepository = new UserRepository();
     
     findUser = async (id, password) => {
         const users = await this.userRepository.findUser(id, password);

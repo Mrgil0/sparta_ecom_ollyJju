@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+router.use(express.urlencoded({ extended: true }));
+
 const UsersController = require('../controllers/users.controller');
 const usersController = new UsersController();
 

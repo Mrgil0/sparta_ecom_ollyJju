@@ -9,7 +9,6 @@ const user = require("./users.routes");
 const product = require("./product.routes");
 const page = require("./pages.routes");
 const addproduct = require("./addProduct.routes");
-const my_pageRouter = require('./my_page')
 
 /* ejs */
 app.use(express.static("static"));

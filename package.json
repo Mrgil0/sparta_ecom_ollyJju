@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env nodemon server.js",
-    "test": "cross-env NODE_ENV=test jest --verbose --forceExit",
+    "test": "cross-env NODE_ENV=test jest --verbose --forceExit --watchAll",
     "test:silent": "NODE_ENV=test jest --silent --forceExit",
     "test:coverage": "NODE_ENV=test jest --coverage --forceExit",
     "test:unit": "NODE_ENV=test jest __tests__/unit --forceExit",
