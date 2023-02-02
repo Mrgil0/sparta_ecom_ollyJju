@@ -46,7 +46,7 @@ router.get('/', /*authMiddleware,*/ async (req, res) => {
 //
 
 //이설인 page
-router.get('/', (req, res) => {
+router.get('/home', (req, res) => {
 	res.render('home')
 });
 //
