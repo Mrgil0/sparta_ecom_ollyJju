@@ -13,7 +13,7 @@ const addproduct = require("./addProduct.routes");
 /* ejs */
 app.use(express.static("static"));
 app.set("view engine", "ejs");
-app.set("views", "./static/view");
+app.set("views", "../static/view");
 
 /* middleware */
 app.use(cookies());
