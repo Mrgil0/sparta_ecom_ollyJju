@@ -6,7 +6,6 @@ header{
     position: fixed;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     background: transparent;
     padding: 20px 14%;
     transition: all .35s ease;
@@ -19,7 +18,7 @@ header{
 }
 .navlist{
     display: flex;
-    margin-left: 20px;
+    margin-left: 1020px;
 }
 .navlist a{
     color: black;
