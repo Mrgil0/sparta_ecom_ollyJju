@@ -17,12 +17,11 @@
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/chatroom.css">
-
+    <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 
 <body>
     <%-include('component/header.ejs')%>
-    <%-include('component/chatroom.ejs')%>
     <section class="home" i="home">
 
         <div class="home-text">
@@ -111,10 +110,12 @@
 
         </div>
     </section>
+    <%-include('component/sidebar.ejs')%>
 
 
     <script src="../js/sticky-bar.js"></script>
     <script src="../js/chatroom.js"></script>
+    <script src="../js/sidebar.js"></script>
 
 </body>
 
