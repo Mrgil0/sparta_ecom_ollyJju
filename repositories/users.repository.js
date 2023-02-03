@@ -37,7 +37,7 @@ class UserRepository {
         user_password,
         user_name,
         user_address,
-        user_type: "admin",
+        user_type: "guest",
         user_phone,
         user_point: point,
       });
