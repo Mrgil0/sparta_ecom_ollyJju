@@ -1,0 +1,42 @@
+#container {
+	position:fixed;
+	right:0px;
+  bottom:0px;
+  height: auto;
+  width: auto;
+  background-color: ivory;
+  z-index:999;
+  border:1px solid black;
+}
+#chatView {
+  height: 400px;
+  overflow-y: scroll;
+}
+#chatForm {
+  height: 10%;
+  border-top: 1px solid black;
+  text-align: center;
+}
+#msg {
+  width: 80%;
+  height: 32px;
+  border-radius: 8px;
+}
+#send {
+  width: 16%;
+  height: 34px;
+  border-radius: 50px;
+  background: black;
+  color: white;
+}
+#chatBox{
+  display:none;
+}
+#chatHead{
+  display:flex;
+}
+#chatHead h3{
+  text-align: center;
+  display:inline-block;
+  margin:auto;
+}

@@ -2,7 +2,9 @@ const express = require("express");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
-const io = require('socket.io')(3001, {
+require('dotenv').config();
+const env = process.env;
+const io = require('socket.io')(env.socket_port, {
   cors: {
     origin: true,
     methods: ["GET", "POST"],
