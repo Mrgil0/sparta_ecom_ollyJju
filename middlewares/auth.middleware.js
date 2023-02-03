@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { user } = require("../models");
+require('dotenv').config();
+const env = process.env;
 
 module.exports = (req, res, next) => {
   let tokenObject = {}
@@ -24,17 +26,18 @@ module.exports = (req, res, next) => {
     return next();
   }
 
-  const { userId } = getAccessTokenPayload(accessToken);
+  const { user_email } = getAccessTokenPayload(accessToken);
   try {
     user.findOne({
-      attributes: ['userIdx', 'userId', 'phone', 'category', 'point'],
-      where: {userId: userId}
+      attributes: ['user_idx', 'user_email', 'user_name', 'user_address', 'user_type', 'user_point'],
+      where: {user_email: user_email}
     }).then((loginUser) => {
       res.locals.user = loginUser;
       next();
     });
   } catch (err) {
-    console.log(err);
+    res.locals.user = null;
+    console.log('인증 실패 : ' + err);
     next();
   }
 };
@@ -42,7 +45,7 @@ module.exports = (req, res, next) => {
 // Access Token을 검증합니다.
 function validateAccessToken(accessToken) {
   try {
-    jwt.verify(accessToken, 'sparta-secret-key'); // JWT를 검증합니다.
+    jwt.verify(accessToken, env.secret_key); // JWT를 검증합니다.
     return true;
   } catch (error) {
     return false;
@@ -52,7 +55,7 @@ function validateAccessToken(accessToken) {
 // Refresh Token을 검증합니다.
 function validateRefreshToken(refreshToken) {
   try {
-    jwt.verify(refreshToken, 'sparta-secret-key'); // JWT를 검증합니다.
+    jwt.verify(refreshToken, env.secret_key); // JWT를 검증합니다.
     return true;
   } catch (error) {
     return false;
@@ -62,7 +65,7 @@ function validateRefreshToken(refreshToken) {
 // Access Token의 Payload를 가져옵니다.
 function getAccessTokenPayload(accessToken) {
   try {
-    const payload = jwt.verify(accessToken, 'sparta-secret-key'); // JWT에서 Payload를 가져옵니다.
+    const payload = jwt.verify(accessToken, env.secret_key); // JWT에서 Payload를 가져옵니다.
     return payload;
   } catch (error) {
     return null;

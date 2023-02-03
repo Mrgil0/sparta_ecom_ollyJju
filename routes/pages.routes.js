@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../middlewares/auth.middleware");
 
 //길재형 page
 router.get("/signin", (req, res) => {
@@ -55,8 +56,9 @@ router.get("/admin", async (req, res) => {
 //
 
 //이설인 page
-router.get("/home", (req, res) => {
-  res.render("home");
+router.get("/home", authMiddleware, (req, res) => {
+  const user = res.locals.user;
+  res.render("home", {user : user});
 });
 //
 

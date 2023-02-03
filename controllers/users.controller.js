@@ -12,14 +12,14 @@ class UsersController{
     }
     
     signInUser = async (req, res, next) => {
-        const { id_give, pw_give } = req.body;
+        const { email_give, pw_give } = req.body;
 
-        const user = await this.userService.findUser(id_give, pw_give);
+        const user = await this.userService.findUser(email_give, pw_give);
         if(!user){
             return res.send({'msg': false});
         }
-        const accessToken = jwt.sign({ userEmail: user.userEmail }, env.secret - key, { expiresIn: '1d' })
-        const refreshToken = jwt.sign({}, env.secret-key, {expiresIn: '7d'})
+        const accessToken = jwt.sign({ user_email: user.user_email }, env.secret_key, { expiresIn: '1d' })
+        const refreshToken = jwt.sign({}, env.secret_key, {expiresIn: '7d'})
 
         res.cookie('accessToken', accessToken);
         res.cookie('refreshToken', refreshToken);
