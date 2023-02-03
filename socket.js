@@ -14,7 +14,10 @@ io.on("connection", (socket) =>{
 	const { url } = socket.request;
 	console.log(`소켓 연결됨: ${url}`)
 
-	socket.on("loginEvent", (text) => console.log(text))
+	socket.on('send_msg', function(data){
+		console.log(data);
+	})
+
 	socket.on("disconnect", () => {
     console.log(socket.id, "연결이 끊어졌어요!");
   });
