@@ -20,26 +20,54 @@ router.get("/admin", async (req, res) => {
 
 //이호균 page
 const { user } = require('../models') // user 테이블 연결
-
+const { Product } = require('../models')
 // 마이페이지 조회
 router.get('/mypage', authMiddleware, async (req, res) => {
   const currentUser = res.locals.user // 로그인된 유저를 가져옵니다.
+  // const currentCart = res.locals.product // 가져올 장바구니 데이터
+
+  const currentCart = [{productId: 2, product_quantity: 25 },{productId: 3, product_quantity: 50 }]  // 예시로 가져온 데이터
   
-  // res.cookie('cart','고양이 후드') // 테스트
-  // res.cookie('cart2','멍멍이 후드') // 테스트
-  // res.cookie('cart3','알파카 간식') // 테스트
-  // console.log(req.cookies) // 테스트
+  let cartEmpty = ''
+  let cartInfo = []
+  let product_quantity = []
+
+
+   
+    if (!currentCart) {
+      console.log('ww')
+      cartEmpty = '장바구니가 비었습니다.'
+    } else {
+      for (let i = 0; i < currentCart.length; i++) {
+        // console.log('start!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        allCart = await Product.findByPk(currentCart[i].productId)
+        cartInfo.push(allCart)
+        // console.log('●●●●●●●● 배열 안 ●●●●●●●●●●●●:', cartInfo)
+        // console.log('------------------------------')
+        quantity= currentCart[i].product_quantity
+        product_quantity.push(quantity)
+  
+        // console.log('●●●●●●●● 배열 안 ●●●●●●●●●●●●:', product_quantity)
+      }
+    }
+  
 
   try {
     // 유저의 user_idx를 기준으로 정보 목록을 가져옵니다.
     const userInfo = await user.findByPk(currentUser.user_idx) 
+    
+    // console.log(product_quantity)
 
-    // 장바구니 정보 목록을 가져옵니다. (유저의 쿠키에서 장바구니 정보를 가져와야함)
-    const cartProduct = req.cookies.cart
-    const cartEmpty = '장바구니가 비었습니다.'
+    // console.log('□□□□□□□□□□□□ 배열 밖 □□□□□□□□□□□□:', cartInfo)
+    // console.log('□□□□□□□□□□□□ 배열 밖 □□□□□□□□□□□□:', product_quantity)
 
     // ejs로 정보를 보냅니다.
-    res.render('my_page', { info: { userInfo }, cart: { cartProduct, cartEmpty } })
+    res.render('my_page', { info: { userInfo }, cart: { cartInfo, product_quantity, cartEmpty } })
+    // console.log(userInfo.user_email)
+    // console.log(cartInfo.productName)
+    // console.log(cartInfo[0].productName)
+    // console.log(cartInfo[1].productName)
+    // res.render('cart_page', { cart: { productName, product_quantity } })
 
     // 유저 정보가 없으면 로그인 메세지를 보냅니다.
     if (!userInfo) {
@@ -53,6 +81,7 @@ router.get('/mypage', authMiddleware, async (req, res) => {
 // 마이페이지 회원정보(비밀번호, 주소) 수정 
 router.patch('/mypage', authMiddleware, async (req, res) => {
   const currentUser = res.locals.user // 로그인된 유저를 가져옵니다.
+
   
   const { user_password, user_address } = req.body
   

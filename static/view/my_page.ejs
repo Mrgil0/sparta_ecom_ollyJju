@@ -42,15 +42,12 @@
     <button id="popup_open_btn">회원정보 수정</button>
     <hr>
     <h1>장바구니 목록</h1>
-    <% if(cart.cartProduct){ %>
-        <h3>
-            <a href="https://www.naver.com/"> <%= cart.cartProduct %> </a> <button onclick="cartDelete_btn()">삭제</button>
-        </h3>
-        <% } else { %>
-            <h3>
-                <%= cart.cartEmpty %>
-            </h3>
-            <% } %>
+        <% for(let i = 0; i < cart.cartInfo.length; i++){ %>
+                <h3>상품명: <%= cart.cartInfo[i].productName %>,</h3>
+                <h3>수량: <%= cart.product_quantity[i] %></h3> <button onclick="cartDelete_btn()">삭제</button>
+        <% } %>
+
+
     <script>
         // ※※※※※※※※※※※※※※※※※※※※모달창 코드※※※※※※※※※※※※※※※※※※※※
         function modal(id) {
