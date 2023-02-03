@@ -11,10 +11,10 @@ const development = {
   }
 
 const test = {
-  "username": "root",
-  "password": null,
-  "database": "database_test",
-  "host": "127.0.0.1",
+  "username": "rooyt",
+  "password": env.password,
+  "database": env.database + '_test',
+  "host": env.host,
   "dialect": "mysql"
 }
 
@@ -26,4 +26,4 @@ const production = {
   "dialect": "mysql"
 }
 
-  module.exports = { development };
+  module.exports = { development, test };

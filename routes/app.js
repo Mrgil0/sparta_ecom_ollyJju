@@ -9,7 +9,7 @@ const user = require("./users.routes");
 const product = require("./product.routes");
 const page = require("./pages.routes");
 const admin = require("./admin.routes");
-const my_pageRouter = require('./my_page')
+// const my_pageRouter = require('./my_page')
 
 /* ejs */
 app.use(express.static("static"));
@@ -27,7 +27,7 @@ app.use("/users", [user]);
 app.use("/product", [product]);
 app.use("/page", [page]);
 app.use("/", [admin]);
-app.use('/mypage', my_pageRouter)
+// app.use('/mypage', my_pageRouter)
 
 
 

@@ -1,0 +1,46 @@
+header{
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    padding: 20px 14%;
+    transition: all .35s ease;
+}
+.logo{
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: black;
+}
+.navlist{
+    display: flex;
+    margin-left: 1020px;
+}
+.navlist a{
+    color: black;
+    font-weight: 600;
+    padding: 10px 25px;
+    font-size: 16px;
+    transition: all .36s ease;
+}
+.navlist a:hover{
+    color: rgb(150, 129, 104);
+}
+.header-icons i{
+    font-size: 32px;
+    color: black;
+    margin-right: 20px;
+    transition: all .36s ease;
+}
+.header-icons i:hover{
+    color: rgb(150, 129, 104);
+}
+#menu-icon{
+    font-size: 34px;
+    color: black;
+    z-index: 10001;
+}
