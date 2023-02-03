@@ -1,3 +1,4 @@
+const db = require("../models");
 const { Item } = require("../models");
 
 class ProductRepository {
@@ -8,13 +9,14 @@ class ProductRepository {
       });
 
       const returndata = data.map((data) => {
-        const { id, productImage, productName, price } = data;
+        const { id, productImage, productName, price, category } = data;
 
         return {
           id,
           productImage,
           productName,
           price,
+          category,
         };
       });
 
@@ -32,6 +34,19 @@ class ProductRepository {
       });
 
       return data;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  findProductId = async (productId) => {
+    try {
+      const dbproductId = await Item.findOne({
+        where: { id: productId },
+      });
+
+      return dbproductId.id;
     } catch (error) {
       error.status = 500;
       throw error;
