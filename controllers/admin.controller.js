@@ -6,16 +6,15 @@ class AdminConteroller {
   createProduct = async (req, res) => {
     // const { productName, productInfo, price } = req.body;
     // const productImage = req.file.path;
-
-    const local = res.locals.user;
-
-    console.log(local);
+    const adminuser = res.locals.user.user_name;
+    console.log(adminuser)
 
     // await this.adminService.createProduct(
     //   productName,
     //   productInfo,
     //   price,
-    //   productImage
+    //   productImage,
+    //   adminuser
     // );
 
     res.status(201).json({ message: "상품 등록 완료!" });
