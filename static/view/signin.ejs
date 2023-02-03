@@ -56,7 +56,7 @@
                 } else{
                     const socket = io('ws://localhost:3001')
                     socket.emit("loginEvent", user_email)
-                    location.href = '/page/home/'
+                    location.href = "/page/home"
                 }
             }
         })

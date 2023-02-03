@@ -1,0 +1,52 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.sideNav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 999;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    background-color: rgb(245, 237, 231);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+#mySidenav{
+    display:none;
+}
+
+.sideNav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #000000;
+    display: block;
+    transition: 0.3s;
+}
+
+.sideNav a:hover {
+    color: #d29db2;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top:5px;
+    margin-left:15px;
+    font-size: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
