@@ -1,15 +1,20 @@
 <header>
-	<a href="#" class="logo">올쮸</a>
+	<a href="/page/home" class="logo">올쮸</a>
 
 	<ul class="navlist">
 			<li><a href="/page/home">홈</a></li>
-			<li><a href="/page/signin">로그인</a></li>
-			<li><a href="#cart">cart</a></li>
-			<li><a href="#mypage">마이페이지</a></li>
+			<%if (user) { %>
+				<li><a href="/mypage">마이페이지</a></li>
+				<li><a href="/cart">장바구니</a></li>
+				<li><a href="/users/logout">로그아웃</a></li>
+			<%} else { %>
+				<li><a href="/page/signin">로그인</a></li>
+			<% } %>
 	</ul>
 
 	<div class="header-icons">
 			<a href="#"><i class="uil uil-shopping-bag"></i>
 					<div class="uil uil-menu" id="menu-icon"></div>
+			</a>
 	</div>
 </header>
