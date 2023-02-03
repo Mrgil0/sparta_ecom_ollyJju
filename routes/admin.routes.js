@@ -3,6 +3,7 @@ const router = express();
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const middleware = require('../middlewares/auth.middleware')
 
 const AdminConteroller = require('../controllers/admin.controller');
 const adminConteroller = new AdminConteroller();
@@ -31,7 +32,7 @@ const upload = multer({
 });
 /*       */
 
-router.post('/', upload.single("productImage"), adminConteroller.createProduct);
+router.post('/', upload.single("productImage"), middleware, adminConteroller.createProduct);
 
 
 

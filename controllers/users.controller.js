@@ -18,8 +18,8 @@ class UsersController{
         if(!user){
             return res.send({'msg': false});
         }
-        const accessToken = jwt.sign({ userEmail: user.userEmail }, env.secret - key, { expiresIn: '1d' })
-        const refreshToken = jwt.sign({}, env.secret-key, {expiresIn: '7d'})
+        const accessToken = jwt.sign({ userEmail: user.userEmail }, env.secretKey, { expiresIn: '1d' })
+        const refreshToken = jwt.sign({}, env.secretKey, {expiresIn: '7d'})
 
         res.cookie('accessToken', accessToken);
         res.cookie('refreshToken', refreshToken);

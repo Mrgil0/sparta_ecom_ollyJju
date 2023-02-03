@@ -15,6 +15,11 @@ router.get("/signup", (req, res) => {
 router.get("/admin", async (req, res) => {
   res.render("test");
 });
+
+router.get("/admin_page", async (req, res) => {
+  res.render("admin_page");
+});
+
 //
 
 //이호균 page
