@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/users", [user]);
 app.use("/product", [product]);
 app.use("/page", [page]);
-app.use("/", [admin]);
+app.use("/admin", [admin]);
 // app.use('/mypage', my_pageRouter)
 
 
