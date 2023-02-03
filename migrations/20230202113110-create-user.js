@@ -24,6 +24,9 @@ module.exports = {
       user_type: {
         type: Sequelize.STRING
       },
+      user_phone: {
+        type: Sequelize.STRING
+      },
       user_point: {
         type: Sequelize.INTEGER
       },
