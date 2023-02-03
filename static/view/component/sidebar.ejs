@@ -1,6 +1,12 @@
 <div class="sideNav">
+    <%if (user) { %>
     <div id="mySidenav">
         <a href="#">봤던 상품들이 나올 공간</a>
         <%-include('chatroom.ejs')%>
     </div>
+    <% } else { %>
+    <a href="/users/signin">
+        로그인이 필요합니다.
+    </a>
+    <% } %>
 </div>
