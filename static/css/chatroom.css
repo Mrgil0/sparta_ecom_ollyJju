@@ -1,6 +1,6 @@
 #container {
 	position:fixed;
-	right:0px;
+	left:0px;
   bottom:0px;
   height: auto;
   width: auto;
@@ -9,11 +9,13 @@
   border:1px solid black;
 }
 #chatView {
-  height: 400px;
+  height: 300px;
+  width: 200px;
   overflow-y: scroll;
 }
 #chatForm {
   height: 10%;
+  width: 200px;
   border-top: 1px solid black;
   text-align: center;
 }
@@ -22,12 +24,16 @@
   height: 32px;
   border-radius: 8px;
 }
-#send {
+#send{
   width: 16%;
   height: 34px;
   border-radius: 50px;
   background: black;
   color: white;
+}
+#openChat{
+  width: 80px;
+  height: 80px;
 }
 #chatBox{
   display:none;
