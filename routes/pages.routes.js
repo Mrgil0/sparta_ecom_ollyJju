@@ -13,20 +13,22 @@ router.get("/signup", (req, res) => {
 //
 
 //변정민 page
-router.get("/admin", async (req, res) => {
-  res.render("test");
-});
+// router.get("/admin", async (req, res) => {
+//   res.render("test");
+// });
 
-router.get("/admin_page", async (req, res) => {
+router.get("/admin", async (req, res) => {
   res.render("./admin/admin_page");
 });
 
-router.get("/manage_product", async (req, res) => {
-  res.render("./admin/manage_product");
+router.get("/manage_product", authMiddleware, async (req, res) => {
+  const user = res.locals.user;
+  res.render("./admin/manage_product", {user : user});
 });
 
-router.get("/manage_user", async (req, res) => {
-  res.render("./admin/manage_user");
+router.get("/manage_user", authMiddleware, async (req, res) => {
+  const user = res.locals.user;
+  res.render("./admin/manage_user", {user : user});
 });
 
 //

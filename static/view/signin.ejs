@@ -8,6 +8,7 @@
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <link href="../css/header.css" rel="stylesheet" type="text/css">
     <link href="../css/home.css" rel="stylesheet" type="text/css" />
     <link href="../css/sign.css" rel="stylesheet" type="text/css" />
@@ -28,6 +29,7 @@
             <button class="btn btn-info" id="signup_button" type="button" onclick="location.href='/users/signup'">회원가입</button>
         </div>
     </form>
+    <button onclick="socketLogin()">테스트</button>
 </main>
 <%-include('component/modal.ejs')%>
 </body>
@@ -52,7 +54,9 @@
                     url = '/users/signin'
                     modalOpen('회원정보가 일치하지 않습니다.')
                 } else{
-                    location.href = '/page/home'
+                    const socket = io('ws://localhost:3001')
+                    socket.emit("loginEvent", user_email)
+                    location.href = "/page/home"
                 }
             }
         })

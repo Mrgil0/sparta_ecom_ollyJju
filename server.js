@@ -1,8 +1,10 @@
-const http = require('./routes/app.js')
+const server = require('./routes/app.js')
+require('./socket')
 const dotenv = require('dotenv')
 dotenv.config()
 
 
-http.listen(process.env.PORT, async () => {
+
+server.listen(process.env.PORT, async () => {
     console.log('server started!')
 })
