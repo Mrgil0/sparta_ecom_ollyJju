@@ -1,5 +1,9 @@
 let toggle = 0;
 function toggleChat(){
+	let chatClass = $('#openChat').attr('class');
+	if(chatClass === 'chatList'){
+		
+	}
 	if(toggle === 0){
 		$('#openChat').css('display', 'none');
 		$('#chatBox').css('display', 'inline-block');
