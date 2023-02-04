@@ -2,7 +2,7 @@ const express = require("express");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
-require('dotenv').config();
+require("dotenv").config();
 const env = process.env;
 // const io = require('socket.io')(env.socket_port, {
 //   cors: {
@@ -26,16 +26,15 @@ const admin = require("./admin.routes");
 
 /* ejs */
 app.use(express.static("static"));
-app.use('/images', express.static('images'));
+app.use("/images", express.static("images"));
 app.set("view engine", "ejs");
 app.set("views", "./static/view");
 
 /* middleware */
 app.use(cookies());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
-app.use(cors())
-
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 /* router */
 app.use("/users", [user]);
