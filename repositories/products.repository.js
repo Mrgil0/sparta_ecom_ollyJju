@@ -6,7 +6,6 @@ class ProductRepository {
     try {
       const data = await Product.findAll({
         order: [["createdAt", "DESC"]],
-        limit: 4
       });
 
       const returndata = data.map((data) => {

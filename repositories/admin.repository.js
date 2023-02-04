@@ -1,12 +1,12 @@
 const { Product } = require("../models");
 
 class AdminRepository {
-  createProduct = async (productName, productInfo, price, productImage, category) => {
+  createProduct = async (productName, productInfo, price, productImage) => {
     await Product.create({
       productName,
       productInfo,
       price,
-      category,
+      category:"dog",
       productImage,
     });
 

@@ -9,7 +9,7 @@ const UsersController = require('../controllers/users.controller');
 const usersController = new UsersController();
 
 router.post('/signup', usersController.signUpUser);
-router.get('/emailCheck', usersController.checkEmail);
+router.post('/emailCheck', usersController.checkEmail);
 router.post('/signin', usersController.signInUser);
 
 router.get("/signin", (req, res) => {
