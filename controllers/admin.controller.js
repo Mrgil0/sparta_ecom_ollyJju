@@ -4,7 +4,7 @@ class AdminConteroller {
   adminService = new AdminService();
 
   createProduct = async (req, res) => {
-    const { productName, productInfo, price, category } = req.body;
+    const { productName, productInfo, price} = req.body;
     const productImage = req.file.path;
 
     await this.adminService.createProduct(
@@ -12,7 +12,6 @@ class AdminConteroller {
       productInfo,
       price,
       productImage,
-      category
     );
 
     res.status(201).json({ message: "상품 등록 완료 !" });

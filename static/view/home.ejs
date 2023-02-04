@@ -12,6 +12,8 @@
         rel="stylesheet" />
     <!-- icon -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.1/css/line.css" />
+    <!-- JQUERY-->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/header.css">
@@ -35,28 +37,8 @@
             <h2>신상봐라 바라밤</h2>
         </div>
 
-        <div class="featured-content">
-            <div class="row">
-                <img src="../view/images/fleece3.jpg">
-                <div class="fea-text">
-                    <h5>고냥이</h5>
-                    <p>25,000</p>
-                </div>
-            </div>
-            <div class="row">
-                <img src="../view/images/fleece2.jpg">
-                <div class="fea-text">
-                    <h5>고냥이</h5>
-                    <p>25,000</p>
-                </div>
-            </div>
-            <div class="row">
-                <img src="../view/images/fleece.jpg">
-                <div class="fea-text">
-                    <h5>고냥이</h5>
-                    <p>25,000</p>
-                </div>
-            </div>
+        <div id="newProduct" class="featured-content">
+            
         </div>
         <div class="center-text">
             <h2>베스트셀러</h2>
@@ -114,5 +96,37 @@
     <script src="../js/sticky-bar.js"></script>
 
 </body>
+<script>
+    $(document).ready(function () {
+        show_product();
+    })
 
+    function show_product() {
+        $.ajax({
+            type: "GET",
+            url: "/product/index",
+            data: {},
+            success: function (response) {
+                let rows = response["data"];
+
+                for (let i = 0; i < 4; i++) {
+                    let Image = rows[i]["productImage"];
+                    let nickname = rows[i]["productName"];
+                    let price = rows[i]["price"];
+
+                    let temp_html = `
+                        <div class="row">
+                            <img src="/${Image}">
+                            <div class="fea-text">
+                                <h5>${nickname}</h5>
+                                <p>${price}</p>
+                            </div>
+                        </div>
+                    `
+                    $('#newProduct').append(temp_html);
+                }
+            }
+        })
+    }
+</script>
 </html>
