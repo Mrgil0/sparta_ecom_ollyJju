@@ -44,50 +44,7 @@
         <div class="center-text">
             <h2>베스트셀러</h2>
         </div>
-        <div class="featured-content2">
-
-            <div class="row">
-                <img src="../images/fluffy.jpg">
-                <div class="fea-text">
-                    <h5>고냥이</h5>
-                    <p>25,000</p>
-                </div>
-            </div>
-            <div class="row">
-                <img src="../images/orange.jpg">
-                <div class="fea-text">
-                    <h5>고냥이</h5>
-                    <p>25,000</p>
-                </div>
-            </div>
-            <div class="row">
-                <img src="../images/fleece4.jpg">
-                <div class="fea-text">
-                    <h5>고냥이</h5>
-                    <p>125,000</p>
-                </div>
-            </div>
-            <div class="row">
-                <img src="../images/tshirt.jpg">
-                <div class="fea-text">
-                    <h5>고냥이</h5>
-                    <p>25,000</p>
-                </div>
-            </div>
-            <div class="row">
-                <img src="../images/stripes.jpg">
-                <div class="fea-text">
-                    <h5>고냥이</h5>
-                    <p>25,000</p>
-                </div>
-            </div>
-            <div class="row">
-                <img src="../images/maltese.jpg">
-                <div class="fea-text">
-                    <h5>고냥이</h5>
-                    <p>25,000</p>
-                </div>
-            </div>
+        <div id="bestProduct" class="featured-content2">
 
         </div>
     </section>
@@ -120,10 +77,11 @@
 </body>
 <script>
     $(document).ready(function () {
-        show_product();
+        show_newProduct();
+        show_bestProduct();
     })
 
-    function show_product() {
+    function show_newProduct() {
         $.ajax({
             type: "GET",
             url: "/product/index",
@@ -146,6 +104,52 @@
                         </div>
                     `
                     $('#newProduct').append(temp_html);
+                }
+
+                for (let i = 4; i < rows.length; i++) {
+                    let Image = rows[i]["productImage"];
+                    let nickname = rows[i]["productName"];
+                    let price = rows[i]["price"];
+                    
+                    let temp_html = `
+                        <div class="row">
+                            <img src="/${Image}">
+                            <div class="fea-text">
+                                <h5>${nickname}</h5>
+                                <p>${price}</p>
+                            </div>
+                        </div>
+                    `
+
+                    $('#bestProduct').append(temp_html);
+                }
+            }
+        })
+    }
+    
+    function show_bestProduct() {
+        $.ajax({
+            type: "GET",
+            url: "/product/index",
+            data: {},
+            success: function (response) {
+                let rows = response["data"];
+                
+                for (let i = 4; i < rows.lenth; i++) {
+                    let Image = rows[i]["productImage"];
+                    let nickname = rows[i]["productName"];
+                    let price = rows[i]["price"];
+                    let temp_html = `
+                        <div class="row">
+                            <img src="/${Image}">
+                            <div class="fea-text">
+                                <h5>${nickname}</h5>
+                                <p>${price}</p>
+                            </div>
+                        </div>
+                    `
+
+                    $('#bestProduct').append(temp_html);
                 }
             }
         })
