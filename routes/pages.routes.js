@@ -13,9 +13,24 @@ router.get("/signup", (req, res) => {
 //
 
 //변정민 page
+// router.get("/admin", async (req, res) => {
+//   res.render("test");
+// });
+
 router.get("/admin", async (req, res) => {
-  res.render("test");
+  res.render("./admin/admin_page");
 });
+
+router.get("/manage_product", authMiddleware, async (req, res) => {
+  const user = res.locals.user;
+  res.render("./admin/manage_product", {user : user});
+});
+
+router.get("/manage_user", authMiddleware, async (req, res) => {
+  const user = res.locals.user;
+  res.render("./admin/manage_user", {user : user});
+});
+
 //
 
 //이호균 page

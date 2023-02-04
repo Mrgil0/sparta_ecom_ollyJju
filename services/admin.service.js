@@ -8,11 +8,17 @@ class AdminService {
       productName,
       productInfo,
       price,
-      productImage
+      productImage,
     );
 
     return
   };
+
+  deleteProduct = async (productId) => {
+    await this.adminRepository.deleteProduct(productId);
+
+    return
+  }
 }
 
 module.exports = AdminService;

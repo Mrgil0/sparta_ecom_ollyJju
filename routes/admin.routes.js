@@ -3,8 +3,11 @@ const router = express();
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const middleware = require("../middlewares/auth.middleware");
 
-const AdminConteroller = require('../controllers/admin.controller');
+const { Product } = require("../models");
+
+const AdminConteroller = require("../controllers/admin.controller");
 const adminConteroller = new AdminConteroller();
 
 /* multer */
@@ -31,8 +34,18 @@ const upload = multer({
 });
 /*       */
 
-router.post('/', upload.single("productImage"), adminConteroller.createProduct);
+router.post("/product", upload.single("productImage"), middleware,adminConteroller.createProduct);
+router.delete("/product/:productId", adminConteroller.deleteProduct);
 
+router.patch("/product/:productId", async (req, res) => {
+  const { productId } = req.params;
+  const { productName, productInfo, price } = req.body;
 
+  const data = await Product.update(
+    {productName, productInfo, price},
+    {where: { id: productId }}
+  );
+  res.status(200).json({ message: data });
+});
 
 module.exports = router;

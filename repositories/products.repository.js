@@ -1,10 +1,36 @@
-const db = require("../models");
-const { Item } = require("../models");
+
+const { Product } = require("../models");
 
 class ProductRepository {
-  showAllProduct = async () => {
+  showNewProduct = async () => {
     try {
-      const data = await Item.findAll({
+      const data = await Product.findAll({
+        order: [["createdAt", "DESC"]],
+      });
+
+      const returndata = data.map((data) => {
+        const { id, productImage, productName, price, category } = data;
+
+        return {
+          id,
+          productImage,
+          productName,
+          price,
+          category,
+        };
+      });
+
+      return returndata;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  showBestProduct = async () => {
+    try {
+      const data = await Product.findAll({
+        where: {category: "best"},
         order: [["createdAt", "DESC"]],
       });
 

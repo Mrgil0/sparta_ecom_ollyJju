@@ -3,9 +3,19 @@ const ProductService = require("../services/products.service");
 class ProductController {
   productService = new ProductService();
 
-  showAllProduct = async (req, res) => {
+  showNewProduct = async (req, res) => {
     try {
-      const data = await this.productService.showAllProduct();
+      const data = await this.productService.showNewProduct();
+
+      res.status(200).json({ data });
+    } catch (error) {
+      res.status(error.status).json({ message: error.message });
+    }
+  };
+
+  showBestProduct = async (req, res) => {
+    try {
+      const data = await this.productService.showBestProduct();
 
       res.status(200).json({ data });
     } catch (error) {
