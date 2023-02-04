@@ -26,6 +26,7 @@ const admin = require("./admin.routes");
 
 /* ejs */
 app.use(express.static("static"));
+app.use('/images', express.static('images'));
 app.set("view engine", "ejs");
 app.set("views", "./static/view");
 
