@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/auth.middleware");
+const ChatRepository = require('../repositories/chats.repository');
 
 //길재형 page
 router.get("/signin", (req, res) => {
@@ -71,9 +72,11 @@ router.get("/manage_user", authMiddleware, async (req, res) => {
 //
 
 //이설인 page
-router.get("/home", authMiddleware, (req, res) => {
+router.get("/home", authMiddleware, async (req, res) => {
+  const chatRepository = new ChatRepository();
   const user = res.locals.user;
-  res.render("home", {user : user});
+  const room = await chatRepository.findAllRoom()
+  res.render("home", {user : user, room : room});
 });
 //
 

@@ -24,9 +24,9 @@
   height: 32px;
   border-radius: 8px;
 }
-#openChat{
+#openChat, #chatList{
   width: 80px;
-  height: 80px;
+  height: 40px;
 }
 #chatBox{
   display:none;
