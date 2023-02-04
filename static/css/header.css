@@ -1,14 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 header{
-    width: 100%;
-    top: 0;
-    right: 0;
-    z-index: 1000;
-    position: fixed;
+    max-width: 1300px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.navbar{
     display: flex;
     align-items: center;
-    background: transparent;
-    padding: 20px 14%;
-    transition: all .35s ease;
+    padding: 20px;
 }
 .logo{
     font-size: 28px;
@@ -16,26 +20,33 @@ header{
     letter-spacing: 1px;
     color: black;
 }
-.navlist{
-    display: flex;
-    margin-left: 1020px;
+nav{
+    flex: 1;
+    text-align: right;
+}
+nav ul{
+    display: inline-block;
+    list-style-type: none;
+}
+nav ul li{
+    display: inline-block;
+    margin-right: 20px;
 }
 .navlist a{
     color: black;
     font-weight: 600;
-    padding: 10px 25px;
     font-size: 16px;
     transition: all .36s ease;
 }
 .navlist a:hover{
     color: rgb(150, 129, 104);
-}
+} 
 .header-icons i{
     font-size: 32px;
     color: black;
     margin-right: 20px;
     transition: all .36s ease;
-}
+} 
 .header-icons i:hover{
     color: rgb(150, 129, 104);
 }
