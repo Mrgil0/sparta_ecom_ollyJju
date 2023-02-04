@@ -1,0 +1,47 @@
+#container {
+	position:fixed;
+	left:0px;
+  bottom:0px;
+  height: auto;
+  width: auto;
+  background-color: ivory;
+  z-index:999;
+  border:1px solid black;
+}
+#chatView {
+  height: 300px;
+  width: 200px;
+  overflow-y: scroll;
+}
+#chatForm {
+  height: 10%;
+  width: 200px;
+  border-top: 1px solid black;
+  text-align: center;
+}
+#msg {
+  width: 80%;
+  height: 32px;
+  border-radius: 8px;
+}
+#openChat, #chatList{
+  width: 80px;
+  height: 40px;
+}
+#chatBox{
+  display:none;
+}
+#chatHead{
+  display:flex;
+}
+#chatHead h3{
+  text-align: center;
+  display:inline-block;
+  margin:auto;
+}
+.me{
+  text-align: left;
+}
+.msgLine{
+  display: inline-block;
+}

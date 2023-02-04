@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <div>
+            <form method="post" enctype="multipart/form-data"></form>
+            <div>
+                <div>
+                    <div class="button">
+                        <label for="chooseFile">
+                            이미지 등록
+                        </label>
+                    </div>
+                    <input type="file" id="chooseFile" name="chooseFile" accept="image/*">
+                </div>
+            </div>
+            </form>
+            <div>
+                <div>
+                    이름 : <input id="name" class="input">
+                </div>
+                <div>
+                    내용 : <input id="content" class="input">
+                </div>
+                <div>
+                    가격 : <input id="price" class="input">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <button onclick="create_product()">
+                    신청 하기
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function create_product() {
+        const name = $("#name").val();
+        const content = $("#content").val();
+        const price = $("#price").val();
+        const image = $('input[name="chooseFile"]').get(0).files[0];
+        console.log(image)
+        const formData = new FormData();
+
+        formData.append('productName', name);
+        formData.append('productInfo', content);
+        formData.append('price', price);
+        formData.append('productImage', image);
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/product',
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+            }
+        })
+
+    }
+
+</script>
+
+</html>

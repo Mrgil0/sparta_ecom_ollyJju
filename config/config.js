@@ -7,7 +7,13 @@ const development = {
     "password": env.password,
     "database": env.database,
     "host": env.host,
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "Asia/Seoul",
+    "dialectOptions": {
+      "charset": "utf8mb4",
+      "dateStrings": true,
+      "typeCast": true
+    } 
   }
 
 const test = {
