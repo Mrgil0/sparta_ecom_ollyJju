@@ -61,12 +61,10 @@
                 "<%if(user) {%>"
                 socket.emit('join_room', (param = {user_key: "<%-(user.user_email)%>"}))
                 socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val()});
-                let msgLine = $('<div class="msgLine">');
-				let msgBox = $('<div class="me">');
+                let msgLine = $('.msgLine');
+				let msgBox = $('.me');
 
 				msgBox.append($('#msg').val());
-				msgBox.css('display', 'inline-block');
-				msgLine.css('text-align', 'left');
 				msgLine.append(msgBox);
 
 				$('#chatView').append(msgLine);

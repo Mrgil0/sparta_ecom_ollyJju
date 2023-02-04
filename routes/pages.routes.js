@@ -3,16 +3,6 @@ const router = express.Router();
 const authMiddleware = require("../middlewares/auth.middleware");
 const ChatRepository = require('../repositories/chats.repository');
 
-//길재형 page
-router.get("/signin", (req, res) => {
-  res.render("signin", { user: null }); //랜더 될 'signin'은 view안의 ejs 파일명과 일치해야함
-});
-
-router.get("/signup", (req, res) => {
-  res.render("signup", { user: null });
-});
-//
-
 //변정민 page
 router.get("/test", async (req, res) => {
   res.render("test");
@@ -105,14 +95,5 @@ router.delete('/mypage', async (req, res) => {
 })
 
 // //
-
-//이설인 page
-router.get("/home", authMiddleware, async (req, res) => {
-  const chatRepository = new ChatRepository();
-  const user = res.locals.user;
-  const room = await chatRepository.findAllRoom()
-  res.render("home", {user : user, room : room});
-});
-//
 
 module.exports = router;
