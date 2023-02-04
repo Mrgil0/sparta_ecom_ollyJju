@@ -12,10 +12,10 @@ const adminConteroller = new AdminConteroller();
 
 /* multer */
 try {
-  fs.readdirSync("images");
+  fs.readdirSync("./static/images");
 } catch (error) {
   console.error("not exist directory.");
-  fs.mkdirSync("images");
+  fs.mkdirSync("./static/images");
 }
 
 const upload = multer({
