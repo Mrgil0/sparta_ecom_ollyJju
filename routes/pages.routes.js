@@ -36,15 +36,13 @@ router.get("/manage_user", authMiddleware, async (req, res) => {
 //이호균 page
 const { user } = require('../models')
 const { Product } = require('../models')
-const ProductController = require("../controllers/products.controller");
 // 마이페이지 조회
 router.get('/mypage', authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
-  console.log(currentUser)
   const currentCart = res.locals.product // 가져올 장바구니 데이터
   console.log('장바구니 내용물:', currentCart)
 
-  // const currentCart = [{productId: '24', product_quantity: '25'},{productId: '25', product_quantity: '50' }]  // 예시로 가져온 데이터
+  // const currentCart = [{productId: '30', product_quantity: '280'},{productId: '31', product_quantity: '50' }]  // 예시로 가져온 데이터
   
   let cartEmpty = ''
   let cartInfo = []
