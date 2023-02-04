@@ -39,9 +39,16 @@
   display:inline-block;
   margin:auto;
 }
-.me, .adminMsgLine{
+.adminMsgLine p{
+  text-align: right;
+}
+.meChat p{
+  text-align: right;
+}
+.adminChat p{
   text-align: left;
 }
 .msgLine, .adminMe{
   display: inline-block;
+  width:100%
 }

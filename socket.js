@@ -34,7 +34,12 @@ io.on("connection", (socket) =>{
 	})
 
 	socket.on('chat_message', async (data) =>{
-		let { message, user_key } = data;
+		let { message, user_key, room_key } = data;
+		if(user_key == 'admin@admin.com'){
+			const newChat = await chat.create({room_key: room_key, chat_person: user_key, message: message, check:0})
+			io.to(enterUser.room_key).emit('message', newChat)
+			return
+		}
 		const enterUser = await room.findOne({
 			where: {user_key: user_key}
 		})

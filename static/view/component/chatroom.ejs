@@ -37,14 +37,23 @@
 				<div class="me">
 					<%if (chat != null) { %>
 						<% for (const chatList of chat) { %>
-							<p><%-chatList.message %></p>
-							<p style="font-size:8px"><%-chatList.createdAt %></p>
+							<% if (chatList.chat_person == user.user_email) { %>
+							<div class="meChat">
+								<p><%-chatList.message %></p>
+								<p style="font-size:8px"><%-chatList.createdAt %></p>
+							</div>
+							<% } else { %>
+							<div class="adminChat">
+								<p><%-chatList.message %></p>
+								<p style="font-size:8px"><%-chatList.createdAt %></p>
+							</div>	
+							<% } %>
 						<% } %> 
 					<% } %>
 				</div>
 			</div>
 		</div>
-		<input type="text" id="msg">
+		<input type="text" id="msg" class="guestMsgInput">
 	</div>
 	<% } %>
 	

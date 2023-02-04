@@ -68,11 +68,29 @@
         $('#msg').keyup(function(event){
             if(event.which == 13){
                 "<%if(user) {%>" 
-                socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val()});
+                socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val(), room_key: 'guest'});
                 let msgLine = $('.msgLine');
 				let msgBox = $('.me');
 
                 let msg = '<p>' + $('#msg').val() + '</p>';
+                let today = new Date();
+				msgBox.append(msg);
+                msgBox.append('<p style="font-size:8px">' + formatDate(today) + '<p>');
+				msgLine.append(msgBox);
+
+				$('#chatView').append(msgLine);
+                $('#msg').val('');
+                "<% } %>"
+            }	
+        })
+        $('#adminMsg').keyup(function(event){
+            if(event.which == 13){
+                let adminClass = $(this).attr('class')
+                "<%if(user) {%>" 
+                socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val(), room_key: adminClass});
+                let msgLine = $("#admin"+adminClass);
+
+                let msg = '<p>' + $('#adminMsg').val() + '</p>';
                 let today = new Date();
 				msgBox.append(msg);
                 msgBox.append('<p style="font-size:8px">' + formatDate(today) + '<p>');
@@ -122,7 +140,7 @@
                             let line2 = '<p style="font-size:8px">' + chatList[i].createdAt + '</p>';
                             msgLine.append(line + line2);
                         }
-                        $('#adminMsgInput').append(`<input type="text" id="msg">`)
+                        $('#adminMsgInput').append(`<input type="text" id="adminMsg" class="${chatList[0].room_key}">`)
                         adminToggle = 1;
                     }
                 }
