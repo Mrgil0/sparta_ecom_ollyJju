@@ -27,9 +27,7 @@ io.on("connection", (socket) =>{
 		console.log('찾은 유저' + enterUser);
 		if(!enterUser && !chatUser){
 			enterUser = await room.create({user_key: user_key})
-		} else{
-			return;
-		}
+		} 
 		console.log('유저 생성' + enterUser)
 		socket.join(enterUser.room_key);
 		console.log('방 생성')
