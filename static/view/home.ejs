@@ -77,6 +77,7 @@
 
 				$('#chatView').append(msgLine);
                 $('#msg').val('');
+                "<% } %>"
             }	
         })
         let toggle = 0;
@@ -98,7 +99,7 @@
         }
         let adminToggle = 0;
         function openAdminChat(email, room_key){
-            socket.emit('join_room', (param = {user_key: "<%-(email)%>"}))  
+            socket.emit('join_room', (param = {user_key: email}))  
             if(adminToggle == 1){
                 $("#admin"+room_key).html('')
                 adminToggle = 0;
@@ -118,7 +119,7 @@
                             let line2 = '<p style="font-size:8px">' + chatList[i].createdAt + '</p>';
                             msgLine.append(line + line2);
                         }
-                        msgLine.append(`<input type="text" id="msg">`)
+                        $('#adminMsgInput').append(`<input type="text" id="msg">`)
                         adminToggle = 1;
                     }
                 }
