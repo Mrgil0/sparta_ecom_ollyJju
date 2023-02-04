@@ -1,6 +1,28 @@
 <div id="container">
+	<%if(user.user_type == 'admin') { %>
+	<button type="button" class="chatList" id="openChat" onclick="toggleChat()">
+		채팅 목록
+	</button>
+	<div id="chatBox">
+		<div id="chatHead">
+			<h3>채팅목록</h3>
+			<%if (room != null) { %>
+				<% for (const room of room) { %>
+				<div class="chatListBox">
+					<p>사용자</p>
+					<p><%- room.user_key %></p>
+				</div>
+				<% } %> 
+			<% } %>
+			<button type="button" onclick="toggleChat()">닫기</button>
+		</div>
+		<div id="chatView">
+			
+		</div>
+	</div>
+	<% } else {%>
 	<button type="button" id="openChat" onclick="toggleChat()">
-		1:1 문의하기
+		문의하기
 	</button>
 	<div id="chatBox">
 		<div id="chatHead">
@@ -11,6 +33,7 @@
 			
 		</div>
 		<input type="text" id="msg">
-		<!-- <button type="button" id="send" onclick="sendChat()">전송</button> -->
 	</div>
+	<% } %>
+	
 </div>

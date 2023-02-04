@@ -59,7 +59,8 @@
         $('#msg').keyup(function(event){
             if(event.which == 13){
                 "<%if(user) {%>"
-                socket.emit('send_msg', {to: "<%-(user.user_email)%>", msg: $('#msg').val()});
+                socket.emit('join_room', (param = {user_key: "<%-(user.user_email)%>"}))
+                socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val()});
                 let msgLine = $('<div class="msgLine">');
 				let msgBox = $('<div class="me">');
 
