@@ -1,52 +1,51 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
-    list-style: none;
-    text-decoration: none;
-    scroll-behavior: smooth;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+  list-style: none;
+  text-decoration: none;
+  scroll-behavior: smooth;
 }
 
-body{
-    background: white;
-    color: black;
+body {
+  background: white;
+  color: black;
 }
-section{
-    padding: 100px 14%;
+section {
+  padding: 100px 14%;
 }
-.home{
-    min-height: 100vh;
-    width: 100%;
-    background-color:rgb(245, 237, 231);
-    background-image: url(../ecommerce/images/couple.jpg);
-    background-size: cover;
-    background-position: center top;
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    align-items: center;
+.home {
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(245, 237, 231);
+  background-size: cover;
+  background-position: center top;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align-items: center;
 }
-.home img{
-    float: right;
+.home img {
+  float: right;
 }
-.home-text h1{
-    color: rgb(85, 73, 58);
-    font-size: 60px;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: .6rem;
-    margin-bottom: 1.4rem;
+.home-text h1 {
+  color: rgb(85, 73, 58);
+  font-size: 60px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.6rem;
+  margin-bottom: 1.4rem;
 }
-.home-text span{
-    font-size: 24px;
+.home-text span {
+  font-size: 24px;
 }
-.home-text p{
-    color: rgb(85, 73, 58);
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 500;
-    letter-spacing: .2rem;
+.home-text p {
+  color: rgb(85, 73, 58);
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 500;
+  letter-spacing: 0.2rem;
 }
 /* .btn{
     display: inline-block;
@@ -60,56 +59,56 @@ section{
     transition: all .35s ease;
     margin-top: 30px;
 } */
-header.sticky{
-    background: rgb(245, 237, 231);
-    padding: 14px 14%;
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+header.sticky {
+  background: rgb(245, 237, 231);
+  padding: 14px 14%;
+  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
 }
-.center-text{
-    text-align: center;
+.center-text {
+  text-align: center;
 }
-.center-text h2{
-    font-size: 32px;
+.center-text h2 {
+  font-size: 32px;
 }
-.featured-content{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, auto));
-    gap: 1.3rem;
-    align-items: center;
-    margin-top: 4rem;
+.featured-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, auto));
+  gap: 1.3rem;
+  align-items: center;
+  margin-top: 4rem;
 }
-.featured-content2{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, auto));
-    gap: 1.3rem;
-    align-items: center;
-    margin-top: 4rem;
+.featured-content2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, auto));
+  gap: 1.3rem;
+  align-items: center;
+  margin-top: 4rem;
 }
-.row{
-    position: relative;
-    transition: all .35s ease;
+.row {
+  position: relative;
+  transition: all 0.35s ease;
 }
-.row img{
-    height: 459px;
-    width: 454px;
+.row img {
+  height: 459px;
+  width: 454px;
 }
 /* .fea-text{
     position: absolute;
     top: 40px;
     left: 50px;
 } */
-.fea-text h5{
-    font-size: 19px;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
+.fea-text h5 {
+  font-size: 19px;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
 }
-.fea-text p{
-    color: #555;
-    font-size: 15px;
-    letter-spacing: 1px;
-    font-weight: 400;
+.fea-text p {
+  color: #555;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-weight: 400;
 }
-.row:hover{
-    /* transform: scale(0.9) transLateY(-5px); */
-    cursor: pointer;
+.row:hover {
+  /* transform: scale(0.9) transLateY(-5px); */
+  cursor: pointer;
 }

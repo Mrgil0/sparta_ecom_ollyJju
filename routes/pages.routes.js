@@ -14,9 +14,9 @@ router.get("/signup", (req, res) => {
 //
 
 //변정민 page
-// router.get("/admin", async (req, res) => {
-//   res.render("test");
-// });
+router.get("/test", async (req, res) => {
+  res.render("test");
+});
 
 router.get("/admin", async (req, res) => {
   res.render("./admin/admin_page");

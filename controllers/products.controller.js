@@ -7,7 +7,7 @@ class ProductController {
     try {
       const data = await this.productService.showNewProduct();
 
-      res.status(200).json({ data });
+      res.status(200).json({ "data": data});
     } catch (error) {
       res.status(error.status).json({ message: error.message });
     }

@@ -6,7 +6,6 @@ class ProductRepository {
     try {
       const data = await Product.findAll({
         order: [["createdAt", "DESC"]],
-        limit: 4
       });
 
       const returndata = data.map((data) => {
@@ -56,7 +55,7 @@ class ProductRepository {
 
   findOneProduct = async (productId) => {
     try {
-      const data = await Item.findOne({
+      const data = await Product.findOne({
         where: { id: productId },
       });
 
@@ -69,7 +68,7 @@ class ProductRepository {
 
   findProductId = async (productId) => {
     try {
-      const dbproductId = await Item.findOne({
+      const dbproductId = await Product.findOne({
         where: { id: productId },
       });
 
