@@ -59,10 +59,10 @@
         formData.append('productInfo', content);
         formData.append('price', price);
         formData.append('productImage', image);
-        
+
         $.ajax({
             type: 'POST',
-            url: '/admin',
+            url: '/admin/product',
             enctype: "multipart/form-data",
             processData: false,
             contentType: false,

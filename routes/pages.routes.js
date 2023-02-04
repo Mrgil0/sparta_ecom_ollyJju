@@ -18,7 +18,15 @@ router.get("/admin", async (req, res) => {
 });
 
 router.get("/admin_page", async (req, res) => {
-  res.render("admin_page");
+  res.render("./admin/admin_page");
+});
+
+router.get("/manage_product", async (req, res) => {
+  res.render("./admin/manage_product");
+});
+
+router.get("/manage_user", async (req, res) => {
+  res.render("./admin/manage_user");
 });
 
 //
