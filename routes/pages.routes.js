@@ -76,7 +76,14 @@ router.get("/home", authMiddleware, async (req, res) => {
   const chatRepository = new ChatRepository();
   const user = res.locals.user;
   const room = await chatRepository.findAllRoom()
-  res.render("home", {user : user, room : room});
+  const chat = [{}]
+  try{
+    chat = await chatRepository.findAllChat(user.user_email);
+  }catch(e){
+
+  }
+  console.log(chat)
+  res.render("home", {user : user, room : room, chat: chat});
 });
 //
 

@@ -1,18 +1,8 @@
 let toggle = 0;
 function toggleChat(){
-	let chatClass = $('#openChat').attr('class');
-	if(chatClass === 'chatList'){
-		
-	}
 	if(toggle === 0){
 		$('#openChat').css('display', 'none');
 		$('#chatBox').css('display', 'inline-block');
-		$.ajax({
-			type : "GET",
-			url : "/users/chat",
-			success : function (response){
-			}
-		})
 		toggle = 1;
 	} else{
 		$('#openChat').css('display', 'inline-block');

@@ -39,3 +39,9 @@
   display:inline-block;
   margin:auto;
 }
+.me{
+  text-align: left;
+}
+.msgLine{
+  display: inline-block;
+}
