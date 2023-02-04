@@ -56,10 +56,15 @@
     <script src="../js/sidebar.js" type="text/javascript"></script>
     <script>
         let socket = io.connect('ws://localhost:3001')
+        socket.on('message', (data) =>{
+            let msgLine = $("#admin"+data.room_key);
+            let line = '<p>' + data.message + '</p>';
+            let line2 = '<p style="font-size:8px">' + data.createdAt + '</p>';
+            msgLine.append(line + line2);
+        })
         $('#msg').keyup(function(event){
             if(event.which == 13){
-                "<%if(user) {%>"
-                socket.emit('join_room', (param = {user_key: "<%-(user.user_email)%>"}))
+                "<%if(user) {%>" 
                 socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val()});
                 let msgLine = $('.msgLine');
 				let msgBox = $('.me');
@@ -69,9 +74,53 @@
 
 				$('#chatView').append(msgLine);
                 $('#msg').val('');
-                "<% } %>"
             }	
         })
+        let toggle = 0;
+        function toggleChat(){
+            if(toggle === 0){
+                $('#openChat').css('display', 'none');
+                $('#chatBox').css('display', 'inline-block');
+                "<%if(user) {%>" 
+                "<%if(user.user_type != 'admin') { %>" 
+                socket.emit('join_room', (param = {user_key: "<%-(user.user_email)%>"}))  
+                "<% } %>"
+                "<% } %>"
+                toggle = 1;
+            } else{
+                $('#openChat').css('display', 'inline-block');
+                $('#chatBox').css('display', 'none');
+                toggle = 0;
+            }
+        }
+        let adminToggle = 0;
+        function openAdminChat(email, room_key){
+            socket.emit('join_room', (param = {user_key: "<%-(email)%>"}))  
+            if(adminToggle == 1){
+                $("#admin"+room_key).html('')
+                adminToggle = 0;
+                return;
+            }
+            $.ajax({
+                type : "POST",
+                url : "/admin/chat",
+                data : {'email_give': email},
+                success : function (response){
+                    if(response['message']){
+                        let chatList = response['message']
+                        let msgLine = $("#admin"+chatList[0].room_key);
+
+                        for(let i=0; i<chatList.length; i++){
+                            let line = '<p>' + chatList[i].message + '</p>';
+                            let line2 = '<p style="font-size:8px">' + chatList[i].createdAt + '</p>';
+                            msgLine.append(line + line2);
+                        }
+                        msgLine.append(`<input type="text" id="msg">`)
+                        adminToggle = 1;
+                    }
+                }
+            })
+        }
     </script>
 </body>
 <script>

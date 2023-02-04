@@ -39,9 +39,9 @@
   display:inline-block;
   margin:auto;
 }
-.me{
+.me, .adminMsgLine{
   text-align: left;
 }
-.msgLine{
+.msgLine, .adminMe{
   display: inline-block;
 }
