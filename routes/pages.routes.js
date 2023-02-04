@@ -27,8 +27,10 @@ router.get("/manage_user", authMiddleware, async (req, res) => {
 //이호균 page
 const { user } = require('../models')
 const { Product } = require('../models')
+const ProductController = require('../controllers/products.controller')
+const productController = new ProductController
 // 마이페이지 조회
-router.get('/mypage', authMiddleware, async (req, res) => {
+router.get('/mypage', authMiddleware, productController.productMiddleware, async (req, res) => {
   const currentUser = res.locals.user
   const currentCart = res.locals.product // 가져올 장바구니 데이터
   console.log('장바구니 내용물:', currentCart)
@@ -49,6 +51,16 @@ router.get('/mypage', authMiddleware, async (req, res) => {
         product_quantity.push(quantity)
       }
     }
+
+    // if (!currentCart) {
+    //   cartEmpty = '장바구니가 비었습니다.'
+    // } else {
+    //   cartInfo = currentCart.productId
+    //   product_quantity = currentCart.product_quantity
+    // }
+
+    // console.log(cartInfo) // 33
+    // console.log(product_quantity) // 5000
   
   try {
     const userInfo = await user.findByPk(currentUser.user_idx) 

@@ -1,6 +1,19 @@
 const ProductService = require("../services/products.service");
 
+let product = {}
+
 class ProductController {
+
+  productMiddleware = async (req, res, next) => {
+    if (!product) {
+      res.locals.product = false;
+      next()
+    }
+    res.locals.product = product 
+    console.log(res.locals.product)
+    next()
+  }
+
   productService = new ProductService();
 
   showNewProduct = async (req, res) => {
@@ -52,8 +65,8 @@ class ProductController {
         throw error;
       }
 
-      res.locals.product = { productId, product_quantity };
-
+      product = { productId, product_quantity };
+      
       res.status(201).json({ message: "장바구니에 담았습니다." });
     } catch (error) {
       res.status(error.status).json({ message: error.message });

@@ -42,14 +42,11 @@
     <button id="popup_open_btn">회원정보 수정</button>
     <hr>
     <h1>장바구니 목록</h1>
-        <% for(let i = 0; i < cart.cartInfo.length; i++){ %>
-            <% let a = i %>
-            <div>
-                <p>상품명: <%= cart.cartInfo[i].productName %>,</p>
-                <p>수량: <%= cart.product_quantity[i] %></p>
-                <button onclick="cartDelete_btn()">삭제</button>
-            </div>
-        <% } %>
+    <div>
+        <p>상품명: <%= cart.cartInfo %>,</p>
+        <p>수량: <%= cart.product_quantity %></p>
+        <button onclick="cartDelete_btn()">삭제</button>
+    </div>
     <script>
         // ※※※※※※※※※※※※※※※※※※※※모달창 코드※※※※※※※※※※※※※※※※※※※※
         function modal(id) {
