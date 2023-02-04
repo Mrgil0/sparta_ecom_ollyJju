@@ -120,6 +120,7 @@
         let socket = io.connect('ws://localhost:3001')
         $('#msg').keyup(function(event){
             if(event.which == 13){
+                "<%if(user) {%>"
                 socket.emit('send_msg', {to: "<%-(user.user_email)%>", msg: $('#msg').val()});
                 let msgLine = $('<div class="msgLine">');
 				let msgBox = $('<div class="me">');
@@ -131,6 +132,7 @@
 
 				$('#chatView').append(msgLine);
                 $('#msg').val('');
+                "<% } %>"
             }	
         })
     </script>
