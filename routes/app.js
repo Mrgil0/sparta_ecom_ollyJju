@@ -4,6 +4,9 @@ const app = express();
 const server = http.createServer(app);
 require("dotenv").config();
 const env = process.env;
+const authMiddleware = require("../middlewares/auth.middleware");
+const ChatRepository = require('../repositories/chats.repository');
+
 // const io = require('socket.io')(env.socket_port, {
 //   cors: {
 //     origin: true,
@@ -33,8 +36,22 @@ app.set("views", "./static/view");
 /* middleware */
 app.use(cookies());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
+app.use(express.urlencoded({ extended: true }))
+app.use(cors())
+
+app.get("/home", authMiddleware, async (req, res) => {
+  const chatRepository = new ChatRepository();
+  const user = res.locals.user;
+  const room = await chatRepository.findAllRoom()[0]
+  const chat = [{}]
+  try{
+    chat = await chatRepository.findAllChat(user.user_email);
+  }catch(e){
+
+  }
+  res.render("home", {user : user, room : room, chat: chat});
+});
 
 /* router */
 app.use("/users", [user]);
