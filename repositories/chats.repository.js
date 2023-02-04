@@ -10,6 +10,19 @@ class ChatRepository {
 			return null;
 		}
 	}
+	findAllChat = async (user_email) =>{
+		try{
+			const room = await Room.findOne({
+				where: { user_key: user_email}
+			})
+			const chat = await Chat.findAll({
+				where: {room_key : room.room_key}
+			});
+			return chat;
+		}catch(e){
+			return {};
+		}
+	}
 }
 
 

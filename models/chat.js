@@ -10,9 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      // define association here
     }
   }
   chat.init({
+    chat_idx: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     room_key: DataTypes.INTEGER,
     chat_person: DataTypes.STRING,
     message: DataTypes.STRING,

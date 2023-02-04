@@ -23,7 +23,7 @@ router.get("/signup", (req, res) => {
 router.get("/logout", authMiddleware, (req, res) => {
 	res.cookie('accessToken', null);
   res.cookie('refreshToken', null);
-  res.render("home", { user: null });
+  res.render("home", { user: null, room : null, chat: null });
 });
 
 module.exports = router;

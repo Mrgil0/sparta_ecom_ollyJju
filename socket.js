@@ -38,7 +38,7 @@ io.on("connection", (socket) =>{
 		const enterUser = await room.findOne({
 			where: {user_key: user_key}
 		})
-		const newChat = await chat.create({room_key: enterUser.room_key, chat_person: user_key, message: message})
+		const newChat = await chat.create({room_key: enterUser.room_key, chat_person: user_key, message: message, check:0})
 		io.to(enterUser.room_key).emit('message', newChat)
 	})
 
