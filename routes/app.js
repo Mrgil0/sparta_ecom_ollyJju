@@ -31,7 +31,7 @@ const admin = require("./admin.routes");
 app.use(express.static("static"));
 app.use("/images", express.static("images"));
 app.set("view engine", "ejs");
-app.set("views", "./static/views");
+app.set("views", "./static/view");
 
 /* middleware */
 app.use(cookies());
@@ -44,7 +44,7 @@ app.get("/home", authMiddleware, async (req, res) => {
   const chatRepository = new ChatRepository();
   const user = res.locals.user;
   const room = await chatRepository.findAllRoom()
-  const chat = await chatRepository.findAllChat(user.user_email);
+  const chat = await chatRepository.findAllChat(user?.user_email);
   res.render("home", { user: user, room: room, chat: chat });
 });
 
