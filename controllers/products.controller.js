@@ -1,4 +1,5 @@
 const ProductService = require("../services/products.service");
+const ChatRepository = require("../repositories/chats.repository");
 
 let product = {}
 
@@ -36,14 +37,14 @@ class ProductController {
     }
   };
 
-  findOneProduct = async (req, res) => {
+  findOneProduct = async (productId) => {
     try {
-      const { productId } = req.params;
+
       const data = await this.productService.findOneProduct(productId);
 
-      res.status(200).json({ data });
+      return data
     } catch (error) {
-      res.status(error.status).json({ message: error.message });
+      return null
     }
   };
 
