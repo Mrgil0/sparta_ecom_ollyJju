@@ -38,18 +38,8 @@ const upload = multer({
 /*       */
 
 router.post("/product", upload.single("productImage"), authmiddleware, adminConteroller.createProduct);
-router.delete("/product/:productId", adminConteroller.deleteProduct);
-
-router.patch("/product/:productId", async (req, res) => {
-  const { productId } = req.params;
-  const { productName, productInfo, price } = req.body;
-
-  const data = await Product.update(
-    { productName, productInfo, price },
-    { where: { id: productId } }
-  );
-  res.status(200).json({ message: data });
-});
+router.delete("/product/:productId", authmiddleware, adminConteroller.deleteProduct);
+router.patch("/product/:productId", authmiddleware, adminConteroller.updateProduct);
 
 router.post("/chat", async (req, res) => {
   const { email_give } = req.body;
