@@ -3,7 +3,7 @@ const router = express();
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
-const middleware = require("../middlewares/auth.middleware");
+const authmiddleware = require("../middlewares/auth.middleware");
 
 const { Product } = require("../models");
 
@@ -34,7 +34,12 @@ const upload = multer({
 });
 /*       */
 
-router.post("/product", upload.single("productImage"), middleware,adminConteroller.createProduct);
+router.post(
+  "/product",
+  upload.single("productImage"),
+  authmiddleware,
+  adminConteroller.createProduct
+);
 router.delete("/product/:productId", adminConteroller.deleteProduct);
 
 router.patch("/product/:productId", async (req, res) => {
@@ -42,8 +47,8 @@ router.patch("/product/:productId", async (req, res) => {
   const { productName, productInfo, price } = req.body;
 
   const data = await Product.update(
-    {productName, productInfo, price},
-    {where: { id: productId }}
+    { productName, productInfo, price },
+    { where: { id: productId } }
   );
   res.status(200).json({ message: data });
 });

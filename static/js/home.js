@@ -9,7 +9,7 @@ function show_newProduct() {
     data: {},
     success: function (response) {
       let rows = response["data"];
-
+      console.log(rows)
       for (let i = 0; i < 4; i++) {
         let Image = rows[i]["productImage"];
         let nickname = rows[i]["productName"];
@@ -17,7 +17,7 @@ function show_newProduct() {
 
         let temp_html = `
                     <div class="row">
-                        <img onclick="modal_open();" src="/${Image}">
+                        <img src="/${Image}">
                         <div class="fea-text">
                             <h5>${nickname}</h5>
                             <p>${price}</p>

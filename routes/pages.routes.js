@@ -22,6 +22,10 @@ router.get("/manage_user", authMiddleware, async (req, res) => {
   res.render("./admin/manage_user", {user : user});
 });
 
+router.get('/product_detail', async (req, res) => {
+  res.render("./product-detail")
+})
+
 //
 
 //이호균 page
