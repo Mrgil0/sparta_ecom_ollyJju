@@ -3,11 +3,10 @@ const router = express();
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
-const middleware = require("../middlewares/auth.middleware");
+const authmiddleware = require("../middlewares/auth.middleware");
 const ChatRepository = require('../repositories/chats.repository');
+const {user} = require("../models")
 
-
-const { Product } = require("../models");
 
 const AdminConteroller = require("../controllers/admin.controller");
 const adminConteroller = new AdminConteroller();
@@ -37,24 +36,22 @@ const upload = multer({
 });
 /*       */
 
-router.post(
-  "/product",
-  upload.single("productImage"),
-  middleware,
-  adminConteroller.createProduct
-);
-router.delete("/product/:productId", adminConteroller.deleteProduct);
+router.post("/product", upload.single("productImage"), authmiddleware, adminConteroller.createProduct);
+router.patch("/product/:productId", authmiddleware, adminConteroller.updateProduct);
+router.delete("/product/:productId", authmiddleware, adminConteroller.deleteProduct);
 
-router.patch("/product/:productId", async (req, res) => {
-  const { productId } = req.params;
-  const { productName, productInfo, price } = req.body;
+// 유저 탈퇴 기능 미완료
+router.get("/users", authmiddleware, async (req, res) => {
+  // const userEmail = res.locals.user.user_email;
 
-  const data = await Product.update(
-    { productName, productInfo, price },
-    { where: { id: productId } }
-  );
-  res.status(200).json({ message: data });
+  const users = await user.findAll({
+    where: {user_type: "guest"}
+  })
+
+  res.json({users});
 });
+
+
 
 router.post("/chat", async (req, res) => {
   const { email_give } = req.body;
