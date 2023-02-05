@@ -22,8 +22,12 @@ router.get("/manage_user", authMiddleware, async (req, res) => {
   res.render("./admin/manage_user", {user : user});
 });
 
-router.get('/product_detail', async (req, res) => {
-  res.render("./product-detail")
+router.get('/product-detail', authMiddleware, async (req, res) => {
+  const chatRepository = new ChatRepository();
+  const user = res.locals.user;
+  const room = await chatRepository.findAllRoom()
+  const chat = await chatRepository.findAllChat(user.user_email);
+  res.render("product-detail", { user: user, room: room, chat: chat});
 })
 
 //

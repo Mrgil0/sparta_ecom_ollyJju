@@ -3,12 +3,15 @@ const router = express();
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
-const authmiddleware = require("../middlewares/auth.middleware");
+const middleware = require("../middlewares/auth.middleware");
+const ChatRepository = require('../repositories/chats.repository');
+
 
 const { Product } = require("../models");
 
 const AdminConteroller = require("../controllers/admin.controller");
 const adminConteroller = new AdminConteroller();
+const chatRepository = new ChatRepository();
 
 /* multer */
 try {
@@ -37,7 +40,7 @@ const upload = multer({
 router.post(
   "/product",
   upload.single("productImage"),
-  authmiddleware,
+  middleware,
   adminConteroller.createProduct
 );
 router.delete("/product/:productId", adminConteroller.deleteProduct);
@@ -52,5 +55,13 @@ router.patch("/product/:productId", async (req, res) => {
   );
   res.status(200).json({ message: data });
 });
+
+router.post("/chat", async (req, res) => {
+  const { email_give } = req.body;
+
+  const chat = await chatRepository.findUserChat(email_give);
+  
+  res.status(200).json({ message: chat });
+})
 
 module.exports = router;

@@ -23,6 +23,12 @@ class ChatRepository {
 			return {};
 		}
 	}
+	findUserChat = async (user_email) =>{
+		const chat = await Chat.findAll({
+			where: {chat_person: user_email}
+		})
+		return chat;
+	}
 }
 
 

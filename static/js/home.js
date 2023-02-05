@@ -1,22 +1,23 @@
 $(document).ready(function () {
-  show_newProduct();
+  show_Product();
 });
 
-function show_newProduct() {
+function show_Product() {
   $.ajax({
     type: "GET",
     url: "/product/index",
     data: {},
     success: function (response) {
       let rows = response["data"];
-      console.log(rows)
+      
       for (let i = 0; i < 4; i++) {
+        let productId = rows[i]["id"];
         let Image = rows[i]["productImage"];
         let nickname = rows[i]["productName"];
         let price = rows[i]["price"];
-
+        console.log(productId)
         let temp_html = `
-                    <div class="row">
+                    <div onclick="show_product_detail(${productId})" id="${productId}" class="row">
                         <img src="/${Image}">
                         <div class="fea-text">
                             <h5>${nickname}</h5>
