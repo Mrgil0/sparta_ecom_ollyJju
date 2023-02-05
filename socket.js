@@ -23,9 +23,8 @@ io.on("connection", (socket) =>{
 		let enterUser = await room.findOne({
 			where: {user_key: user_key}
 		})
-		const chatUser = await chat.findAll({where: {chat_person:user_key}})[0]
 		console.log('찾은 유저' + enterUser);
-		if(!enterUser && !chatUser){
+		if(!enterUser){
 			enterUser = await room.create({user_key: user_key})
 		} 
 		console.log('유저 생성' + enterUser)
@@ -33,19 +32,19 @@ io.on("connection", (socket) =>{
 		console.log('방 생성')
 	})
 
-	socket.on('chat_message', async (data) =>{
+	socket.on('admin_chat_message', async (data) =>{
 		let { message, user_key, room_key } = data;
-		if(user_key === 'admin@admin.com'){
-			const newChat = await chat.create({room_key: room_key, chat_person: user_key, message: message, check:0})
-			console.log('채팅내역 :' + newChat.room_key)
-			io.to(room_key).emit('message', newChat)
-			return
-		}
+		const newChat = await chat.create({room_key: room_key, chat_person: user_key, message: message, check:0})
+		console.log('채팅내역 :' + newChat.room_key)
+		io.to(newChat.room_key).emit('admin_message', newChat)
+	})
+	socket.on('guest_chat_message', async (data) =>{
+		let { message, user_key} = data;
 		const enterUser = await room.findOne({
 			where: {user_key: user_key}
 		})
 		const newChat = await chat.create({room_key: enterUser.room_key, chat_person: user_key, message: message, check:0})
-		io.to(enterUser.room_key).emit('message', newChat)
+		io.to(enterUser.room_key).emit('guest_message', newChat)
 	})
 
 	socket.on('send_msg', function(data){
