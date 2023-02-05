@@ -1,4 +1,5 @@
 const ProductService = require("../services/products.service");
+const { cart } = require('../models')
 
 let product = {}
 
@@ -46,13 +47,27 @@ class ProductController {
       res.status(error.status).json({ message: error.message });
     }
   };
-
+  
   productAddCart = async (req, res) => {
     try {
       const { productId } = req.params;
       const { product_quantity } = req.body;
-
+      const user_email = res.locals.user.user_email
+      
+      const count = product_quantity
+      
       const dbproductId = await this.productService.findProductId(productId);
+      
+      const product_idx = dbproductId
+
+      const isProduct = await cart.findOne({ where: { product_idx, user_email }})
+      
+      if (!isProduct) {
+        const cartDB = await cart.create({ product_idx, user_email ,count })
+        console.log(cartDB)
+      } else {
+        return res.status(412).json({ message: '이미 장바구니에 담겨있는 상품입니다.'})
+      }
 
       if (dbproductId === undefined) {
         res.status(412).json({ message: "해당하는 상품이 존재하지 않습니다." });

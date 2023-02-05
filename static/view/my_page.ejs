@@ -41,12 +41,18 @@
     </div>
     <button id="popup_open_btn">회원정보 수정</button>
     <hr>
-    <h1>장바구니 목록</h1>
-    <div>
-        <p>상품명: <%= cart.cartInfo %>,</p>
-        <p>수량: <%= cart.product_quantity %></p>
+    <!-- <h1>장바구니 목록</h1>
+        
+        <%# for (let i = 0; i < cart.productName.length; i++) { %>
+        <p>상품이미지: <%#= cart.productImage[i] %> </p>
+        <p>상품명: <%#= cart.productName[i] %></p>
+        <p>상품가격: <%#= cart.productPrice[i] %></p>
+        <p>수량: <%#= cart.productCount[i] %></p>
+        <button onclick="cartPurchase_btn()">구입</button>
         <button onclick="cartDelete_btn()">삭제</button>
-    </div>
+        <%# } %> -->
+        
+        
     <script>
         // ※※※※※※※※※※※※※※※※※※※※모달창 코드※※※※※※※※※※※※※※※※※※※※
         function modal(id) {
@@ -130,20 +136,20 @@
         })
     }
 
-    function cartDelete_btn() {
-
-        $.ajax({
-            type: 'DELETE',           // 타입 (get, post, put 등등)
-            url: '/page/mypage',    // 요청할 서버url
-            data: { } ,
-            success: function (response) { // 결과 성공 콜백함수
-                alert(response['message'])
-            },
-            error: function (error) { // 결과 에러 콜백함수
-                alert('보내기 실패' + error)
-            }
-        })
-    }
+    // function cartDelete_btn() {
+        
+    //     $.ajax({
+    //         type: 'DELETE',           // 타입 (get, post, put 등등)
+    //         url: '/page/mypage',    // 요청할 서버url
+    //         data: { } ,
+    //         success: function (response) { // 결과 성공 콜백함수
+    //             alert(response['message'])
+    //         },
+    //         error: function (error) { // 결과 에러 콜백함수
+    //             alert('보내기 실패' + error)
+    //         }
+    //     })
+    // }
 
 </script>
 </html>

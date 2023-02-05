@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+    cartProduct();  
+    });
+  
+    function cartProduct() {
+      $.ajax({
+        type: 'GET',
+        url: '/page/cartpagePro',
+        data: {}, 
+        success: function (response) {
+          let rows = response["data"]
+          
+          if (rows.length === 0) {
+            alert('장바구니가 비었습니다.')
+          }
+
+          for (let i = 0; i < rows.length; i++) {
+            let proIdx = rows[i].product_idx
+            let proName = rows[i].Product.productName
+            let proImage = rows[i].Product.productImage
+            let proPrice = rows[i].Product.price
+            let proCount = rows[i].count
+            
+            
+            let temp_html = `
+                            <div>
+                              상품이미지: <img src="/${proImage}"
+                                <div>
+                                  상품명: ${proName}
+                                  가격: ${proPrice}
+                                  수량: ${proCount}
+                                </div>
+                            </div>
+                            <button>구입</button> 
+                            <button id=${proIdx} onclick="cartDelete_btn(this.id)">삭제</button> 
+                            `
+            $("#product").append(temp_html)
+          }
+        }
+      })
+    }
+
+    function cartDelete_btn(proIdx) {
+      let proId = proIdx
+
+      $.ajax({
+        type: 'DELETE',           // 타입 (get, post, put 등등)
+        url: '/page/cartpagePro',    // 요청할 서버url
+        data: { "proId": proId },
+        success: function (response) { // 결과 성공 콜백함수
+          alert(response['message'])
+          window.location.reload()
+        },
+        error: function (error) { // 결과 에러 콜백함수
+          alert('보내기 실패' + error)
+        }
+      })
+    }
+
+  </script>
+</head>
+
+<body>
+  <h1>장바구니 목록</h1>
+    <!-- <%# for (let i = 0; i < cart.productName.length; i++) { %>
+      <p>상품이미지: <%#= cart.productImage[i] %> </p>
+      <p>상품명: <%#= cart.productName[i] %></p>
+      <p>상품가격: <%#= cart.productPrice[i] %></p>
+      <p>수량: <%#= cart.productCount[i] %></p>
+      <button onclick="cartPurchase_btn()">구입</button>
+      <button onclick="cartDelete_btn()">삭제</button>
+    <%# } %> -->
+    <div id="product">
+
+    </div>
+</body>
+
+</html>
