@@ -38,6 +38,7 @@ table{
 .cart-info{
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 th{
     text-align: left;
@@ -50,9 +51,9 @@ td{
     padding: 10px 5px;
 }
 td input{
-    width: 40px;
+    width: 30px;
     height: 30px;
-    padding: 5px;
+    margin: 5px;
 }
 td a{
     color: #ff523b;
@@ -66,6 +67,7 @@ td img{
 .total-price{
     display: flex;
     justify-content: flex-end;
+    background-color: rgb(255, 245, 237);
 }
 .total-price table{
     border-top: 3px solid #ff523b;
@@ -74,6 +76,12 @@ td img{
 }
 td:last-child{
     text-align: right;
+}
+th:first-child{
+    width:50px;
+}
+th input{
+    width:40px;
 }
 th:last-child{
     text-align: right;
