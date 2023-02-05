@@ -3,7 +3,7 @@ const router = express();
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
-const middleware = require("../middlewares/auth.middleware");
+const authmiddleware = require("../middlewares/auth.middleware");
 const ChatRepository = require('../repositories/chats.repository');
 
 
@@ -37,12 +37,7 @@ const upload = multer({
 });
 /*       */
 
-router.post(
-  "/product",
-  upload.single("productImage"),
-  middleware,
-  adminConteroller.createProduct
-);
+router.post("/product", upload.single("productImage"), authmiddleware, adminConteroller.createProduct);
 router.delete("/product/:productId", adminConteroller.deleteProduct);
 
 router.patch("/product/:productId", async (req, res) => {

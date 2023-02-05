@@ -13,16 +13,6 @@ class ProductService {
     }
   };
 
-  showBestProduct = async () => {
-    try {
-      const data = await this.productRepository.showBestProduct();
-
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  };
-
   findOneProduct = async (productId) => {
     try {
       const data = await this.productRepository.findOneProduct(productId);

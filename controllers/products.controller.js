@@ -27,24 +27,14 @@ class ProductController {
     }
   };
 
-  showBestProduct = async (req, res) => {
+  findOneProduct = async (req, res) => {
     try {
-      const data = await this.productService.showBestProduct();
-
-      res.status(200).json({ data });
-    } catch (error) {
-      res.status(error.status).json({ message: error.message });
-    }
-  };
-
-  findOneProduct = async (productId) => {
-    try {
-
+      const {productId} = req.params;
       const data = await this.productService.findOneProduct(productId);
 
-      return data
+      res.status(200).json({data})
     } catch (error) {
-      return null
+      res.status(error.status).json({ message: error.message });
     }
   };
 
