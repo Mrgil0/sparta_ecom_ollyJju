@@ -61,9 +61,21 @@
     <script>
         let socket = io.connect('ws://localhost:3001')
         socket.on('message', (data) =>{
+            const {chat_person} = data
+            console.log('채팅을 보낸 사람 : ' + chat_person)
             let msgLine = $("#admin"+data.room_key);
             let line = '<p>' + data.message + '</p>';
             let line2 = '<p style="font-size:8px">' + data.createdAt + '</p>';
+            let msgBox = $('.me');
+            if(chat_person === 'admin@admin.com'){
+                msgLine = $("#guestChatView");
+                msgBox.append(line);
+                msgBox.append(line2);
+                msgLine.append(msgBox);
+                $('#guestChatView').append(msgLine);
+                $('#adminMsg').val('');
+                return;
+            }
             msgLine.append(line + line2);
         })
         $('#msg').keyup(function(event){
@@ -79,26 +91,25 @@
                 msgBox.append('<p style="font-size:8px">' + formatDate(today) + '<p>');
 				msgLine.append(msgBox);
 
-				$('#chatView').append(msgLine);
+				$('#guestChatView').append(msgLine);
                 $('#msg').val('');
                 "<% } %>"
             }	
         })
-        $('#adminMsg').keyup(function(event){
-            if(event.which == 13){
+        $(document).on('keyup', '#adminMsg', function(e){
+            if(e.which == 13){
                 let adminClass = $(this).attr('class')
                 "<%if(user) {%>" 
-                socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val(), room_key: adminClass});
+                socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#adminMsg').val(), room_key: adminClass});
                 let msgLine = $("#admin"+adminClass);
 
                 let msg = '<p>' + $('#adminMsg').val() + '</p>';
                 let today = new Date();
-				msgBox.append(msg);
-                msgBox.append('<p style="font-size:8px">' + formatDate(today) + '<p>');
-				msgLine.append(msgBox);
+                msgLine.append(msg);
+                msgLine.append('<p style="font-size:8px">' + formatDate(today) + '<p>');
 
-				$('#chatView').append(msgLine);
-                $('#msg').val('');
+                $('#adminChatView').append(msgLine);
+                $('#adminMsg').val('');
                 "<% } %>"
             }	
         })
@@ -124,6 +135,7 @@
             socket.emit('join_room', (param = {user_key: email}))  
             if(adminToggle == 1){
                 $("#admin"+room_key).html('')
+                $('#adminMsg').remove();
                 adminToggle = 0;
                 return;
             }
