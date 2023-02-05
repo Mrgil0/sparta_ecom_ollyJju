@@ -20,8 +20,9 @@ router.get("/signup", (req, res) => {
 });
 
 router.get("/logout", authMiddleware, (req, res) => {
-  res.cookie("accessToken", null);
-  res.cookie("refreshToken", null);
+  res.cookie("accessToken", false);
+  res.cookie("refreshToken", false);
+  console.log("res.cookie : " + res.cookie);
   res.render("home", { user: null, room: null, chat: null });
 });
 
