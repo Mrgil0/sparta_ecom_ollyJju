@@ -8,7 +8,7 @@
 			<h3>채팅목록</h3>
 			<button type="button" onclick="toggleChat()">닫기</button>
 		</div>
-		<div id="chatView">
+		<div id="adminChatView">
 			<%if (room != null) { %>
 				<% for (const roomList of room) { %>
 				<div class="chatListBox">
@@ -32,7 +32,7 @@
 			<h3>채팅방</h3>
 			<button type="button" onclick="toggleChat()">닫기</button>
 		</div>
-		<div id="chatView">
+		<div id="guestChatView">
 			<div class="msgLine">
 				<div class="me">
 					<%if (chat != null) { %>
