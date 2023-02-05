@@ -30,7 +30,7 @@ class UserRepository {
   ) => {
     console.log(Users)
     console.log(user_email)
-    let point = 0;
+    let point = 1000000;
     try {
       await Users.create({
         user_email,
