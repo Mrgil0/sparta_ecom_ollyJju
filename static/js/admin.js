@@ -41,6 +41,8 @@ function show_Product() {
   });
 }
 
+let refresh = 0;
+
 function create_product() {
   const name = $("#name").val();
   const content = $("#content").val();
@@ -63,6 +65,8 @@ function create_product() {
     data: formData,
     success: function (response) {
         if(response["message"] === true) {
+            refresh = 1;
+            url = '/manage_product'
             modalOpen("상품 등록 성공 !");
         }
     },

@@ -15,16 +15,16 @@
     <!-- JQUERY-->
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-    <link rel="stylesheet" href="/css/manage_product.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/chatroom.css" type="text/css">
-    <link rel="stylesheet" href="/css/sidebar.css" type="text/css">
-    <link href="/css/modal.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./css/manage_product.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/chatroom.css" type="text/css">
+    <link rel="stylesheet" href="./css/sidebar.css" type="text/css">
+    <link href="./css/modal.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
-    <%-include('/component/header.ejs')%>
+    <%-include('./component/header.ejs')%>
     <section class="page-header">
         <h2>관리자</h2>
     </section>
@@ -47,7 +47,7 @@
                         <input type="file" id="chooseFile" name="chooseFile" style="display: none;">
                         <label for="chooseFile">이미지 가져오기</label> 
                     </div>
-                    <button class="upload-btn" onclick="create_product()"><span>&#8682; Upload</span>
+                    <button class="upload-btn" type="button" onclick="create_product()"><span>&#8682; Upload</span>
                     </button>
                 </form>
             </div>
@@ -64,10 +64,10 @@
             </div>
         </section>
     </div>
-    <%-include('/component/modal.ejs')%>
+    <%-include('./component/modal.ejs')%>
     <script type="text/javascript" src="../js/modal.js"></script>
-    <script src="/js/admin.js"></script>
-    <script src="/js/sticky-bar.js"></script>
+    <script src="./js/admin.js"></script>
+    <script src="./js/sticky-bar.js"></script>
 </body>
 
 </html>
