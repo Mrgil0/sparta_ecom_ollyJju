@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/auth.middleware");
 const ChatRepository = require('../repositories/chats.repository');
+const ProductController = require("../controllers/products.controller");
+const productController = new ProductController();
 
 //변정민 page
 router.get("/test", async (req, res) => {
@@ -22,13 +24,20 @@ router.get("/manage_user", authMiddleware, async (req, res) => {
   res.render("./admin/manage_user", {user : user});
 });
 
+router.get('/product_detail', authMiddleware, async (req, res) => {
+  const chatRepository = new ChatRepository();
+  const user = res.locals.user;
+  const room = await chatRepository.findAllRoom()
+  const chat = await chatRepository.findAllChat(user.user_email);
+  res.render("product_detail", { user: user, room: room, chat: chat});
+})
+
 //
 
 //이호균 page
 const { user } = require('../models')
 const { Product } = require('../models')
-const ProductController = require('../controllers/products.controller')
-const productController = new ProductController
+
 // 마이페이지 조회
 router.get('/mypage', authMiddleware, productController.productMiddleware, async (req, res) => {
   const currentUser = res.locals.user

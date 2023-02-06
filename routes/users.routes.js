@@ -5,6 +5,7 @@ const authMiddleware = require("../middlewares/auth.middleware");
 router.use(express.urlencoded({ extended: true }));
 
 const UsersController = require("../controllers/users.controller");
+const ChatRepository = require("../repositories/chats.repository");
 const usersController = new UsersController();
 
 router.post("/signup", usersController.signUpUser);
@@ -19,9 +20,18 @@ router.get("/signup", (req, res) => {
   res.render("signup", { user: null });
 });
 
+router.get("/cart", authMiddleware, async (req, res) => {
+  const chatRepository = new ChatRepository();
+  const user = res.locals.user;
+  const room = await chatRepository.findAllRoom()
+  const chat = await chatRepository.findAllChat(user?.user_email);
+  res.render("cart", { user: user, room: room, chat: chat });
+})
+
 router.get("/logout", authMiddleware, (req, res) => {
-  res.cookie("accessToken", null);
-  res.cookie("refreshToken", null);
+  res.cookie("accessToken", false);
+  res.cookie("refreshToken", false);
+  console.log("res.cookie : " + res.cookie);
   res.render("home", { user: null, room: null, chat: null });
 });
 

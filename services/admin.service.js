@@ -14,6 +14,12 @@ class AdminService {
     return
   };
 
+  updateProduct = async (productId, productName, productInfo, price) => {
+    await this.adminRepository.updateProduct(productId, productName, productInfo, price);
+
+    return
+  }
+
   deleteProduct = async (productId) => {
     await this.adminRepository.deleteProduct(productId);
 

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet" />
+    <!-- icon -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.1/css/line.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/cart.css" type="text/css">
+    <link rel="stylesheet" href="../css/header.css" type="text/css">
+    <link rel="stylesheet" href="../css/chatroom.css" type="text/css">
+    <link rel="stylesheet" href="../css/sidebar.css" type="text/css">
+
+</head>
+
+<body>
+    <%-include('component/header.ejs')%>
+    <section class="cart-section" i="cart-section">
+
+        <div class="small-container cart-page">
+
+            <table>
+                <tr>
+                    <th><input type='checkbox'/></th>
+                    <th>상품</th>
+                    <th>총 수량</th>
+                    <th>총 상품 금액</th>
+                </tr>
+                <tr id="cart">
+                    <td>
+                        <input type='checkbox' name='cart' value='상품의 가격' />
+                        <!-- onchange 상태 변화 체크로 체크가 되면 상품의 가격을 아래 총 가격에 더한다. -->
+                    </td>
+                    <td>
+                        <div class="cart-info">
+                            <img src="../view/images/gingham.png">
+                            <div>
+                                <p>공주가 좋아하는 체크 조끼</p>
+                                <small>가격: 50,000</small>
+                                <br>
+                                <a href="">삭제</a>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td><input type="number" value="1"></td>
+                    <td>50,000</td>
+                </tr>
+            </table>
+        </div>
+        <div class="small-container cart-page total-price">
+
+            <table>
+                <tr>
+                    <td>총 상품 가격</td>
+                    <td>25,000</td>
+                </tr>
+                <tr>
+                    <td>배송비</td>
+                    <td>25,000</td>
+                </tr>
+                <tr>
+                    <td>총 주문 금액</td>
+                    <td>25,000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button">구매하기</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <%-include('component/sidebar.ejs')%>
+</body>
+<script src="../js/sticky-bar.js" type="text/javascript"></script>
+<script src="../js/sidebar.js" type="text/javascript"></script>
+<script>
+    let socket = io.connect('ws://localhost:3001')
+    socket.on('guest_message', (data) =>{
+        console.log('관리자가 받는 채팅'+ data);
+        let msgLine = $("#admin"+data.room_key);
+        let line = '<p>' + data.message + '</p>';
+        let line2 = '<p style="font-size:8px">' + data.createdAt + '</p>';
+        let msgBox = $('.me');
+        msgLine.append(line + line2);
+    })
+    socket.on('admin_message', (data) =>{
+        console.log('고객이 받는 채팅'+ data);
+        let guestMsgLine = $("#msgLine");
+        let msgBox = $('.me');
+        let line = '<p>' + data.message + '</p>';
+        let line2 = '<p style="font-size:8px">' + data.createdAt + '</p>';
+        msgBox.append(line);
+        msgBox.append(line2);
+        guestMsgLine.append(msgBox);
+        $('#guestChatView').append(guestMsgLine);
+        $('#adminMsg').val('');
+    })
+    $('#msg').keyup(function(event){
+        if(event.which == 13){
+            "<%if(user) {%>" 
+            socket.emit('guest_chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val()});
+            let msgLine = $('.msgLine');
+            let msgBox = $('.me');
+
+            let msg = '<p>' + $('#msg').val() + '</p>';
+            let today = new Date();
+            msgBox.append(msg);
+            msgBox.append('<p style="font-size:8px">' + formatDate(today) + '<p>');
+            msgLine.append(msgBox);
+
+            $('#guestChatView').append(msgLine);
+            $('#msg').val('');
+            "<% } %>"
+        }	
+    })
+    $(document).on('keyup', '#adminMsg', function(e){
+        if(e.which == 13){
+            let adminClass = $(this).attr('class')
+            "<%if(user) {%>" 
+            socket.emit('admin_chat_message', {user_key: "<%-(user.user_email)%>", message: $('#adminMsg').val(), room_key: adminClass});
+            let msgLine = $("#admin"+adminClass);
+
+            let msg = '<p>' + $('#adminMsg').val() + '</p>';
+            let today = new Date();
+            msgLine.append(msg);
+            msgLine.append('<p style="font-size:8px">' + formatDate(today) + '<p>');
+
+            $('#adminChatView').append(msgLine);
+            $('#adminMsg').val('');
+            "<% } %>"
+        }	
+    })
+    let toggle = 0;
+    function toggleChat(){
+        if(toggle === 0){
+            $('#openChat').css('display', 'none');
+            $('#chatBox').css('display', 'inline-block');
+            "<%if(user) {%>" 
+            "<%if(user.user_type != 'admin') { %>" 
+            socket.emit('join_room', (param = {user_key: "<%-(user.user_email)%>"}))  
+            "<% } %>"
+            "<% } %>"
+            toggle = 1;
+        } else{
+            $('#openChat').css('display', 'inline-block');
+            $('#chatBox').css('display', 'none');
+            toggle = 0;
+        }
+    }
+    let adminToggle = 0;
+    function openAdminChat(email, room_key){
+        socket.emit('join_room', (param = {user_key: email}))  
+        if(adminToggle == 1){
+            $("#admin"+room_key).html('')
+            $('#adminMsg').remove();
+            adminToggle = 0;
+            return;
+        }
+        $.ajax({
+            type : "POST",
+            url : "/admin/chat",
+            data : {'email_give': email},
+            success : function (response){
+                if(response['message']){
+                    let chatList = response['message']
+                    if(chatList[0]?.chat_person){
+                        let msgLine = $("#admin"+chatList[0].room_key);
+
+                        for(let i=0; i<chatList.length; i++){
+                            let line = '<p>' + chatList[i].message + '</p>';
+                            let line2 = '<p style="font-size:8px">' + chatList[i].createdAt + '</p>';
+                            msgLine.append(line + line2);
+                        }
+                    }
+                    $('#adminMsgInput').append(`<input type="text" id="adminMsg" class="${chatList[0].room_key}">`)
+                    adminToggle = 1;
+                }
+            }
+        })
+    }
+    function formatDate(today){
+        let year = today.getFullYear();
+        let month = ('0' + (today.getMonth() + 1)).slice(-2);
+        let day = ('0' + today.getDate()).slice(-2);
+
+        let hours = ('0' + today.getHours()).slice(-2); 
+        let minutes = ('0' + today.getMinutes()).slice(-2);
+        let seconds = ('0' + today.getSeconds()).slice(-2); 
+
+        let dateString = year + '-' + month  + '-' + day + ' ' + hours + ':' + minutes  + ':' + seconds;
+        return dateString;
+    }
+</script>
+</html>

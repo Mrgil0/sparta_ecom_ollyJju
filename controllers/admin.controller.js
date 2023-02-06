@@ -18,6 +18,15 @@ class AdminConteroller {
     res.status(201).json({ message: "상품 등록 완료 !" });
   };
 
+  updateProduct = async (req, res) => {
+    const { productId } = req.params;
+    const { productName, productInfo, price } = req.body;
+
+    await this.adminService.updateProduct(productId, productName, productInfo, price);
+
+    res.status(200).json({ message: "상품 수정 완료 !" });
+  }
+
   deleteProduct = async (req, res) => {
     const { productId } = req.params;
 

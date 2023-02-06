@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { room } = require("./models");
 const { chat } = require("./models");
+
 const env = process.env;
 const io = require('socket.io')(env.socket_port, {
   cors: {
@@ -18,28 +19,32 @@ io.on("connection", (socket) =>{
 
 	socket.on("join_room", async(data) =>{
 		const {user_key} = data
-		const enterUser = await room.findOne({
+		
+		let enterUser = await room.findOne({
 			where: {user_key: user_key}
 		})
 		console.log('찾은 유저' + enterUser);
 		if(!enterUser){
-			try{
-				enterUser = await room.create({user_key: user_key})
-			}catch(e){
-				console.log(e)
-			}
-		}
+			enterUser = await room.create({user_key: user_key})
+		} 
 		console.log('유저 생성' + enterUser)
 		socket.join(enterUser.room_key);
+		console.log('방 생성')
 	})
 
-	socket.on('chat_message', async (data) =>{
-		let { message, user_key } = data;
+	socket.on('admin_chat_message', async (data) =>{
+		let { message, user_key, room_key } = data;
+		const newChat = await chat.create({room_key: room_key, chat_person: user_key, message: message, check:0})
+		console.log('채팅내역 :' + newChat.room_key)
+		io.to(newChat.room_key).emit('admin_message', newChat)
+	})
+	socket.on('guest_chat_message', async (data) =>{
+		let { message, user_key} = data;
 		const enterUser = await room.findOne({
 			where: {user_key: user_key}
 		})
 		const newChat = await chat.create({room_key: enterUser.room_key, chat_person: user_key, message: message, check:0})
-		io.to(enterUser.room_key).emit('message', newChat)
+		io.to(enterUser.room_key).emit('guest_message', newChat)
 	})
 
 	socket.on('send_msg', function(data){

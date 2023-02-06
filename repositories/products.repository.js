@@ -27,32 +27,6 @@ class ProductRepository {
     }
   };
 
-  showBestProduct = async () => {
-    try {
-      const data = await Product.findAll({
-        where: {category: "best"},
-        order: [["createdAt", "DESC"]],
-      });
-
-      const returndata = data.map((data) => {
-        const { id, productImage, productName, price, category } = data;
-
-        return {
-          id,
-          productImage,
-          productName,
-          price,
-          category,
-        };
-      });
-
-      return returndata;
-    } catch (error) {
-      error.status = 500;
-      throw error;
-    }
-  };
-
   findOneProduct = async (productId) => {
     try {
       const data = await Product.findOne({
