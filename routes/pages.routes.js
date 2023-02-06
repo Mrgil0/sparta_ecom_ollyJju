@@ -6,14 +6,6 @@ const ProductController = require("../controllers/products.controller");
 const productController = new ProductController();
 
 //변정민 page
-router.get("/test", async (req, res) => {
-  res.render("test");
-});
-
-router.get("/admin", async (req, res) => {
-  res.render("./admin/admin_page");
-});
-
 router.get("/manage_product", authMiddleware, async (req, res) => {
   const user = res.locals.user;
   res.render("./admin/manage_product", {user : user});

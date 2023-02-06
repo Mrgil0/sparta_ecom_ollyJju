@@ -15,10 +15,10 @@
     <!-- JQUERY-->
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-    <link rel="stylesheet" href="../../css/manage_product.css">
-    <link rel="stylesheet" href="../../css/header.css">
-    <link rel="stylesheet" href="../../css/chatroom.css" type="text/css">
-    <link rel="stylesheet" href="../../css/sidebar.css" type="text/css">
+    <link rel="stylesheet" href="/css/manage_product.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/chatroom.css" type="text/css">
+    <link rel="stylesheet" href="/css/sidebar.css" type="text/css">
 
 </head>
 
@@ -30,48 +30,41 @@
 
     <section class="contact" id="contact">
         <div class="title">
-            <h2>게시물 작성</h2>
+            <h2>상품 등록</h2>
         </div>
-        
         <div class="contactForm">
             <div class="row">
-                <input type="text" name="" placeholder="이름">
-                <input type="text" name="" placeholder="가격">
+                <input id="name" type="text" name="" placeholder="이름">
+                <input id="price" type="text" name="" placeholder="가격">
             </div>
-
             <div class="row2">
-                <textarea placeholder="내용"></textarea>
+                <textarea id="content" placeholder="내용"></textarea>
             </div>
-            <section class="image-upload">
-                <form action="" autocomplete="off" enctype="multipart/form-data">
-                    <p>이미지 올리기</p>
+            <div class="image-upload">
+                 <form method="post" id="image_tag" action="" autocomplete="off" enctype="multipart/form-data">
                     <div>
-                        <input type="file" id="upload" style="display: none;">
-                        <label for="upload">이미지 가져오기</label> 
+                        <input type="file" id="chooseFile" name="chooseFile" style="display: none;">
+                        <label for="chooseFile">이미지 가져오기</label> 
                     </div>
-                    <button class="upload-btn"><span>&#8682; Upload</span>
+                    <button class="upload-btn" onclick="create_product()"><span>&#8682; Upload</span>
                     </button>
                 </form>
-            </section>
-        
-            <div class="row2">
-                <input type="submit" value="작성" class="btn">
             </div>
         </div>
     </section>
 
-
-    <section class="contact2" id="contact">
-        <div class="title">
-            <h2>게시물</h2>
+    <div class="product_content">
+        <div class="title1">
+            <h2>상품 목록</h2>
         </div>
-        <div id="contactForm" class="contactForm">
-
-            
-        </div>
-    </section>
-    <script src="../../js/admin.js"></script>
-    <script src="../../js/sticky-bar.js"></script>
+        <section class="contact2" id="contact">
+            <div id="contactForm" class="contactForm">
+   
+            </div>
+        </section>
+    </div>
+    <script src="/js/admin.js"></script>
+    <script src="/js/sticky-bar.js"></script>
 </body>
 
 </html>

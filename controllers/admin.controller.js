@@ -33,8 +33,8 @@ class AdminConteroller {
   updateProduct = async (req, res) => {
     try {
       const { productId } = req.params;
-      const { productName, productInfo, price } = req.body;
-
+      const { productName, productInfo, price }  = req.body;
+      console.log(productId, productName, productInfo, price);
       if (!productName || !productInfo || !price) {
         const error = new Error();
         error.status = 412;
