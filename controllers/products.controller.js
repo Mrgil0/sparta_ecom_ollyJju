@@ -43,11 +43,7 @@ class ProductController {
       const { productId } = req.params;
       const { product_quantity } = req.body;
 
-      const dbproductId = await this.productService.findProductId(productId);
-
-      if (dbproductId === undefined) {
-        res.status(412).json({ message: "해당하는 상품이 존재하지 않습니다." });
-      }
+      await this.productService.findProductId(productId);
 
       if (Number(product_quantity) < 1) {
         const error = new Error();
