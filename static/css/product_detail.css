@@ -11,14 +11,12 @@
 section{
     padding-top: 50px;
     max-width: 1300px;
-    /* padding: 100px 14%; */
     margin: auto;
     padding-left: 25px;
     padding-right: 25px;
 }
 .row{
     display: flex;
-    /* align-items: center; */
     flex-wrap: wrap;
     justify-content: space-around;
 }
@@ -84,3 +82,4 @@ select:focus{
 .btn:hover{
     background: #563434;
 }
+

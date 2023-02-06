@@ -195,12 +195,6 @@ form div label:before {
     color: white;
 }
 
-header.sticky{
-    background: rgb(245, 237, 231);
-    padding: 14px 14%;
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-}
-
 .box {
     padding: 10px;
     border: solid 3px;

@@ -33,12 +33,13 @@ function show_Product_detail() {
 
 
                     <input type="number" value="1">
-                    <a href="" class="btn">카트에 넣기</a>
-
-                    <h3>자세히 보기 <i class="uil uil-right-indent-alt"></i></h3>
+                    <a href="" class="btn">장바구니</a>
+                
+                    <h3>상세정보 <i class="uil uil-right-indent-alt"></i></h3>
                     <br>
                     <p>${info}</p>
-                </div>
+                    </div>
+                
             </div>
             `
             $("#single-product").append(temp_html);
