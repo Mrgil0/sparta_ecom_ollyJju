@@ -7,17 +7,11 @@
     text-decoration: none;
     scroll-behavior: smooth;
 }
-
 body{
-    background: white;
-    color: black;
+    background-color: rgb(245, 237, 231);
 }
 section{
     padding: 100px 14%;
-}
-.page-header {
-    background: white;
-    border: 1px solid black;
 }
 .user-table{
     padding-top: 250px;
