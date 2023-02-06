@@ -26,6 +26,11 @@ section{
 
 /* -----cart items------ */
 
+/* #exception {
+    color: black;
+    font-size: 15px;
+} */
+
 .cart-page{
     padding: 0;
     margin: 80px auto;
@@ -36,9 +41,15 @@ table{
     width: 100%;
 }
 .cart-info{
+    width: 300px; /* ●●●●●●●●●●●●●●●● */ 
+    height: 100px; /* ●●●●●●●●●●●●●●●● */ 
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+
+    position: relative; /* ●●●●●●●●●●●●●●●● */
+    right: 50px; /* ●●●●●●●●●●●●●●●● */
+    
 }
 th{
     text-align: left;
@@ -48,13 +59,31 @@ th{
     font-weight: normal;
 }
 td{
-    padding: 10px 5px;
+    padding: 10px 20px;
+    
 }
-td input{
-    width: 30px;
+/* ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●● */
+#cnt {
+    width: 40px;
+    text-align: center;
+}
+
+#ctnTotal {
+    position: relative;
+    left: 480px;
+}
+
+#pro {
+    position: relative;
+    left: 35px;
+}
+/* ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●● */
+/* td input{
+    width: 30px; 
     height: 30px;
     margin: 5px;
-}
+    text-align: center;
+} */
 td a{
     color: #ff523b;
     font-size: 12px;
@@ -76,15 +105,21 @@ td img{
 }
 td:last-child{
     text-align: right;
+
+    width: 200px;  /* ●●●●●●●●●●●●●●●● */
+    height: 80px; /* ●●●●●●●●●●●●●●●● */
 }
 th:first-child{
     width:50px;
+    
 }
 th input{
     width:40px;
+    
 }
 th:last-child{
     text-align: right;
+    
 }
 small{
     color: #555;
