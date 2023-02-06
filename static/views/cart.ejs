@@ -14,18 +14,18 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.1/css/line.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer type="text/javascript" src="../js/cart.js"></script>
     <link rel="stylesheet" href="../css/cart.css" type="text/css">
     <link rel="stylesheet" href="../css/header.css" type="text/css">
     <link rel="stylesheet" href="../css/chatroom.css" type="text/css">
     <link rel="stylesheet" href="../css/sidebar.css" type="text/css">
-
 </head>
 
 <body>
     <%-include('component/header.ejs')%>
     <section class="cart-section" i="cart-section">
 
-        <div class="small-container cart-page">
+        <div class="small-container cart-page" id="product">
 
             <table>
                 <tr>
@@ -56,27 +56,8 @@
                 </tr>
             </table>
         </div>
-        <div class="small-container cart-page total-price">
-
-            <table>
-                <tr>
-                    <td>총 상품 가격</td>
-                    <td>25,000</td>
-                </tr>
-                <tr>
-                    <td>배송비</td>
-                    <td>25,000</td>
-                </tr>
-                <tr>
-                    <td>총 주문 금액</td>
-                    <td>25,000</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="button">구매하기</button>
-                    </td>
-                </tr>
-            </table>
+        <div class="small-container cart-page total-price" id="productPrice">
+            
         </div>
     </section>
     <%-include('component/sidebar.ejs')%>
