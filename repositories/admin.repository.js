@@ -13,6 +13,15 @@ class AdminRepository {
     return;
   };
 
+  updateProduct = async (productId, productName, productInfo, price) => {
+    await Product.update(
+      { productName, productInfo, price },
+      { where: { id: productId } }
+    );
+
+    return
+  }
+
   deleteProduct = async (productId) => {
     await Product.destroy({
       where: { id: productId },
