@@ -47,7 +47,7 @@ app.get("/manage_product", authMiddleware, async (req, res) => {
 
 app.get("/manage_user", authMiddleware, async (req, res) => {
   const user = res.locals.user;
-  res.render("/admin/manage_user", {user : user});
+  res.render("manage_user", {user : user});
 });
 
 /* router */
