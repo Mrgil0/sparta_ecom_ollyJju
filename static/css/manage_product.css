@@ -240,3 +240,13 @@ header.sticky{
 #create {
     margin-right: 7%;
 }
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    width: 70px;
+}
+
+.input {
+
+}

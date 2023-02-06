@@ -47,6 +47,7 @@ function create_product() {
   const name = $("#name").val();
   const content = $("#content").val();
   const price = $("#price").val();
+  const category = $("#category").val();
   const image = $('input[name="chooseFile"]').get(0).files[0];
   console.log(image);
   const formData = new FormData();
@@ -55,6 +56,7 @@ function create_product() {
   formData.append("productInfo", content);
   formData.append("price", price);
   formData.append("productImage", image);
+  formData.append("category", category);
 
   $.ajax({
     type: "POST",

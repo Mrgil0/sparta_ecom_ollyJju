@@ -5,7 +5,7 @@ class AdminConteroller {
 
   createProduct = async (req, res, next) => {
     try {
-      const { productName, productInfo, price } = req.body;
+      const { productName, productInfo, price, category } = req.body;
       const file = req.file;
 
       if (!productName || !productInfo || !price || !file) {
@@ -21,7 +21,8 @@ class AdminConteroller {
         productName,
         productInfo,
         price,
-        productImage
+        productImage,
+        category
       );
 
       return res.send({ message: true });     
