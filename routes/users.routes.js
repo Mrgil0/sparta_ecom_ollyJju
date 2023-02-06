@@ -7,6 +7,7 @@ router.use(express.urlencoded({ extended: true }));
 const UsersController = require("../controllers/users.controller");
 const ChatRepository = require("../repositories/chats.repository");
 const usersController = new UsersController();
+const chatRepository = new ChatRepository();
 
 router.post("/signup", usersController.signUpUser);
 router.post("/emailCheck", usersController.checkEmail);
@@ -21,7 +22,6 @@ router.get("/signup", (req, res) => {
 });
 
 router.get("/cart", authMiddleware, async (req, res) => {
-  const chatRepository = new ChatRepository();
   const user = res.locals.user;
   const room = await chatRepository.findAllRoom()
   const chat = await chatRepository.findAllChat(user?.user_email);
