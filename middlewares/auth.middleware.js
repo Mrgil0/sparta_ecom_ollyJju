@@ -8,8 +8,6 @@ module.exports = (req, res, next) => {
   const accessToken = req.cookies.accessToken;
   const refreshToken = req.cookies.refreshToken;
 
-  console.log('액세스 토큰' + accessToken)
-
   if (!refreshToken) return next();
   if (!accessToken) return next();
 

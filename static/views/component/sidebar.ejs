@@ -2,9 +2,12 @@
     <%if (user) { %>
     <div id="mySidenav">
         <%if(category){%>
-        <%for (const menu of category){%>
-        <ul><%-menu.category%></ul>
-        <%}%>
+        
+        <ul>
+            <%for (const menu of category){%>
+            <li onclick="clickMenu('<%-menu.category%>')"><a><%-menu.category%></a></li>
+            <%}%>
+        </ul>
         <%}%>
         <%-include('chatroom.ejs')%>
     </div>
