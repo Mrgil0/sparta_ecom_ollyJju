@@ -31,10 +31,6 @@ function show_Product_detail() {
                     <div>가격</div>
                     <h4>${price}</h4>
 
-                    <select>
-                        <option>사이즈</option>
-                        <option>S</option>
-                    </select>
 
                     <input type="number" value="1">
                     <a href="" class="btn">카트에 넣기</a>
