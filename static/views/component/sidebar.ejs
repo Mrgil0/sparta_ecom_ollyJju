@@ -1,7 +1,11 @@
 <div class="sideNav">
     <%if (user) { %>
     <div id="mySidenav">
-        <a href="#">봤던 상품들이 나올 공간</a>
+        <%if (category) { %>
+        <%for (const menu of category) { %>
+        <ul><%- menu.category %></ul>
+        <% } %>
+        <% } %>
         <%-include('chatroom.ejs')%>
     </div>
     <% } else { %>
