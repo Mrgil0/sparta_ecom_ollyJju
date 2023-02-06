@@ -7,16 +7,7 @@ const env = process.env;
 const authMiddleware = require("../middlewares/auth.middleware");
 const ChatRepository = require("../repositories/chats.repository");
 const chatRepository = new ChatRepository();
-
-// const io = require('socket.io')(env.socket_port, {
-//   cors: {
-//     origin: true,
-//     methods: ["GET", "POST"],
-// 		transports: ['websocket', 'polling'],
-// 		credentials: true
-//   },
-// 	allowEIO3: true
-// });
+const path = require("path")
 
 const cookies = require("cookie-parser");
 const cors = require("cors");
@@ -29,10 +20,10 @@ const admin = require("./admin.routes");
 // const my_pageRouter = require('./my_page')
 
 /* ejs */
-app.use(express.static("static"));
+app.use(express.static(path.join(__dirname, "../static")));
 app.use("/images", express.static("images"));
 app.set("view engine", "ejs");
-app.set("views", "./static/views");
+app.set("views", path.join(__dirname, "../static/views"));
 
 /* middleware */
 app.use(cookies());
@@ -46,6 +37,16 @@ app.get("/home", authMiddleware, async (req, res) => {
   const room = await chatRepository.findAllRoom()
   const chat = await chatRepository.findAllChat(user?.user_email);
   res.render("home", { user: user, room: room, chat: chat });
+});
+
+app.get("/manage_product", authMiddleware, async (req, res) => {
+  const user = res.locals.user;
+  res.render("manage_product", {user : user});
+});
+
+app.get("/manage_user", authMiddleware, async (req, res) => {
+  const user = res.locals.user;
+  res.render("/admin/manage_user", {user : user});
 });
 
 /* router */
