@@ -1,15 +1,15 @@
 let page = 0;
 $(document).ready(function () {
   page = 1
-  show_Product(1);
+  show_Product(1, '');
 });
-function show_Product(page) {
+let searchText = '';
+function show_Product(page, text) {
   $.ajax({
     type: "POST",
     url: "/product/index",
-    data: {"page": page},
+    data: {"page": page, "text": text},
     success: function (response) {
-      console.log(response["data"][0])
       let rows = response["data"];
 
       for (let i = 0; i < rows.length; i++) {
@@ -52,7 +52,7 @@ const callback = (entries, observer) => {
       if(entry.isIntersecting) {
           page ++; // 2부터 시
           //console.log(page);
-          show_Product(page)
+          show_Product(page, searchText)
       }
   });
 };
@@ -62,3 +62,16 @@ const observer = new IntersectionObserver(callback, option);
 
 // target 관찰
 observer.observe(sentinel);
+
+$('#searchBtn').keyup(function(e){
+  if(e.which == 13) {
+    searchText = $('#searchBtn').val()
+    if(searchText == '') {
+      modalOpen('검색할 단어를 입력해주세요.')
+      return;
+    }
+    $("#bestProduct").html('');
+    page = 1;
+    show_Product(page, searchText)
+  }
+})
