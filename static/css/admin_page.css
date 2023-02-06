@@ -15,22 +15,271 @@ body{
 section{
     padding: 100px 14%;
 }
-.home{
-    min-height: 100vh;
-    width: 100%;
-    background-color:rgb(245, 237, 231);
-    background-image: url(../ecommerce/images/couple.jpg);
-    background-size: cover;
-    background-position: center top;
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    align-items: center;
-    cursor: default;
-}
 
 header.sticky{
     background: rgb(245, 237, 231);
     padding: 14px 14%;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+}
+
+.page-header {
+    background: white;
+    border: 1px solid black;
+}
+
+.page-header h2 {
+    padding-top: 50px;
+}
+
+/* .admin-wrapper{
+    background-color: green;
+    display: flex;
+}
+
+.admin-wrapper .left-sidebar{
+    flex: 2;
+    height: 100%;
+    background: red;
+
+}
+.admin-wrapper .admin-content{
+    flex: 8;
+    height: 100%;
+    padding: 40px 100px 100px;
+    overflow-y: scroll;
+}
+.admin-content .page-title{
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.1rem;
+}
+th, 
+td{
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid green;
+} */
+
+.image-upload {
+    width: 900px;
+    height: 60px;
+    margin: 10px 0px 0px 30px;
+    background: rgb(255, 255, 255);
+}
+
+form {
+    width: 96%;
+    height: 100%;
+    margin: auto;
+    padding: 20px;
+}
+
+form>p {
+    padding: 10px 5px;
+    font-size: 25px;
+    margin: 20px auto;
+}
+
+form div {
+    height: 60px;
+    margin: 20px auto;
+    padding: 5px;
+}
+
+form .pr {
+    height: 110px;
+}
+
+form div label {
+    background: rgb(255, 255, 255);
+    display: block;
+    padding: 12px;
+    border-radius: 4px;
+    width: 90%;
+    line-height: 25px;
+    border: 2px solid rgb(178, 178, 178);
+    position: relative;
+}
+
+form div label:before {
+    position: absolute;
+    content: "찾기";
+    right: -2px;
+    top: -2px;
+    width: 100px;
+    height: 107%;
+    line-height: 50px;
+    background: pink;
+    text-align: center;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.upload-btn {
+    margin: 10px;
+    padding: 12px 18px;
+    color: white;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    background: pink;
+    cursor: pointer;
+}
+
+.contact,
+.contact2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+}
+.contact2 .contactForm2{
+    border: 1px solid black;
+}
+.contact .contactForm,
+.contact2 .contactForm {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin-top: 20px;
+}
+
+.contact .contactForm .row,
+.contact2 .contactForm .row {
+
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    margin-top: 20px;
+}
+
+.contact .contactForm .row2,
+.contact2 .contactForm .row2 {
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.contact .contactForm .row input,
+.contact2 .contactForm .row input,
+.contact2 .contactForm .row2 textarea,
+.contact .contactForm .row2 textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    outline: none;
+    background: white;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+.contact .contactForm .row2 textarea,
+.contact2 .contactForm .row2 textarea {
+
+    resize: none;
+    height: 200px;
+}
+
+::placeholder {
+    color: black;
+}
+
+.contact .contactForm .row2 input[type="submit"],
+.contact2 .contactForm .row2 input[type="submit"] {
+
+    background: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 2px;
+    width: 80px;
+    height: 45px;
+    cursor: pointer;
+}
+.contact2 .contactForm .row2 input[type="submit"] {
+    margin-right: 10px;
+}
+.contact .contactForm .row2 input[type="submit"]:hover,
+.contact2 .contactForm .row2 input[type="submit"]:hover {
+
+    background: black;
+    color: white;
+}
+
+/* Customize the label (the container) */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked~.checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
