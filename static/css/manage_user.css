@@ -15,22 +15,58 @@ body{
 section{
     padding: 100px 14%;
 }
-.home{
-    min-height: 100vh;
-    width: 100%;
-    background-color:rgb(245, 237, 231);
-    background-image: url(../ecommerce/images/couple.jpg);
-    background-size: cover;
-    background-position: center top;
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    align-items: center;
-    cursor: default;
+
+.page-header {
+    background: white;
+    border: 1px solid black;
 }
 
-header.sticky{
-    background: rgb(245, 237, 231);
-    padding: 14px 14%;
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+.page-header h2 {
+    padding-top: 50px;
+}
+
+.admin-wrapper{
+    background-color: green;
+    display: flex;
+}
+
+.admin-wrapper .left-sidebar{
+    flex: 2;
+    height: 100%;
+    background: red;
+
+}
+.admin-wrapper .admin-content{
+    flex: 8;
+    height: 100%;
+    padding: 40px 100px 100px;
+    overflow-y: scroll;
+}
+.admin-content .page-title{
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.1rem;
+}
+th, 
+td{
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid green;
+} 
+
+.btn{
+    display: inline-block;
+    background: #ff523b;
+    color: #fff;
+    padding: 8px 30px;
+    margin: 30px 0;
+    border-radius: 30px;
+    transition: background 0.3s;
+}
+.btn:hover{
+    background: #563434;
 }
