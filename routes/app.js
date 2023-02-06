@@ -42,7 +42,6 @@ app.get("/home", authMiddleware, async (req, res) => {
 });
 
 app.get('/product_detail', authMiddleware, async (req, res) => {
-  const chatRepository = new ChatRepository();
   const user = res.locals.user;
   const room = await chatRepository.findAllRoom()
   const chat = await chatRepository.findAllChat(user.user_email);
