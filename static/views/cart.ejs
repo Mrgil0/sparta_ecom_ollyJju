@@ -25,7 +25,7 @@
     <%-include('component/header.ejs')%>
     <section class="cart-section" i="cart-section">
 
-        <div class="small-container cart-page" id="product">
+        <div class="small-container cart-page" id="product" >
 
             <table>
                 <tr>
@@ -56,7 +56,28 @@
             </table>
         </div>
         <div class="small-container cart-page total-price" id="productPrice">
-            
+    
+            <table>
+                <tr>
+                    <td>총 상품 가격</td>
+                    <td>25,000</td>
+                </tr>
+                <tr>
+                    <td>배송비</td>
+                    <td>25,000</td>
+                </tr>
+                <tr>
+                    <td>총 주문 금액</td>
+                    <td>25,000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button">구매하기</button>
+                    </td>
+                </tr>
+            </table>
+
+
         </div>
     </section>
     <%-include('component/sidebar.ejs')%>

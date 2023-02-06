@@ -8,14 +8,6 @@ const productController = new ProductController();
 //변정민 page
 
 
-router.get('/product_detail', authMiddleware, async (req, res) => {
-  const chatRepository = new ChatRepository();
-  const user = res.locals.user;
-  const room = await chatRepository.findAllRoom()
-  const chat = await chatRepository.findAllChat(user.user_email);
-  res.render("product_detail", { user: user, room: room, chat: chat});
-})
-
 //
 
 //이호균 page

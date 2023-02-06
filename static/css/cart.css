@@ -119,3 +119,9 @@ th:last-child{
 small{
     color: #555;
 }
+.user-table{
+    margin-right: 100px;
+}
+#name{
+    color: red;
+}

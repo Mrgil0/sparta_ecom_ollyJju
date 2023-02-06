@@ -31,18 +31,15 @@ function show_Product_detail() {
                     <div>가격</div>
                     <h4>${price}</h4>
 
-                    <select>
-                        <option>사이즈</option>
-                        <option>S</option>
-                    </select>
 
                     <input type="number" value="1" id="quantity">
-                    <a href="#" class="btn" onclick="moveCart()">카트에 넣기</a>
+                    <a href="#" class="btn" onclick="moveCart()">장바구니</a>
 
-                    <h3>자세히 보기 <i class="uil uil-right-indent-alt"></i></h3>
+                    <h3>상세 보기 <i class="uil uil-right-indent-alt"></i></h3>
                     <br>
                     <p>${info}</p>
-                </div>
+                    </div>
+                
             </div>
             `
             $("#single-product").append(temp_html);

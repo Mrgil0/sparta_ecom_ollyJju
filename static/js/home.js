@@ -19,7 +19,7 @@ function show_Product(page) {
         let price = rows[i]["price"];
 
         let temp_html = `
-                  <a href='/page/product_detail?id=${productId}'>
+                  <a href='/product_detail?id=${productId}'>
                     <div class="row">
                         <img src="/${Image}">
                         <div class="fea-text">

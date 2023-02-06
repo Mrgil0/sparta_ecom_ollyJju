@@ -5,7 +5,7 @@ $(document).ready(function () {
 function show_Product() {
   $.ajax({
     type: "GET",
-    url: "/product/index",
+    url: "/admin/product",
     data: {},
     success: function (response) {
       let rows = response["data"];
