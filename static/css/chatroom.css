@@ -4,7 +4,7 @@
   bottom:0px;
   height: auto;
   width: auto;
-  background-color: ivory;
+  background-color: rgb(245, 237, 231);
   z-index:999;
   border:1px solid black;
 }
@@ -33,6 +33,7 @@
 }
 #chatHead{
   display:flex;
+  
 }
 #chatHead h3{
   text-align: center;

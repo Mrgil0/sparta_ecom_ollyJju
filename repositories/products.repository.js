@@ -2,7 +2,7 @@
 const { Product } = require("../models");
 
 class ProductRepository {
-  showNewProduct = async () => {
+  showAllProduct = async () => {
     try {
       const data = await Product.findAll({
         order: [["createdAt", "DESC"]],

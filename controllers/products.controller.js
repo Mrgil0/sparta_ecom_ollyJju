@@ -5,6 +5,8 @@ let product = {}
 
 class ProductController {
 
+  productService = new ProductService();
+
   productMiddleware = async (req, res, next) => {
     if (!product) {
       res.locals.product = false;
@@ -15,11 +17,9 @@ class ProductController {
     next()
   }
 
-  productService = new ProductService();
-
-  showNewProduct = async (req, res) => {
+  showAllProduct = async (req, res) => {
     try {
-      const data = await this.productService.showNewProduct();
+      const data = await this.productService.showAllProduct();
 
       res.status(200).json({ "data": data});
     } catch (error) {

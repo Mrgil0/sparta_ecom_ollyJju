@@ -40,15 +40,19 @@ router.post("/product", upload.single("productImage"), authmiddleware, adminCont
 router.patch("/product/:productId", authmiddleware, adminConteroller.updateProduct);
 router.delete("/product/:productId", authmiddleware, adminConteroller.deleteProduct);
 
-// 유저 탈퇴 기능 미완료
+// admin 유저 관리자 페이지 수정해야함
 router.get("/users", authmiddleware, async (req, res) => {
-  // const userEmail = res.locals.user.user_email;
+  const user_type = res.locals.user.user_type;
+  console.log(user_type)
+  if ( user_type === "admin") {
+    const users = await user.findAll({
+      where: {user_type: "guest"}
+    })
 
-  const users = await user.findAll({
-    where: {user_type: "guest"}
-  })
-
-  res.json({users});
+    res.json({users});
+  } else {
+    res.status(403).json({message: "관리자만 접근 가능한 페이지 입니다."});
+  }
 });
 
 

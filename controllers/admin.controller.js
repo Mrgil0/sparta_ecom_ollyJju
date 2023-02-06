@@ -4,18 +4,22 @@ class AdminConteroller {
   adminService = new AdminService();
 
   createProduct = async (req, res) => {
-    const { productName, productInfo, price } = req.body;
-    const productImage = req.file.path;
-    console.log(productImage);
-    
-    await this.adminService.createProduct(
-      productName,
-      productInfo,
-      price,
-      productImage
-    );
+    try {
+      const { productName, productInfo, price } = req.body;
+      const productImage = req.file.path;
+      
+      await this.adminService.createProduct(
+        productName,
+        productInfo,
+        price,
+        productImage
+      );
+  
+      res.status(201).json({ message: "상품 등록 완료 !" });
+    } catch (error) {
+      res.status(error.status).json({message: error.message});
+    }
 
-    res.status(201).json({ message: "상품 등록 완료 !" });
   };
 
   updateProduct = async (req, res) => {
