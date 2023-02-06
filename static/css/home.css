@@ -11,7 +11,13 @@
 body {
   background: white;
   color: black;
+  -ms-overflow-style: none;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 section {
   padding: 100px 14%;
 }
