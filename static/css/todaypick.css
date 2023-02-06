@@ -157,10 +157,10 @@ h2{ color: #7f8c8d; font-family: Neucha, Arial, sans serif; font-size:18px; marg
 	font-size: 20px;
 	text-align: center;
 }
-#slideBox h2, #slideBox h3, #slideBox span{
+#slideBox h2, #slideBox h3, #slideBox span, #counter{
   text-shadow:rgb(253, 181, 193) 2px 2px 2px;  
 }
-#slider li a{
+#slider li a, #counter{
 	text-decoration: none;
 	color:#fff
 }
