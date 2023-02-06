@@ -1,13 +1,22 @@
 const { Product } = require("../models");
 
 class AdminRepository {
-  createProduct = async (productName, productInfo, price, productImage) => {
+
+  showAllProduct = async () => {
+    const data = await Product.findAll({
+      order: [['createdAt', 'DESC']],
+    });
+
+    return data
+  }
+
+  createProduct = async (productName, productInfo, price, productImage, category) => {
     try {
       await Product.create({
         productName,
         productInfo,
         price,
-        category:"dog",
+        category,
         productImage,
       });
   

@@ -3,9 +3,15 @@ const AdminService = require("../services/admin.service");
 class AdminConteroller {
   adminService = new AdminService();
 
+  showAllProduct = async (req, res) => {
+    const data = await this.adminService.showAllProduct();
+
+    res.status(200).json({data});
+  }
+
   createProduct = async (req, res, next) => {
     try {
-      const { productName, productInfo, price } = req.body;
+      const { productName, productInfo, price, category } = req.body;
       const file = req.file;
 
       if (!productName || !productInfo || !price || !file) {
@@ -21,10 +27,11 @@ class AdminConteroller {
         productName,
         productInfo,
         price,
-        productImage
+        productImage,
+        category
       );
 
-      return res.send({ message: true });     
+      res.send({ message: true });     
     } catch (error) {
       res.status(error.status).json({ message: error.message });
     }

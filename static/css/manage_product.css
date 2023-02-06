@@ -227,3 +227,26 @@ header.sticky{
 #image_tag {
     background-color: rgb(245, 237, 231);
 }
+
+.btn {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 5px;
+    border: solid 1px;
+    background-color: rgb(240, 224, 211);
+}
+
+#create {
+    margin-right: 7%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    width: 70px;
+}
+
+.input {
+
+}

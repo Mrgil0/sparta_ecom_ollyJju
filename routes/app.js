@@ -23,8 +23,9 @@ const admin = require("./admin.routes");
 app.use(express.static(path.join(__dirname, "../static")));
 app.use("/images", express.static("images"));
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "../static/views"));
+app.set("views", "./static/views");
 
+console.log(__dirname)
 /* middleware */
 app.use(cookies());
 app.use(express.json());
@@ -42,6 +43,15 @@ app.get("/home", authMiddleware, async (req, res) => {
   res.render("home", { user: user, room: room, chat: chat, category: category });
 });
 
+app.get('/product_detail', authMiddleware, async (req, res) => {
+  const chatRepository = new ChatRepository();
+  const user = res.locals.user;
+  const room = await chatRepository.findAllRoom()
+  const chat = await chatRepository.findAllChat(user.user_email);
+  const category = await productRepository.fincAllCategory();
+  res.render("product_detail", { user: user, room: room, chat: chat, category: category});
+})
+
 app.get("/manage_product", authMiddleware, async (req, res) => {
   const user = res.locals.user;
   res.render("manage_product", {user : user});
@@ -49,7 +59,7 @@ app.get("/manage_product", authMiddleware, async (req, res) => {
 
 app.get("/manage_user", authMiddleware, async (req, res) => {
   const user = res.locals.user;
-  res.render("/admin/manage_user", {user : user});
+  res.render("manage_user", {user : user});
 });
 
 /* router */

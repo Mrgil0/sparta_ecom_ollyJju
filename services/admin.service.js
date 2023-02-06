@@ -3,13 +3,20 @@ const AdminRepository = require("../repositories/admin.repository");
 class AdminService {
   adminRepository = new AdminRepository();
 
-  createProduct = async (productName, productInfo, price, productImage) => {
+  showAllProduct = async () => {
+    const data = await this.adminRepository.showAllProduct();
+
+    return data;
+  }
+
+  createProduct = async (productName, productInfo, price, productImage, category) => {
     try {
       await this.adminRepository.createProduct(
         productName,
         productInfo,
         price,
-        productImage
+        productImage,
+        category
       );
 
       return;
