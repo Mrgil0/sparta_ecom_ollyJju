@@ -13,7 +13,10 @@ body{
     color: black;
 }
 section{
-    padding: 100px 14%;
+    /* padding: 150px 14%; */
+    /* padding-top: 150px; */
+    padding: 150px 14% 150px 14%;
+    background-color: rgb(245, 237, 231);
 }
 .home{
     min-height: 100vh;
@@ -28,33 +31,10 @@ section{
     align-items: center;
     cursor: default;
 }
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
-    list-style: none;
-    text-decoration: none;
-    scroll-behavior: smooth;
-}
-
-body{
-    background: white;
-    color: black;
-}
-section{
-    padding: 100px 14%;
-}
-/* 
-header.sticky{
-    background: rgb(245, 237, 231);
-    padding: 14px 14%;
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-} */
 
 .page-header {
-    background: white;
-    border: 1px solid black;
+    background-color: rgb(245, 237, 231);
+    /* border: 1px solid black; */
 }
 
 .page-header h2 {
@@ -63,9 +43,8 @@ header.sticky{
 
 .image-upload {
     width: 900px;
-    height: 60px;
-    margin: 10px 0px 0px 30px;
-    background: rgb(255, 255, 255);
+    height: 40px;
+    margin: 0px -50px 100px -50px;
 }
 
 form {
@@ -127,17 +106,21 @@ form div label:before {
     cursor: pointer;
 }
 
-.contact,
-.contact2 {
+.contact {
+    border-bottom: solid 2px;
+}
+
+.title {
+    margin-top: -250px;
+}
+
+.contact, .contact2 {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid black;
 }
-.contact2 .contactForm2{
-    border: 1px solid black;
-}
+
 .contact .contactForm,
 .contact2 .contactForm {
     position: relative;
@@ -195,10 +178,10 @@ form div label:before {
 .contact .contactForm .row2 input[type="submit"],
 .contact2 .contactForm .row2 input[type="submit"] {
 
-    background: white;
+    background-color: rgb(243, 218, 199);
     color: black;
     border: 2px solid black;
-    border-radius: 2px;
+    border-radius: 10px;
     width: 80px;
     height: 45px;
     cursor: pointer;
@@ -208,78 +191,10 @@ form div label:before {
 }
 .contact .contactForm .row2 input[type="submit"]:hover,
 .contact2 .contactForm .row2 input[type="submit"]:hover {
-
     background: black;
     color: white;
 }
 
-/* Customize the label (the container) */
-.container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input~.checkmark {
-    background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked~.checkmark {
-    background-color: #2196F3;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-.container input:checked~.checkmark:after {
-    display: block;
-}
-
-/* Style the checkmark/indicator */
-.container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
 header.sticky{
     background: rgb(245, 237, 231);
     padding: 14px 14%;
@@ -293,27 +208,22 @@ header.sticky{
     border-radius: 10%;
 }
 
-/* paging */
-div.paging {
-    width: 100%;
-    display: inline-flex;
-    align-items: center;
-    margin-top: 20px;
-    justify-content: center;
-  }
-  
-  div.paging>i,
-  div.paging>div.pages {
-    margin: 0 10px;
-  }
-  
-  div.paging>i,
-  div.paging>div.pages>span {
-    margin: 0 3px;
-    cursor: pointer;
-  }
-  
-  span.active {
-    color: orangered;
-    font-weight: bold;
-  }
+.product_content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.title1 {
+    padding-top: 10%;
+    font-size: 1.4rem;
+    background-color: rgb(245, 237, 231);
+}
+
+.product_input {
+    border-radius: 10px;
+}
+
+#image_tag {
+    background-color: rgb(245, 237, 231);
+}
