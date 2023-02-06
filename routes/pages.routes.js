@@ -1,14 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/auth.middleware");
-const ChatRepository = require('../repositories/chats.repository');
 const ProductController = require("../controllers/products.controller");
 const productController = new ProductController();
-
-//변정민 page
-
-
-//
 
 //이호균 page
 // router.get("/cartcart", authMiddleware, async (req, res) => {
