@@ -2,7 +2,7 @@
 const { Product } = require("../models");
 
 class ProductRepository {
-  showNewProduct = async () => {
+  showAllProduct = async () => {
     try {
       const data = await Product.findAll({
         order: [["createdAt", "DESC"]],
@@ -49,6 +49,7 @@ class ProductRepository {
       return dbproductId.id;
     } catch (error) {
       error.status = 500;
+      error.message = "상품이 존재하지 않습니다."
       throw error;
     }
   };
