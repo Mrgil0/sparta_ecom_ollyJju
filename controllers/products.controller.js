@@ -52,14 +52,15 @@ class ProductController {
       const product_idx = dbproductId
 
       const isProduct = await cart.findOne({ where: { product_idx, user_email }})
-      
+     
       if (!isProduct) {
         const cartDB = await cart.create({ product_idx, user_email ,count })
         console.log(cartDB)
       } else {
-        return res.status(412).json({ message: '이미 장바구니에 담겨있는 상품입니다.'})
+        console.log('이게 찍혀야지?')
+        return res.status(201).json({ message: '이미 장바구니에 담겨있는 상품입니다.'})
       }
-
+      console.log('이것도 찍히나? 찍혀야지?')
       if (dbproductId === undefined) {
         res.status(412).json({ message: "해당하는 상품이 존재하지 않습니다." });
       }

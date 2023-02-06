@@ -35,16 +35,24 @@ router.get('/product_detail', authMiddleware, async (req, res) => {
 //
 
 //이호균 page
-router.get("/cartcart", async (req, res) => {
-  res.render("./Hogyun");
-});
+// router.get("/cartcart", authMiddleware, async (req, res) => {
+//   const currentUser = res.locals.user
+
+//   if (!currentUser) {
+//     return res.status(412).json({ message: '로그인이 필요한 서비스입니다.'})
+//   }
+  
+//   res.render("./Hogyun");
+// });
 
 const { user, Product, cart } = require('../models')
-
+// const ChatRepository = require("../repositories/chats.repository");
 // ●●●●●●●●●●●●●●●●●●● 마이페이지 조회 ●●●●●●●●●●●●●●●●●●●
 router.get('/mypage', authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
-
+  // // const chatRepository = new ChatRepository(); // ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+  // const room = await chatRepository.findAllRoom()
+  // const chat = await chatRepository.findAllChat(user?.user_email);
   if (!currentUser) {
     return res.status(412).json({ message: '로그인이 필요한 서비스입니다.'})
   }
@@ -60,7 +68,7 @@ router.get('/mypage', authMiddleware, async (req, res) => {
 // ●●●●●●●●●●●●●●●●●●● 마이페이지 회원정보 수정 ●●●●●●●●●●●●●●●●●●● 
 router.patch('/mypage', authMiddleware, async (req, res) => {
   const currentUser = res.locals.user 
-  const { user_password, user_address } = req.body
+  const { user_password, user_address, user_phone } = req.body
   
   const userInfo = await user.findByPk(currentUser.user_idx)
   
@@ -70,6 +78,9 @@ router.patch('/mypage', authMiddleware, async (req, res) => {
     }
     if (user_address) {
       userInfo.user_address = user_address
+    }
+    if (user_phone) {
+      userInfo.user_phone = user_phone
     }
   }
 
@@ -118,11 +129,15 @@ router.delete('/cartpagePro',authMiddleware, async (req, res) => {
 router.patch('/cartpagePro',authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
   const user_email = currentUser.user_email
-  const {proId} = req.body
-  console.log(proId)
+  const {addProductId} = req.body
+
+  console.log(addProductId)
   
   try {
-    await cart.destroy({ where: { product_idx: proId, user_email }  })
+    for( let purchaseProduct of addProductId) {
+      await cart.destroy({ where: { product_idx: purchaseProduct, user_email }  })
+    }
+    
     res.status(200).json({ message: '구입 완료' })
   } catch (error) {
     res.status(500).json({ message: error.message})
