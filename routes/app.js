@@ -43,6 +43,15 @@ app.get("/home", authMiddleware, async (req, res) => {
   res.render("home", { user: user, room: room, chat: chat, category: category });
 });
 
+app.get('/product_detail', authMiddleware, async (req, res) => {
+  const chatRepository = new ChatRepository();
+  const user = res.locals.user;
+  const room = await chatRepository.findAllRoom()
+  const chat = await chatRepository.findAllChat(user.user_email);
+  const category = await productRepository.fincAllCategory();
+  res.render("product_detail", { user: user, room: room, chat: chat, category: category});
+})
+
 app.get("/manage_product", authMiddleware, async (req, res) => {
   const user = res.locals.user;
   res.render("manage_product", {user : user});
