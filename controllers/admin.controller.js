@@ -3,7 +3,7 @@ const AdminService = require("../services/admin.service");
 class AdminConteroller {
   adminService = new AdminService();
 
-  createProduct = async (req, res) => {
+  createProduct = async (req, res, next) => {
     try {
       const { productName, productInfo, price } = req.body;
       const file = req.file;
@@ -24,7 +24,7 @@ class AdminConteroller {
         productImage
       );
 
-      res.status(201).json({ message: "상품 등록 완료 !" });
+      return res.send({ message: true });     
     } catch (error) {
       res.status(error.status).json({ message: error.message });
     }
