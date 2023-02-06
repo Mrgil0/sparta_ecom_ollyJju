@@ -11,7 +11,7 @@ header{
     transition: all .35s ease;
 }
 header.sticky{
-    background: rgb(245, 237, 231);
+    background: rgb(231, 245, 245);
     padding: 14px 14%;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
 }
@@ -36,7 +36,7 @@ header a{
     transition: all .36s ease;
 }
 .navlist a:hover{
-    color: rgb(150, 129, 104);
+    color: rgb(86, 66, 41);
 }
 .header-icons i{
     font-size: 32px;
