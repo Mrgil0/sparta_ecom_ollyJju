@@ -34,6 +34,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get("/home", authMiddleware, async (req, res) => {
+  let {page} = Number(req.body);
+  if(page === undefined){
+    page = 1
+  }
   const user = await res.locals.user;
   const room = await chatRepository.findAllRoom()
   const chat = await chatRepository.findAllChat(user?.user_email);

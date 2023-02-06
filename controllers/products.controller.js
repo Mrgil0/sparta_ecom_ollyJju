@@ -18,8 +18,13 @@ class ProductController {
   }
 
   showAllProduct = async (req, res) => {
+    let {page} = req.body;
+    let offset = 0;
+    if(page > 0){
+      offset = (Number(page)-1)*5
+    }
     try {
-      const data = await this.productService.showAllProduct();
+      const data = await this.productService.showAllProduct(offset);
 
       res.status(200).json({ "data": data});
     } catch (error) {
