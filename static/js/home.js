@@ -12,6 +12,10 @@ function show_Product(page, text) {
     success: function (response) {
       let rows = response["data"];
 
+      if((text != '' || text != undefined) && page == 1){
+        $(document).scrollTop(0);
+      }
+
       for (let i = 0; i < rows.length; i++) {
         let productId = rows[i]["id"];
         let Image = rows[i]["productImage"];
@@ -75,3 +79,10 @@ $('#searchBtn').keyup(function(e){
     show_Product(page, searchText)
   }
 })
+
+function clickMenu(category){
+  page = 1;
+  searchText = category
+  $("#bestProduct").html('');
+  show_Product(page, category)
+}
