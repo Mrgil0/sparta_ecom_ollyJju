@@ -15,7 +15,7 @@ function show_Product() {
         let Image = rows[i]["productImage"];
         let nickname = rows[i]["productName"];
         let price = rows[i]["price"];
-        console.log(productId)
+
         let temp_html = `
                     <a href='/page/product_detail?id=${productId}'>
                       <div id="${productId}" class="row">
