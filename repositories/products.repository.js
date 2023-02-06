@@ -19,7 +19,6 @@ class ProductRepository {
           type: sequelize.QueryTypes.SELECT,
         }
       )
-      console.log(data);
 
       const returndata = data.map((data) => {
         const { id, productImage, productName, price, productInfo } = data;
@@ -39,6 +38,22 @@ class ProductRepository {
       throw error;
     }
   };
+
+  fincAllCategory = async () =>{
+    try {
+      const data = await sequelize.query(
+        `SELECT category From Products where id in (select id from Products group by category having count(category)>=1)`,
+        {
+          raw:true,
+          nest:true,
+          type: sequelize.QueryTypes.SELECT,
+        }
+      )
+      return data;
+    }catch (error) {
+      return false
+    }
+  }
 
   findOneProduct = async (productId) => {
     try {
