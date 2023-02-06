@@ -4,7 +4,7 @@ function toggleNav(){
 		$('.sideNav').css('opacity', '1');
 		$("#mySidenav").css('display', 'block');
 		$(".closeBtn").html('&times;')
-		$(".sideNav").css('background-color', 'rgb(255, 255, 255)')
+		$(".sideNav").css('background-color', 'rgb(140, 120, 96)')
 		navToggle = 1;
 	} else{
 		$('.sideNav').css('opacity', '0');
