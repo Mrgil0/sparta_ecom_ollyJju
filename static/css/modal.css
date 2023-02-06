@@ -9,7 +9,7 @@
 	align-items: center;
 	justify-content: center;
 	background: rgba(255, 255, 255, 0.25);
-	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 	backdrop-filter: blur(1.5px);
 	-webkit-backdrop-filter: blur(1.5px);
 	border-radius: 10px;
@@ -17,12 +17,12 @@
 }
 
 #modal .modal-window {
-	background: rgba(69, 139, 197, 0.70);
-	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	background: rgb(245, 237, 231);
+	box-shadow: 0 8px 32px 0 rgba(85, 83, 82, 0.37);
 	backdrop-filter: blur(13.5px);
 	-webkit-backdrop-filter: blur(13.5px);
 	border-radius: 10px;
-	border: 1px solid rgba(255, 255, 255, 0.18);
+	border: 1px solid rgba(0, 0, 0, 0.18);
 	width: 400px;
 	height: auto;
 	position: relative;
@@ -34,7 +34,7 @@
 	padding-left: 10px;
 	display: inline;
 	text-shadow: 1px 1px 2px gray;
-	color: white;
+	color: rgb(204, 197, 191);
 
 }
 
@@ -48,7 +48,7 @@
 	padding-right: 10px;
 	cursor: pointer;
 	text-shadow: 1px 1px 2px gray;
-	color: white;
+	color: rgb(199, 199, 199);
 }
 
 #modal .content {
@@ -57,11 +57,17 @@
 	text-align: center;
 }
 .modalClose{
+	margin-top: 10px;
 	padding: 5px 10px;
 	text-align: center;
 	border: 1px;
-	left : 42%
+	left : 42%;
+	background-color: rgb(245, 237, 231);
 }
 #modal h2{
-	color:#003399;
+	color:rgb(151, 135, 123);
+}
+
+p {
+	color:rgb(97, 93, 93)
 }

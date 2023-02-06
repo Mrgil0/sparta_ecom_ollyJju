@@ -9,7 +9,13 @@
 }
 body{
     background-color: rgb(245, 237, 231);
+    -ms-overflow-style: none;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 section{
     padding: 100px 14%;
 }

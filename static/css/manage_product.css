@@ -11,7 +11,14 @@
 body{
     /* background: white; */
     color: black;
+    -ms-overflow-style: none;
 }
+
+::-webkit-scrollbar {
+    display: none;
+    
+}
+
 section{
     /* padding: 150px 14%; */
     /* padding-top: 150px; */

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>장바구니</title>
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,30 +14,29 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.1/css/line.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer type="text/javascript" src="../js/cart.js"></script>
     <link rel="stylesheet" href="../css/cart.css" type="text/css">
     <link rel="stylesheet" href="../css/header.css" type="text/css">
     <link rel="stylesheet" href="../css/chatroom.css" type="text/css">
     <link rel="stylesheet" href="../css/sidebar.css" type="text/css">
-
 </head>
 
 <body>
     <%-include('component/header.ejs')%>
     <section class="cart-section" i="cart-section">
 
-        <div class="small-container cart-page">
+        <div class="small-container cart-page" id="product" >
 
             <table>
                 <tr>
-                    <th><input type='checkbox'/></th>
-                    <th>상품</th>
-                    <th>총 수량</th>
+                    <th><input type='checkbox' value="selectAll" onclick="selectAll(this)"/></th>
+                    <th><div id="pro">상품</div></th>
+                    <th><div id="ctnTotal">총 수량</div></th>
                     <th>총 상품 금액</th>
                 </tr>
-                <tr id="cart">
+                <!-- <tr id="cart">
                     <td>
                         <input type='checkbox' name='cart' value='상품의 가격' />
-                        <!-- onchange 상태 변화 체크로 체크가 되면 상품의 가격을 아래 총 가격에 더한다. -->
                     </td>
                     <td>
                         <div class="cart-info">
@@ -53,12 +52,12 @@
 
                     <td><input type="number" value="1"></td>
                     <td>50,000</td>
-                </tr>
+                </tr> -->
             </table>
         </div>
-        <div class="small-container cart-page total-price">
-
-            <table>
+        <div class="small-container cart-page total-price" id="productPrice">
+    
+            <!-- <table>
                 <tr>
                     <td>총 상품 가격</td>
                     <td>25,000</td>
@@ -76,7 +75,7 @@
                         <button type="button">구매하기</button>
                     </td>
                 </tr>
-            </table>
+            </table> -->
 
 
         </div>
