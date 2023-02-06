@@ -37,7 +37,7 @@ const upload = multer({
 /*       */
 
 
-
+router.get("/product", authmiddleware, adminConteroller.showAllProduct)
 router.post("/product", upload.single("productImage"), authmiddleware, adminConteroller.createProduct);
 router.patch("/product/:productId", authmiddleware, adminConteroller.updateProduct);
 router.delete("/product/:productId", authmiddleware, adminConteroller.deleteProduct);
