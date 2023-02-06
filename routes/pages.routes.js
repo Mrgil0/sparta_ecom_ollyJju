@@ -105,15 +105,23 @@ router.delete('/cartpagePro',authMiddleware, async (req, res) => {
 router.patch('/cartpagePro',authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
   const user_email = currentUser.user_email
-  const {addProductId} = req.body
-
-  console.log(addProductId)
+  const {addProductId, sumTotal} = req.body
+  const savePoint = Number(sumTotal) * 0.05
   
+
   try {
     for( let purchaseProduct of addProductId) {
       await cart.destroy({ where: { product_idx: purchaseProduct, user_email }  })
     }
+
+    const userInfo = await user.findByPk(currentUser.user_idx)
+    const currentPoint = userInfo.user_point 
     
+    const totalPoint = currentPoint + savePoint
+    
+    userInfo.user_point = totalPoint
+    await userInfo.save()
+  
     res.status(200).json({ message: '구입 완료' })
   } catch (error) {
     res.status(500).json({ message: error.message})

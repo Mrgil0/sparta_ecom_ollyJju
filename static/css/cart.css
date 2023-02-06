@@ -26,6 +26,11 @@ section{
 
 /* -----cart items------ */
 
+/* #exception {
+    color: black;
+    font-size: 15px;
+} */
+
 .cart-page{
     padding: 0;
     margin: 80px auto;

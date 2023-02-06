@@ -12,12 +12,11 @@ $(document).ready(function () {
         
         let rows = response["data"]
         let f = cartSum()
-        console.log('시작지점 합계입니다.:',cartSum())
         
         if (rows.length === 0) {
           alert('장바구니가 비었습니다.')
         }
-
+        
         for (let i = 0; i < rows.length; i++) {
           let proIdx = rows[i].product_idx
           let proIdx2 = rows[i].product_idx
@@ -26,7 +25,7 @@ $(document).ready(function () {
           let proPrice = rows[i].Product.price
           let proCount = rows[i].count
           let total = proPrice * proCount
-
+          
           let temp_html = `   
                             <table>
                               <tr>
@@ -37,12 +36,14 @@ $(document).ready(function () {
                                 <td>
                                   <div class="cart-info">
                                     <img src="/${proImage}">
+                                    
                                     <div>
                                       <p>${proName}</p>
                                       <small>가격: ${proPrice}원</small>
                                       <br>
                                       <a href="#" id=${proIdx} onclick="cartDelete_btn(this.id)">삭제</a> 
-                                    </div>     
+                                    </div>
+                                        
                                   </div>
                                 </td>
                                   <td><div id="cnt">${proCount} 개</div></td>
@@ -79,10 +80,11 @@ $(document).ready(function () {
     })
   }
   
-
+  // ●●●●●●●●●●●●●● 장바구니 부분 체크 ●●●●●●●●●●●●●●●●●●●●●
   function cartSum() {
     let addPrice = []
     addProductId = []
+    sumTotal = Number()
     let len = $("input[name='cart']:checked").length;
     let delivery = 0
 
@@ -102,7 +104,7 @@ $(document).ready(function () {
       sum += Number(addPrice[i])
     }
 
-    let sumTotal = sum
+    sumTotal = sum
     
     let addd = sumTotal + delivery
 
@@ -132,10 +134,10 @@ $(document).ready(function () {
     return sumTotal
   }
 
+  // ●●●●●●●●●●●●●● 장바구니 구입 ●●●●●●●●●●●●●●●●●●●●●
   function cartPurchase_btn() {
     addProductId
-    console.log('눌러졌다!')
-    console.log(addProductId)
+    sumTotal
 
     if (addProductId.length === 0) {
       return alert('구매할 상품을 체크해주세요.')
@@ -144,7 +146,10 @@ $(document).ready(function () {
     $.ajax({
       type: 'PATCH',           
       url: '/page/cartpagePro',    
-      data: { "addProductId": addProductId },
+      data: { 
+        "addProductId": addProductId,
+        "sumTotal": sumTotal
+      },
       success: function (response) { 
         alert(response['message'])
         window.location.reload()
@@ -154,7 +159,8 @@ $(document).ready(function () {
       }
     })
   }
-  
+
+  // ●●●●●●●●●●●●●● 장바구니 삭제 ●●●●●●●●●●●●●●●●●●●●●
   function cartDelete_btn(proIdx) {
     let proId = proIdx
     $.ajax({
@@ -169,4 +175,64 @@ $(document).ready(function () {
         alert('보내기 실패' + error)
       }
     })
+  }
+
+  // ●●●●●●●●●●●●●● 장바구니 전체 체크 ●●●●●●●●●●●●●●●●●●●●●
+  function selectAll(selectAll) {
+    const checkboxes = document.getElementsByName('cart')
+
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll.checked
+    }) 
+
+    let addPrice = []
+    addProductId = []
+    sumTotal = Number()
+    let len = $("input[name='cart']:checked").length;
+    let delivery = 0
+
+    if (len > 0) {
+      $("input[name='cart']:checked").each(function () {
+        division = $(this).val().split(',')
+        addPrice.push(division[0])
+        addProductId.push(division[1])
+        delivery = 2500
+      });
+    }
+
+    let sum = Number('')
+    
+    
+    for (i = 0; i < addPrice.length; i++) {
+      sum += Number(addPrice[i])
+    }
+
+    sumTotal = sum
+    
+    let addd = sumTotal + delivery
+
+    $('#testTable').remove();
+    let temp_html = `
+                          <table id="testTable">
+                            <tr>
+                              <td>총 상품 가격</td>
+                              <td>${sumTotal}원</td>
+                            </tr>
+                            <tr>
+                              <td>배송비</td>
+                              <td>${delivery}원</td>
+                            </tr>
+                            <tr>
+                              <td>총 주문 금액</td>
+                              <td>${addd}원</td> 
+                            </tr>
+                            <tr>
+                              <td>
+                                  <button type="button" onclick="cartPurchase_btn()">구매하기</button>
+                              </td>
+                            </tr>
+                          </table>
+                        `
+      $("#productPrice").append(temp_html)
+    return sumTotal
   }
