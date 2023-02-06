@@ -63,14 +63,14 @@
         socket.on('message', (data) =>{
             console.log("채팅")
             "<%if(user) {%>" 
-            "<%if(user.user_type == 'admin') {%>" 
+            if(data.chat_person != 'admin@admin.com') { 
             console.log('관리자가 받는 채팅'+ data);
             let msgLine = $("#admin"+data.room_key);
             let line = '<p>' + data.message + '</p>';
             let line2 = '<p style="font-size:8px">' + data.createdAt + '</p>';
             let msgBox = $('.me');
             msgLine.append(line + line2);
-            "<%} else { %>"
+            } else {
             console.log('고객이 받는 채팅'+ data);
             let guestMsgLine = $("#msgLine");
             let msgBox2 = $('.me');
@@ -81,7 +81,7 @@
             guestMsgLine.append(msgBox2);
             $('#guestChatView').append(guestMsgLine);
             $('#adminMsg').val('');
-            "<% } %>"
+            }
             "<% } %>"
 
         })
