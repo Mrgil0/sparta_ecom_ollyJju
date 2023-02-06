@@ -24,7 +24,7 @@ class AdminConteroller {
         productImage
       );
 
-      res.status(201).json({ message: true });     
+      return res.send({ message: true });     
     } catch (error) {
       res.status(error.status).json({ message: error.message });
     }
