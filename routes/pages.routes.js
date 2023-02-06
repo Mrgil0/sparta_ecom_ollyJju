@@ -15,7 +15,7 @@ const productController = new ProductController();
 //   res.render("./Hogyun");
 // });
 
-const { user, Product, cart } = require('../models')
+const { user, Product, cart, order } = require('../models')
 // const ChatRepository = require("../repositories/chats.repository");
 // ●●●●●●●●●●●●●●●●●●● 마이페이지 조회 ●●●●●●●●●●●●●●●●●●●
 router.get('/mypage', authMiddleware, async (req, res) => {
@@ -98,23 +98,30 @@ router.delete('/cartpagePro',authMiddleware, async (req, res) => {
 // ●●●●●●●●●●●●●●●●●●● 장바구니 구입 ●●●●●●●●●●●●●●●●●●●
 router.patch('/cartpagePro',authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
-  const user_email = currentUser.user_email
+  console.log('커런트 상태', currentUser)
+  const {user_idx, user_email, user_name, user_address} = currentUser
   const {addProductId, sumTotal} = req.body
   const savePoint = Number(sumTotal) * 0.05
-  
 
   try {
     for( let purchaseProduct of addProductId) {
       await cart.destroy({ where: { product_idx: purchaseProduct, user_email }  })
     }
 
-    const userInfo = await user.findByPk(currentUser.user_idx)
+    const userInfo = await user.findByPk(user_idx)
     const currentPoint = userInfo.user_point 
     
     const totalPoint = currentPoint + savePoint
     
     userInfo.user_point = totalPoint
     await userInfo.save()
+
+    const order_address = user_address
+    const order_status = '배송 준비 중'
+    const receiver_name = user_name
+
+    await order.create({user_idx, order_address, order_status, receiver_name, receiver_phone})
+
   
     res.status(200).json({ message: '구입 완료' })
   } catch (error) {

@@ -36,14 +36,14 @@ $(document).ready(function () {
                                 <td>
                                   <div class="cart-info">
                                     <img src="/${proImage}">
-                                    
+                                    <a href="#" class="exception">
                                     <div>
                                       <p>${proName}</p>
                                       <small>가격: ${proPrice}원</small>
                                       <br>
                                       <a href="#" id=${proIdx} onclick="cartDelete_btn(this.id)">삭제</a> 
                                     </div>
-                                        
+                                    </a>     
                                   </div>
                                 </td>
                                   <td><div id="cnt">${proCount} 개</div></td>

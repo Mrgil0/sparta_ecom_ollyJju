@@ -25,11 +25,10 @@ section{
 }
 
 /* -----cart items------ */
-
-/* #exception {
+.exception {
     color: black;
     font-size: 15px;
-} */
+}
 
 .cart-page{
     padding: 0;
