@@ -9,11 +9,14 @@
 }
 
 body{
-    background: white;
+    /* background: white; */
     color: black;
 }
 section{
-    padding: 100px 14%;
+    /* padding: 150px 14%; */
+    /* padding-top: 150px; */
+    padding: 150px 14% 150px 14%;
+    background-color: rgb(245, 237, 231);
 }
 .home{
     min-height: 100vh;
@@ -29,8 +32,221 @@ section{
     cursor: default;
 }
 
+.page-header {
+    background-color: rgb(245, 237, 231);
+    /* border: 1px solid black; */
+}
+
+.page-header h2 {
+    padding-top: 50px;
+}
+
+.image-upload {
+    width: 900px;
+    height: 40px;
+    margin: 0px -50px 100px -50px;
+}
+
+form {
+    width: 96%;
+    height: 100%;
+    margin: auto;
+    padding: 20px;
+}
+
+form>p {
+    padding: 10px 5px;
+    font-size: 25px;
+    margin: 20px auto;
+}
+
+form div {
+    height: 60px;
+    margin: 20px auto;
+    padding: 5px;
+}
+
+form .pr {
+    height: 110px;
+}
+
+form div label {
+    background: rgb(255, 255, 255);
+    display: block;
+    padding: 12px;
+    border-radius: 4px;
+    width: 90%;
+    line-height: 25px;
+    border: 2px solid rgb(178, 178, 178);
+    position: relative;
+}
+
+form div label:before {
+    position: absolute;
+    content: "찾기";
+    right: -2px;
+    top: -2px;
+    width: 100px;
+    height: 107%;
+    line-height: 50px;
+    background: pink;
+    text-align: center;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.upload-btn {
+    margin: 10px;
+    padding: 12px 18px;
+    color: white;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    background: pink;
+    cursor: pointer;
+}
+
+.contact {
+    border-bottom: solid 2px;
+}
+
+.title {
+    margin-top: -250px;
+}
+
+.contact, .contact2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.contact .contactForm,
+.contact2 .contactForm {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin-top: 20px;
+}
+
+.contact .contactForm .row,
+.contact2 .contactForm .row {
+
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    margin-top: 20px;
+}
+
+.contact .contactForm .row2,
+.contact2 .contactForm .row2 {
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.contact .contactForm .row input,
+.contact2 .contactForm .row input,
+.contact2 .contactForm .row2 textarea,
+.contact .contactForm .row2 textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    outline: none;
+    background: white;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+.contact .contactForm .row2 textarea,
+.contact2 .contactForm .row2 textarea {
+
+    resize: none;
+    height: 200px;
+}
+
+::placeholder {
+    color: black;
+}
+
+.contact .contactForm .row2 input[type="submit"],
+.contact2 .contactForm .row2 input[type="submit"] {
+
+    background-color: rgb(243, 218, 199);
+    color: black;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 80px;
+    height: 45px;
+    cursor: pointer;
+}
+.contact2 .contactForm .row2 input[type="submit"] {
+    margin-right: 10px;
+}
+.contact .contactForm .row2 input[type="submit"]:hover,
+.contact2 .contactForm .row2 input[type="submit"]:hover {
+    background: black;
+    color: white;
+}
+
 header.sticky{
     background: rgb(245, 237, 231);
     padding: 14px 14%;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+}
+
+.box {
+    padding: 10px;
+    border: solid 3px;
+    margin-bottom: 10px;
+    border-radius: 10%;
+}
+
+.product_content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.title1 {
+    padding-top: 10%;
+    font-size: 1.4rem;
+    background-color: rgb(245, 237, 231);
+}
+
+.product_input {
+    border-radius: 10px;
+}
+
+#image_tag {
+    background-color: rgb(245, 237, 231);
+}
+
+.btn {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 5px;
+    border: solid 1px;
+    background-color: rgb(240, 224, 211);
+}
+
+#create {
+    margin-right: 7%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    width: 70px;
+}
+
+.input {
+
 }

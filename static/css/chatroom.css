@@ -4,7 +4,7 @@
   bottom:0px;
   height: auto;
   width: auto;
-  background-color: ivory;
+  background-color: rgb(245, 237, 231);
   z-index:999;
   border:1px solid black;
 }
@@ -30,9 +30,11 @@
 }
 #chatBox{
   display:none;
+  width:200px;
 }
 #chatHead{
   display:flex;
+  
 }
 #chatHead h3{
   text-align: center;
@@ -41,6 +43,13 @@
 }
 .adminMsgLine p{
   text-align: right;
+}
+.adminMsgLine{
+  overflow: auto;
+}
+.me{
+  overflow: auto;
+  height:400px;
 }
 .meChat p{
   text-align: right;

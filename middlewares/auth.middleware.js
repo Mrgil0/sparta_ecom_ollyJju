@@ -8,13 +8,10 @@ module.exports = (req, res, next) => {
   const accessToken = req.cookies.accessToken;
   const refreshToken = req.cookies.refreshToken;
 
-  console.log(req.cookies)
+  console.log('액세스 토큰' + accessToken)
 
-  console.log('액세스 토큰'+accessToken.length)
-  console.log('!액세스 토큰' + (accessToken === 'false'))
-
-  if (refreshToken === 'false') next();
-  if (accessToken === 'false') next();
+  if (!refreshToken) return next();
+  if (!accessToken) return next();
 
   const isAccessTokenValidate = validateAccessToken(accessToken);
   const isRefreshTokenValidate = validateRefreshToken(refreshToken);
@@ -35,7 +32,8 @@ module.exports = (req, res, next) => {
   try {
     user.findOne({
       attributes: ['user_idx', 'user_email', 'user_name', 'user_address', 'user_type', 'user_point'],
-      where: {user_email: user_email}
+      where: {user_email: user_email},
+      raw: true
     }).then((loginUser) => {
       res.locals.user = loginUser;
       next();

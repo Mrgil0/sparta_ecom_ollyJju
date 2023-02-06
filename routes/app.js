@@ -6,16 +6,8 @@ require("dotenv").config();
 const env = process.env;
 const authMiddleware = require("../middlewares/auth.middleware");
 const ChatRepository = require("../repositories/chats.repository");
-
-// const io = require('socket.io')(env.socket_port, {
-//   cors: {
-//     origin: true,
-//     methods: ["GET", "POST"],
-// 		transports: ['websocket', 'polling'],
-// 		credentials: true
-//   },
-// 	allowEIO3: true
-// });
+const chatRepository = new ChatRepository();
+const path = require("path")
 
 const cookies = require("cookie-parser");
 const cors = require("cors");
@@ -28,24 +20,37 @@ const admin = require("./admin.routes");
 // const my_pageRouter = require('./my_page')
 
 /* ejs */
-app.use(express.static("static"));
+app.use(express.static(path.join(__dirname, "../static")));
 app.use("/images", express.static("images"));
 app.set("view engine", "ejs");
 app.set("views", "./static/views");
 
+console.log(__dirname)
 /* middleware */
 app.use(cookies());
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+const ProductRepository = require("../repositories/products.repository");
+const productRepository = new ProductRepository();
 
 app.get("/home", authMiddleware, async (req, res) => {
-  const chatRepository = new ChatRepository();
-  const user = res.locals.user;
+  const user = await res.locals.user;
   const room = await chatRepository.findAllRoom()
   const chat = await chatRepository.findAllChat(user?.user_email);
-  res.render("home", { user: user, room: room, chat: chat });
+  const category = await productRepository.fincAllCategory();
+  res.render("home", { user: user, room: room, chat: chat, category: category });
+});
+
+app.get("/manage_product", authMiddleware, async (req, res) => {
+  const user = res.locals.user;
+  res.render("manage_product", {user : user});
+});
+
+app.get("/manage_user", authMiddleware, async (req, res) => {
+  const user = res.locals.user;
+  res.render("manage_user", {user : user});
 });
 
 /* router */

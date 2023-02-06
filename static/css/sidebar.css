@@ -7,7 +7,7 @@ body {
     width: 200px;
     position: fixed;
     z-index: 999;
-    opacity: 0;
+    /* opacity: 0; */
     top: 0;
     left: 0;
     background-color: rgb(245, 237, 231);

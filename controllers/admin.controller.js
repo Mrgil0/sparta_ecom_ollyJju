@@ -3,36 +3,69 @@ const AdminService = require("../services/admin.service");
 class AdminConteroller {
   adminService = new AdminService();
 
-  createProduct = async (req, res) => {
-    const { productName, productInfo, price } = req.body;
-    const productImage = req.file.path;
-    console.log(productImage);
-    
-    await this.adminService.createProduct(
-      productName,
-      productInfo,
-      price,
-      productImage
-    );
+  createProduct = async (req, res, next) => {
+    try {
+      const { productName, productInfo, price, category } = req.body;
+      const file = req.file;
 
-    res.status(201).json({ message: "상품 등록 완료 !" });
+      if (!productName || !productInfo || !price || !file) {
+        const error = new Error();
+        error.status = 412;
+        error.message = "모든 항목을 입력해 주세요 !";
+        throw error;
+      }
+
+      const productImage = file.path;
+
+      await this.adminService.createProduct(
+        productName,
+        productInfo,
+        price,
+        productImage,
+        category
+      );
+
+      return res.send({ message: true });     
+    } catch (error) {
+      res.status(error.status).json({ message: error.message });
+    }
   };
 
   updateProduct = async (req, res) => {
-    const { productId } = req.params;
-    const { productName, productInfo, price } = req.body;
+    try {
+      const { productId } = req.params;
+      const { productName, productInfo, price }  = req.body;
+      console.log(productId, productName, productInfo, price);
+      if (!productName || !productInfo || !price) {
+        const error = new Error();
+        error.status = 412;
+        error.message = "모든 항목을 입력해 주세요 !";
+        throw error;
+      }
 
-    await this.adminService.updateProduct(productId, productName, productInfo, price);
+      await this.adminService.updateProduct(
+        productId,
+        productName,
+        productInfo,
+        price
+      );
 
-    res.status(200).json({ message: "상품 수정 완료 !" });
-  }
+      res.status(200).json({ message: "상품 수정 완료 !" });
+    } catch (error) {
+      res.status(error.status).json({ message: error.message });
+    }
+  };
 
   deleteProduct = async (req, res) => {
-    const { productId } = req.params;
+    try {
+      const { productId } = req.params;
 
-    await this.adminService.deleteProduct(productId);
+      await this.adminService.deleteProduct(productId);
 
-    res.status(200).json({ message: "상품 삭제 완료 !" });
+      res.status(200).json({ message: "상품 삭제 완료 !" });
+    } catch (error) {
+      res.status(error.status).json({ message: error.message });
+    }
   };
 }
 

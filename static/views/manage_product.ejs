@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet" />
+    <!-- icon -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.1/css/line.css" />
+    <!-- JQUERY-->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <link rel="stylesheet" href="./css/manage_product.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/chatroom.css" type="text/css">
+    <link rel="stylesheet" href="./css/sidebar.css" type="text/css">
+    <link href="./css/modal.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <%-include('component/header.ejs')%>
+    <section class="page-header">
+        <h2>관리자</h2>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="title">
+            <h2>상품 등록</h2>
+        </div>
+        <div class="contactForm">
+            <div class="row">
+                <input class="input" id="name" type="text" name="" placeholder="이름">
+                <input class="input" id="category" type="text" name="" placeholder="카테고리">
+                <input class="input" id="price" type="text" name="" placeholder="가격">
+            </div>
+            <div class="row2">
+                <textarea id="content" placeholder="내용"></textarea>
+            </div>
+            <div class="image-upload">
+                 <form method="post" id="image_tag" action="" autocomplete="off" enctype="multipart/form-data">
+                    <div>
+                        <input type="file" id="chooseFile" name="chooseFile" style="display: none;">
+                        <label for="chooseFile">이미지 가져오기</label> 
+                    </div>
+                    <button class="upload-btn" type="button" onclick="create_product()"><span>&#8682; Upload</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="product_content">
+        <div class="title1">
+            <h2>상품 목록</h2>
+        </div>
+        <section class="contact2" id="contact">
+            <div id="contactForm" class="contactForm">
+   
+            </div>
+        </section>
+    </div>
+    <%-include('component/modal.ejs')%>
+    <script type="text/javascript" src="../js/modal.js"></script>
+    <script src="./js/admin.js"></script>
+    <script src="./js/sticky-bar.js"></script>
+</body>
+
+</html>

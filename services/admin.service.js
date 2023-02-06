@@ -3,28 +3,46 @@ const AdminRepository = require("../repositories/admin.repository");
 class AdminService {
   adminRepository = new AdminRepository();
 
-  createProduct = async (productName, productInfo, price, productImage) => {
-    await this.adminRepository.createProduct(
-      productName,
-      productInfo,
-      price,
-      productImage,
-    );
+  createProduct = async (productName, productInfo, price, productImage, category) => {
+    try {
+      await this.adminRepository.createProduct(
+        productName,
+        productInfo,
+        price,
+        productImage,
+        category
+      );
 
-    return
+      return;
+    } catch (error) {
+      throw error;
+    }
   };
 
   updateProduct = async (productId, productName, productInfo, price) => {
-    await this.adminRepository.updateProduct(productId, productName, productInfo, price);
+    try {
+      await this.adminRepository.updateProduct(
+        productId,
+        productName,
+        productInfo,
+        price
+      );
 
-    return
-  }
+      return;
+    } catch (error) {
+      throw error;
+    }
+  };
 
   deleteProduct = async (productId) => {
-    await this.adminRepository.deleteProduct(productId);
+    try {
+      await this.adminRepository.deleteProduct(productId);
 
-    return
-  }
+      return;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = AdminService;

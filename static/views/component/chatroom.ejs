@@ -35,7 +35,7 @@
 		<div id="guestChatView">
 			<div class="msgLine">
 				<div class="me">
-					<%if (chat != null) { %>
+					<%if (chat == '') { %>
 						<% for (const chatList of chat) { %>
 							<% if (chatList.chat_person == user.user_email) { %>
 							<div class="meChat">

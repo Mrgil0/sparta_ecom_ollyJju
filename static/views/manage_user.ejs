@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet" />
+    <!-- icon -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.1/css/line.css" />
+    <!-- JQUERY-->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="./css/admin_page.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/chatroom.css" type="text/css">
+    <link rel="stylesheet" href="./css/sidebar.css" type="text/css">
+    <link rel="stylesheet" href="./css/manage_user.css">
+</head>
+
+<body>
+    <%-include('./component/header.ejs')%>
+    <section class="page-header">
+        <h2>유저</h2>
+    </section>
+    
+    
+    <section class="user-table">
+        <table>
+            <caption>유저 관리</caption>
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                    <th>이메일</th>
+                    <th>수정</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>변정민</td>
+                    <td>010-1234-5678</td>
+                    <td>admin@admin.com</td>
+                    <td>
+                        <button class="view">수정</button>
+                        <button class="delete">탈퇴</button>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td>길재형</td>
+                    <td>010-0000-0000</td>
+                    <td>admin@admin.com</td>
+                    <td>
+                        <button class="view">수정</button>
+                        <button class="delete">탈퇴</button>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td>이호균</td>
+                    <td>010-1234-1234</td>
+                    <td>admin@admin.com</td>
+                    <td>
+                        <button class="view">수정</button>
+                        <button class="delete">탈퇴</button>
+                    </td>
+                </tr>
+    
+            </tbody>
+            <tfoot>
+                <td colspan="5" class="tablefoot"></td>
+            </tfoot>
+        </table>
+    </section>
+    <script src="./js/sticky-bar.js" type="text/javascript"></script>
+    <script src="./js/admin.js"></script>
+</body>
+
+</html>

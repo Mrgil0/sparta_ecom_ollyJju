@@ -26,7 +26,9 @@ function show_Product_detail() {
 
                 </div>
                 <div class="col-2">
+                    <div>상품이름</div>
                     <h1>${name}</h1>
+                    <div>가격</div>
                     <h4>${price}</h4>
 
                     <select>

@@ -3,9 +3,9 @@ const ProductRepository = require("../repositories/products.repository");
 class ProductService {
   productRepository = new ProductRepository();
 
-  showNewProduct = async () => {
+  showAllProduct = async (page) => {
     try {
-      const data = await this.productRepository.showNewProduct();
+      const data = await this.productRepository.showAllProduct(page);
 
       return data;
     } catch (error) {

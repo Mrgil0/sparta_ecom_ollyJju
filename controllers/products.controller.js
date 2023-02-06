@@ -6,6 +6,8 @@ let product = {}
 
 class ProductController {
 
+  productService = new ProductService();
+
   productMiddleware = async (req, res, next) => {
     if (!product) {
       res.locals.product = false;
@@ -16,11 +18,14 @@ class ProductController {
     next()
   }
 
-  productService = new ProductService();
-
-  showNewProduct = async (req, res) => {
+  showAllProduct = async (req, res) => {
+    let {page} = req.body;
+    let offset = 0;
+    if(page > 0){
+      offset = (Number(page)-1)*5
+    }
     try {
-      const data = await this.productService.showNewProduct();
+      const data = await this.productService.showAllProduct(offset);
 
       res.status(200).json({ "data": data});
     } catch (error) {
@@ -57,10 +62,8 @@ class ProductController {
         const cartDB = await cart.create({ product_idx, user_email ,count })
         console.log(cartDB)
       } else {
-        console.log('이게 찍혀야지?')
         return res.status(201).json({ message: '이미 장바구니에 담겨있는 상품입니다.'})
       }
-      console.log('이것도 찍히나? 찍혀야지?')
       if (dbproductId === undefined) {
         res.status(412).json({ message: "해당하는 상품이 존재하지 않습니다." });
       }
