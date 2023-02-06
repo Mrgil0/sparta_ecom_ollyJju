@@ -8,13 +8,10 @@ module.exports = (req, res, next) => {
   const accessToken = req.cookies.accessToken;
   const refreshToken = req.cookies.refreshToken;
 
-  console.log(req.cookies)
+  console.log('액세스 토큰' + accessToken)
 
-  console.log('액세스 토큰'+accessToken.length)
-  console.log('!액세스 토큰' + (accessToken === 'false'))
-
-  if (refreshToken === 'false') next();
-  if (accessToken === 'false') next();
+  if (!refreshToken) return next();
+  if (!accessToken) return next();
 
   const isAccessTokenValidate = validateAccessToken(accessToken);
   const isRefreshTokenValidate = validateRefreshToken(refreshToken);

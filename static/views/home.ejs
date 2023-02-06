@@ -60,30 +60,47 @@
     <script src="../js/sidebar.js" type="text/javascript"></script>
     <script>
         let socket = io.connect('ws://localhost:3001')
-        socket.on('guest_message', (data) =>{
+        socket.on('message', (data) =>{
+            console.log("채팅")
+            "<%if(user) {%>" 
+            if(data.chat_person != 'admin@admin.com') { 
             console.log('관리자가 받는 채팅'+ data);
             let msgLine = $("#admin"+data.room_key);
             let line = '<p>' + data.message + '</p>';
             let line2 = '<p style="font-size:8px">' + data.createdAt + '</p>';
             let msgBox = $('.me');
             msgLine.append(line + line2);
-        })
-        socket.on('admin_message', (data) =>{
+            } else {
             console.log('고객이 받는 채팅'+ data);
             let guestMsgLine = $("#msgLine");
-            let msgBox = $('.me');
-            let line = '<p>' + data.message + '</p>';
-            let line2 = '<p style="font-size:8px">' + data.createdAt + '</p>';
-            msgBox.append(line);
-            msgBox.append(line2);
-            guestMsgLine.append(msgBox);
+            let msgBox2 = $('.me');
+            let line3 = '<p>' + data.message + '</p>';
+            let line4 = '<p style="font-size:8px">' + data.createdAt + '</p>';
+            msgBox2.append(line3);
+            msgBox2.append(line4);
+            guestMsgLine.append(msgBox2);
             $('#guestChatView').append(guestMsgLine);
             $('#adminMsg').val('');
+            }
+            "<% } %>"
+
         })
+        // socket.on('message', (data) =>{
+        //     console.log('고객이 받는 채팅'+ data);
+        //     let guestMsgLine = $("#msgLine");
+        //     let msgBox = $('.me');
+        //     let line = '<p>' + data.message + '</p>';
+        //     let line2 = '<p style="font-size:8px">' + data.createdAt + '</p>';
+        //     msgBox.append(line);
+        //     msgBox.append(line2);
+        //     guestMsgLine.append(msgBox);
+        //     $('#guestChatView').append(guestMsgLine);
+        //     $('#adminMsg').val('');
+        // })
         $('#msg').keyup(function(event){
             if(event.which == 13){
                 "<%if(user) {%>" 
-                socket.emit('guest_chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val()});
+                socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val(),room_key: ''});
                 let msgLine = $('.msgLine');
 				let msgBox = $('.me');
 
@@ -102,7 +119,8 @@
             if(e.which == 13){
                 let adminClass = $(this).attr('class')
                 "<%if(user) {%>" 
-                socket.emit('admin_chat_message', {user_key: "<%-(user.user_email)%>", message: $('#adminMsg').val(), room_key: adminClass});
+                socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#adminMsg').val(), 
+                                                    room_key: adminClass});
                 let msgLine = $("#admin"+adminClass);
 
                 let msg = '<p>' + $('#adminMsg').val() + '</p>';

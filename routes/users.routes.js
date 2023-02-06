@@ -29,8 +29,8 @@ router.get("/cart", authMiddleware, async (req, res) => {
 })
 
 router.get("/logout", authMiddleware, (req, res) => {
-  res.cookie("accessToken", false);
-  res.cookie("refreshToken", false);
+  res.cookie("accessToken", '');
+  res.cookie("refreshToken", '');
   console.log("res.cookie : " + res.cookie);
   res.render("home", { user: null, room: null, chat: null });
 });
