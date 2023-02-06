@@ -31,39 +31,6 @@ header.sticky{
     padding-top: 50px;
 }
 
-/* .admin-wrapper{
-    background-color: green;
-    display: flex;
-}
-
-.admin-wrapper .left-sidebar{
-    flex: 2;
-    height: 100%;
-    background: red;
-
-}
-.admin-wrapper .admin-content{
-    flex: 8;
-    height: 100%;
-    padding: 40px 100px 100px;
-    overflow-y: scroll;
-}
-.admin-content .page-title{
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-table{
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 1.1rem;
-}
-th, 
-td{
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid green;
-} */
-
 .image-upload {
     width: 900px;
     height: 60px;
