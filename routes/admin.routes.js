@@ -49,7 +49,7 @@ router.get("/users", authmiddleware, async (req, res) => {
       where: {user_type: "guest"}
     })
 
-    res.json({users});
+    res.status(200).json({users});
   } else {
     res.status(403).json({message: "관리자만 접근 가능한 페이지 입니다."});
   }
