@@ -12,7 +12,6 @@ function show_Product() {
         console.log(rows)
       for (let i = 0; i < rows.length; i++) {
         let productId = rows[i]["id"];
-        let Image = rows[i]["productImage"];
         let nickname = rows[i]["productName"];
         let price = rows[i]["price"];
         let Info = rows[i]["productInfo"];
