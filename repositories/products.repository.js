@@ -1,12 +1,25 @@
 
 const { Product } = require("../models");
+const Sequelize = require('sequelize');
+require("dotenv").config();
+const env = process.env;
+const sequelize = new Sequelize("olly_jju", "rooyt", env.password,{
+    host: env.host,
+    dialect: "mysql",
+});
 
 class ProductRepository {
-  showAllProduct = async () => {
+  showAllProduct = async (page) => {
     try {
-      const data = await Product.findAll({
-        order: [["createdAt", "DESC"]],
-      });
+      const data = await sequelize.query(
+        `SELECT id, productImage, productName, productInfo, price, category From Products ORDER BY createdAt DESC LIMIT `+ Number(page) + `, 5`,
+        {
+          raw:true,
+          nest:true,
+          type: sequelize.QueryTypes.SELECT,
+        }
+      )
+      console.log(data);
 
       const returndata = data.map((data) => {
         const { id, productImage, productName, price, productInfo } = data;
