@@ -61,7 +61,6 @@ router.post("/chat", async (req, res) => {
   const { email_give } = req.body;
 
   const chat = await chatRepository.findUserChat(email_give);
-  
   res.status(200).json({ message: chat });
 })
 
