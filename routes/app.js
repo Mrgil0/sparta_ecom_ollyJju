@@ -23,8 +23,9 @@ const admin = require("./admin.routes");
 app.use(express.static(path.join(__dirname, "../static")));
 app.use("/images", express.static("images"));
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "../static/views"));
+app.set("views", "./static/views");
 
+console.log(__dirname)
 /* middleware */
 app.use(cookies());
 app.use(express.json());

@@ -36,15 +36,7 @@ const upload = multer({
 });
 /*       */
 
-router.get("/manage_product", authmiddleware, async (req, res) => {
-  const user = res.locals.user;
-  res.render("manage_product", {user : user});
-});
 
-router.get("/manage_user", authmiddleware, async (req, res) => {
-  const user = res.locals.user;
-  res.render("/admin/manage_user", {user : user});
-});
 
 router.post("/product", upload.single("productImage"), authmiddleware, adminConteroller.createProduct);
 router.patch("/product/:productId", authmiddleware, adminConteroller.updateProduct);
