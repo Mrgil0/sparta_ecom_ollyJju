@@ -11,6 +11,8 @@ $(document).ready(function () {
       success: function (response) {
         
         let rows = response["data"]
+        let f = cartSum()
+        console.log('으아ㅏㅏㅏㅏㅏ',cartSum())
         
         if (rows.length === 0) {
           alert('장바구니가 비었습니다.')
@@ -30,7 +32,7 @@ $(document).ready(function () {
                               
                               <tr id="cart">
                                 <td>
-                                  <input type='checkbox' name='cart' value=${proPrice} onclick='cartSum(this)'/>
+                                  <input type='checkbox' name='cart' value=${total} onclick='cartSum()'/>
                                   <!-- onchange 상태 변화 체크로 체크가 되면 상품의 가격을 아래 총 가격에 더한다. -->
                                 </td>
                                 <td>
@@ -51,13 +53,12 @@ $(document).ready(function () {
                           `;
           $("#product").append(temp_html)
         }
-
         
         let temp_html = `
                           <table>
                             <tr>
                               <td>총 상품 가격</td>
-                              <td>0</td>
+                              <td>${f}</td>
                             </tr>
                             <tr>
                               <td>배송비</td>
@@ -78,17 +79,28 @@ $(document).ready(function () {
       }
     })
   }
-
-  // function cartSum(this) {
-  //   let result = ''
-  //   if(this.target.checked) {
-  //     result = this.target.value
-  //   } else {
-  //     result = ''
-  //   }
-    
-  // }
   
+
+  function cartSum() {
+    let To = []
+    let len = $("input[name='cart']:checked").length;
+    if (len > 0) {
+      //개수를 체크하고 2개부터는 each함수를 통해 각각 가져온다.
+      $("input[name='cart']:checked").each(function (e) {
+        To.push($(this).val())
+        // console.log($(this).val());
+      });
+    }
+    console.log(To)
+    let sum = Number('')
+    for (i = 0; i < To.length; i++) {
+      sum += Number(To[i])
+    }
+
+    let sumTotal = sum
+    console.log('합계는:', sumTotal)
+    return sumTotal
+  }
 
   function cartPurchase_btn(proIdx2) {
     let proId = proIdx2
