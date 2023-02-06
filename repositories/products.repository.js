@@ -55,10 +55,26 @@ class ProductRepository {
     return data;
   }
 
-  fincAllCategory = async () =>{
+  findAllCategory = async () =>{
     try {
       const data = await sequelize.query(
         `SELECT category From Products where id in (select id from Products group by category having count(category)>=1)`,
+        {
+          raw:true,
+          nest:true,
+          type: sequelize.QueryTypes.SELECT,
+        }
+      )
+      return data;
+    }catch (error) {
+      return false
+    }
+  }
+  findTodayPick = async () =>{
+    try {
+      const data = await sequelize.query(
+        `SELECT id, productImage, productName, productInfo, price, category 
+        From Products ORDER BY rand() LIMIT 3`,
         {
           raw:true,
           nest:true,
