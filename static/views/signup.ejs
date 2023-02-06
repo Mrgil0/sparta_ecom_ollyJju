@@ -89,10 +89,10 @@
             data : {'email_give': user_email, 'pw_give': password, 'name_give': user_name, 'phone_give': user_phone, 'address_give':user_address},
             success : function (response){
                 let result = response['msg']
-                console.log(result)
-                if(result === true && category === 'guest'){
+
+                if(result === true){
                     refresh = 1
-                    url = '/login'
+                    url = '/users/signin'
                     modalOpen('회원가입 완료\n1000000포인트가 적립되었습니다.')
                 } else{
                     modalOpen('회원가입 실패')
