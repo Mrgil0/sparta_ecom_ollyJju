@@ -31,20 +31,26 @@ io.on("connection", (socket) =>{
 		socket.join(enterUser.room_key);
 		console.log('방 생성')
 	})
-
-	socket.on('admin_chat_message', async (data) =>{
+	// socket.on('guest_chat_message', async (data) =>{
+	// 	let { message, user_key} = data;
+	// 	const enterUser = await room.findOne({
+	// 		where: {user_key: user_key}
+	// 	})
+	// 	const newChat = await chat.create({room_key: enterUser.room_key, chat_person: user_key, message: message, check:0})
+	// 	io.to(enterUser.room_key).emit('message', newChat)
+	// })
+	socket.on('chat_message', async (data) =>{
 		let { message, user_key, room_key } = data;
-		const newChat = await chat.create({room_key: room_key, chat_person: user_key, message: message, check:0})
-		console.log('채팅내역 :' + newChat.room_key)
-		io.to(newChat.room_key).emit('admin_message', newChat)
-	})
-	socket.on('guest_chat_message', async (data) =>{
-		let { message, user_key} = data;
-		const enterUser = await room.findOne({
-			where: {user_key: user_key}
-		})
-		const newChat = await chat.create({room_key: enterUser.room_key, chat_person: user_key, message: message, check:0})
-		io.to(enterUser.room_key).emit('guest_message', newChat)
+		let newChat = []
+		if(user_key === 'admin@admin.com'){
+			newChat = await chat.create({room_key: room_key, chat_person: user_key, message: message, check:0})
+		} else{
+			const enterUser = await room.findOne({
+				where: {user_key: user_key}
+			})
+			newChat = await chat.create({room_key: enterUser.room_key, chat_person: user_key, message: message, check:0})
+		}
+		io.to(newChat.room_key).emit('message', newChat)
 	})
 
 	socket.on('send_msg', function(data){
