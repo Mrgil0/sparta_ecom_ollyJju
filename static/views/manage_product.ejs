@@ -19,11 +19,12 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/chatroom.css" type="text/css">
     <link rel="stylesheet" href="/css/sidebar.css" type="text/css">
+    <link href="/css/modal.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
-    <%-include('../component/header.ejs')%>
+    <%-include('/component/header.ejs')%>
     <section class="page-header">
         <h2>관리자</h2>
     </section>
@@ -63,6 +64,8 @@
             </div>
         </section>
     </div>
+    <%-include('/component/modal.ejs')%>
+    <script type="text/javascript" src="../js/modal.js"></script>
     <script src="/js/admin.js"></script>
     <script src="/js/sticky-bar.js"></script>
 </body>

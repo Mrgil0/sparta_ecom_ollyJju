@@ -29,8 +29,8 @@ function show_Product() {
                     <textarea id="Info1" class="proAduct_input" placeholder="${Info}"></textarea>
                 </div>
                 <div class="row2">
-                    <input onclick="update_product(${productId})" type="submit" value="수정" class="btn">
-                    <input type="submit" value="삭제" class="btn">
+                    <input onclick="update_product(${productId})" type="text" value="수정" class="btn">
+                    <input type="text" value="삭제" class="btn">
                 </div>
             </div>
         `;
@@ -62,21 +62,23 @@ function create_product() {
     contentType: false,
     data: formData,
     success: function (response) {
-      window.location.href("/page/manage_product");
+        if(response["message"] === true) {
+            modalOpen("상품 등록 성공 !");
+        }
     },
   });
 }
 
 function update_product(productId) {
-        const name = $("#name1").val()
-        const Info = $("#Info1").val()
-        const price = $("#price1").val()
+        const name = $("#name1").val();
+        const Info = $("#Info1").val();
+        const price = $("#price1").val();
         console.log(name, Info, price)
-        // const data = {
-        //     productName: name,
-        //     productInfo: Info,
-        //     productprice: price
-        // }
+        const data = {
+            productName: name,
+            productInfo: Info,
+            price: price
+        }
         console.log(data)
     // const name = $("#name").val();
     // const Info = $("#content").val();
