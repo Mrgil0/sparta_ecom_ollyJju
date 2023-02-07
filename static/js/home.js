@@ -1,9 +1,11 @@
 let page = 0;
+let searchText = '';
+
 $(document).ready(function () {
   page = 1
   show_Product(1, '');
 });
-let searchText = '';
+
 function show_Product(page, text) {
   $.ajax({
     type: "POST",
@@ -17,23 +19,16 @@ function show_Product(page, text) {
       }
 
       for (let i = 0; i < rows.length; i++) {
-        let productId = rows[i]["id"];
-        let Image = rows[i]["productImage"];
-        let nickname = rows[i]["productName"];
-        let price = rows[i]["price"];
-
         let temp_html = `
-                  <a href='/product_detail?id=${productId}'>
-                    <div class="row">
-                        <img src="/${Image}">
-                        <div class="fea-text">
-                            <h5>${nickname}</h5>
-                            <p>${price}</p>
-                        </div>
-                    </div>
-                  </a>
-                `;
-
+          <a href='/product_detail?id=${rows[i]["id"]}'>
+            <div class="row">
+              <img src="/${rows[i]["productImage"]}">
+              <div class="fea-text">
+                <h5>${rows[i]["productName"]}</h5>
+                <p>${rows[i]["price"]}</p>
+              </div>
+            </div>
+          </a>`;
         $("#bestProduct").append(temp_html);
         $('#targetBox').css('display', 'block')
       }

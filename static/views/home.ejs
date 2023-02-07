@@ -49,26 +49,19 @@
     <script>
         let socket = io.connect('ws://localhost:3001')
         socket.on('message', (data) =>{
-            console.log("채팅")
             "<%if(user) {%>" 
             if(data.chat_person != 'admin@admin.com') { 
-            console.log('관리자가 받는 채팅'+ data);
-            let msgLine = $("#admin"+data.room_key);
-            let line = '<p>' + data.message + '</p>';
-            let line2 = '<p style="font-size:8px">' + data.createdAt + '</p>';
-            let msgBox = $('.me');
-            msgLine.append(line + line2);
+            let msgLine = $("#adminChat"+data.room_key);
+            console.log(data.createdAt)
+            let line = `<p class="rightChat">` + data.message + `</p>
+                        <p class="rightDate">` + formatDate(new Date(data.createdAt)) + `</p>`;
+            msgLine.append(line);
             } else {
-            console.log('고객이 받는 채팅'+ data);
-            let guestMsgLine = $("#msgLine");
-            let msgBox2 = $('.me');
-            let line3 = '<p>' + data.message + '</p>';
-            let line4 = '<p style="font-size:8px">' + data.createdAt + '</p>';
-            msgBox2.append(line3);
-            msgBox2.append(line4);
-            guestMsgLine.append(msgBox2);
-            $('#guestChatView').append(guestMsgLine);
-            $('#adminMsg').val('');
+            let me = $(".me")
+            let line2 = `<div class="adminChat">
+                        <p class="rightChat">` + data.message + `</p>
+                        <p class="rightDate">` + formatDate(new Date(data.createdAt)) + `</p>`
+            me.append(line2);
             }
             "<% } %>"
 
@@ -77,16 +70,12 @@
             if(event.which == 13){
                 "<%if(user) {%>" 
                 socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#msg').val(),room_key: ''});
-                let msgLine = $('.msgLine');
 				let msgBox = $('.me');
 
-                let msg = '<p>' + $('#msg').val() + '</p>';
+                let msg = '<p class="leftChat">' + $('#msg').val() + '</p>';
                 let today = new Date();
 				msgBox.append(msg);
-                msgBox.append('<p style="font-size:8px">' + formatDate(today) + '<p>');
-				msgLine.append(msgBox);
-
-				$('#guestChatView').append(msgLine);
+                msgBox.append('<p class="leftDate">' + formatDate(today) + '<p>');
                 $('#msg').val('');
                 "<% } %>"
             }	
@@ -97,14 +86,12 @@
                 "<%if(user) {%>" 
                 socket.emit('chat_message', {user_key: "<%-(user.user_email)%>", message: $('#adminMsg').val(), 
                                                     room_key: adminClass});
-                let msgLine = $("#admin"+adminClass);
+                let msgLine = $('#adminChat' + adminClass);
 
-                let msg = '<p>' + $('#adminMsg').val() + '</p>';
+                let msg = '<p class="leftChat">' + $('#adminMsg').val() + '</p>';
                 let today = new Date();
                 msgLine.append(msg);
-                msgLine.append('<p style="font-size:8px">' + formatDate(today) + '<p>');
-
-                $('#adminChatView').append(msgLine);
+                msgLine.append('<p class="leftDate">' + formatDate(today) + '<p>');
                 $('#adminMsg').val('');
                 "<% } %>"
             }	
@@ -130,7 +117,8 @@
         function openAdminChat(email, room_key){
             socket.emit('join_room', (param = {user_key: email}))  
             if(adminToggle == 1){
-                $("#admin"+room_key).html('')
+                $('#adminChat'+ room_key).css('height','auto')
+                $(".adminMsgLine").html('')
                 $('#adminMsg').remove();
                 adminToggle = 0;
                 return;
@@ -143,15 +131,28 @@
                     if(response['message']){
                         let chatList = response['message']
                         if(chatList[0]?.chat_person){
-                            let msgLine = $("#admin"+chatList[0].room_key);
+                            let msgLine = $("#adminChat"+chatList[0].room_key);
 
                             for(let i=0; i<chatList.length; i++){
-                                let line = '<p>' + chatList[i].message + '</p>';
-                                let line2 = '<p style="font-size:8px">' + chatList[i].createdAt + '</p>';
+                                let line, lin2 = '';
+                                if(chatList[i].chat_person == 'admin@admin.com'){
+                                    line = '<p class="rightChat">' + chatList[i].message + '</p>';
+                                    line2 = '<p class="rightDate">' + chatList[i].createdAt + '</p>';
+                                } else{
+                                    line = '<p class="leftChat"">' + chatList[i].message + '</p>';
+                                    line2 = '<p class="leftDate">' + chatList[i].createdAt + '</p>'
+                                };
                                 msgLine.append(line + line2);
                             }
                         }
-                        $('#adminMsgInput').append(`<input type="text" id="adminMsg" class="${chatList[0].room_key}">`)
+                        let adminChat = $('#adminChat'+ chatList[0].room_key)
+                        adminChat.css('height','auto')
+                        if(chatList.length > 6){
+                            adminChat.css('height','300px')
+                        }
+                        adminChat.scrollTop(adminChat[0].scrollHeight)
+                        $('#adminChatView').css('width', 'fit-content')
+                        $('#adminInput'+chatList[0].room_key).append(`<input type="text" id="adminMsg" class="${chatList[0].room_key}">`)
                         adminToggle = 1;
                     }
                 }
