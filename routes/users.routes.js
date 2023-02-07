@@ -50,45 +50,21 @@ router.get('/mypage', authMiddleware, async (req, res) => {
   const userIdx = userInfo.user_idx
 
   const purchaseList = await sequelize.query(
-    `SELECT oi.order_idx, od.product_idx, od.order_count 
-     FROM orders as oi
-     INNER JOIN order_details as od
-     ON oi.order_idx = od.order_idx
+    `SELECT oi.order_idx, od.product_idx, od.order_count, pd.productName
+     FROM orders oi
+     INNER JOIN order_details od ON oi.order_idx = od.order_idx
+     INNER JOIN Products pd on od.product_idx = pd.id
      WHERE oi.user_idx = ${userIdx}`
   )
 
- 
   const getOrderInfo = purchaseList[0]
-  console.log(getOrderInfo)
-
-  // const postOrderInfo = []
-  // for (let i = 0; i < getOrderInfo.length; i++) {
-  //   postOrderInfo.push(getOrderInfo[i])
-  // }
-  // console.log(postOrderInfo)
-
-
-  // const getOrderIdx = await order.findAll({ where: { "user_idx": userIdx } })
-  
-  // const orderIdx = []
-  // for (let i = 0; i < getOrderIdx.length; i++) {
-  //   orderIdx.push(getOrderIdx[i].order_idx)
-  // }
-  // console.log(orderIdx)
-
-  // const getOrderInfo = []
-  
-  // getOrderInfo.push(await order_detail.findAll({ where: {"order_idx": orderIdx}}))
-  
-  // console.log('나온 결과 값:', getOrderInfo)
-
 
   if (!currentUser) {
     return res.status(412).json({ message: '로그인이 필요한 서비스입니다.'})
   }
 
   try {
-    res.render('my_page', { info: { userInfo } })
+    res.render('my_page', { info: { userInfo }, list: { getOrderInfo } })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
