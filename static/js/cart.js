@@ -5,7 +5,7 @@ $(document).ready(function () {
   function cartProduct() {
     $.ajax({
       type: 'GET',
-      url: '/page/cartpagePro',
+      url: '/users/cartpagePro',
       data: {}, 
       success: function (response) {
         
@@ -112,31 +112,30 @@ $(document).ready(function () {
     addProductId
     sumTotal
     sendCount
-
+    
     if (addProductId.length === 0) {
-      return alert('구매할 상품을 체크해주세요.')
+      return modalOpen('구매할 상품을 체크해주세요.')
     }
-
     $.ajax({
       type: 'PATCH',           
-      url: '/page/cartpagePro',    
+      url: '/users/cartpagePro',    
       data: { 
         "addProductId": addProductId,
         "sumTotal": sumTotal
       },
       success: function (response) { 
-        alert(response['message'])
-        window.location.reload()
+        refresh = 1
+        url='/users/cart'
+        modalOpen(response['message'])
       },
       error: function (error) { 
         alert('보내기 실패' + error)
-        
       }
     })
 
     $.ajax({
       type: 'POST',           
-      url: '/page/cartpagePro',    
+      url: '/users/cartpagePro',    
       data: { 
         "addProductId": addProductId,
         "sendCount": sendCount
@@ -145,7 +144,7 @@ $(document).ready(function () {
         console.log(response['message'])
       },
       error: function (error) { 
-        console.log('보내기 실패' + JSON.stringify(error))
+        alert('보내기 실패' + error)
       }
     })
   }
@@ -155,11 +154,12 @@ $(document).ready(function () {
     let proId = proIdx
     $.ajax({
       type: 'DELETE',          
-      url: '/page/cartpagePro',    
+      url: '/users/cartpagePro',    
       data: { "proId": proId },
       success: function (response) { 
-        alert(response['message'])
-        window.location.reload()
+        refresh = 1
+        url='/users/cart'
+        modalOpen(response['message'])
       },
       error: function (error) { 
         alert('보내기 실패' + error)

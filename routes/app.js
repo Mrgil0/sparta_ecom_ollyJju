@@ -16,7 +16,7 @@ const productRepository = new ProductRepository();
 /* router URL */
 const user = require("./users.routes");
 const product = require("./product.routes");
-const page = require("./pages.routes");
+// const page = require("./pages.routes");
 const admin = require("./admin.routes");
 
 /* ejs */
@@ -81,7 +81,7 @@ app.get("/manage_user", authMiddleware, async (req, res) => {
 /* router */
 app.use("/users", [user]);
 app.use("/product", [product]);
-app.use("/page", [page]);
+// app.use("/page", [page]);
 app.use("/admin", [admin]);
 
 

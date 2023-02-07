@@ -49,9 +49,15 @@ function show_Product_detail() {
 
 function moveCart() {
     const productId = new URLSearchParams(location.search).get('id')
-    console.log(productId);
+    
     let product_quantity = $('#quantity').val()
-    console.log(product_quantity)
+    
+    if (product_quantity === '0') {
+        refresh = 1
+        url=`/product_detail?id=${productId}`
+        modalOpen('상품 수량을 선택해주세요.')
+        return
+    }
 
     $.ajax({
         type: 'POST',           // 타입 (get, post, put 등등)
@@ -60,8 +66,9 @@ function moveCart() {
             "product_quantity": product_quantity
         },
         success: function (response) { // 결과 성공 콜백함수
-            alert(response['message'])
-            window.location.reload()
+            refresh = 1
+            url=`/product_detail?id=${productId}`
+            modalOpen(response['message'])
         },
         error: function (error) { // 결과 에러 콜백함수
             alert('보내기 실패' + error)
