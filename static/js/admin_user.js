@@ -1,6 +1,8 @@
 $(document).ready(function () {
     show_user();
-  });
+
+});
+
 
 let refresh = 0;
 
@@ -12,7 +14,6 @@ function show_user() {
         data: {},
         success: function (response) {
             let rows = response["users"];
-
             for (let i = 0; i < rows.length; i++) {
                 let user_idx = rows[i]["user_idx"];
                 let name = rows[i]["user_name"];
@@ -46,4 +47,5 @@ function delete_user(user_idx) {
             modalOpen("유저 탈퇴 성공 !");
         }
     })
+
 }

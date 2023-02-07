@@ -9,28 +9,37 @@ const sequelize = new Sequelize("olly_jju", "rooyt", env.password,{
 });
 
 class ProductRepository {
-  showAllProduct = async (page, text) => {
+  showAllProduct = async (page, pageCount) => {
+    let offset = 0;
+    if(page > 0){
+      offset = (Number(page)-1)*pageCount
+    }
     try {
       const data = await sequelize.query(
         `SELECT id, productImage, productName, productInfo, price, category From Products 
-        ORDER BY createdAt DESC LIMIT `+ Number(page) + `, 5`,
+        ORDER BY createdAt DESC LIMIT `+ Number(offset) + `, ` + Number(pageCount),
         {
           raw:true,
           nest:true,
           type: sequelize.QueryTypes.SELECT,
         }
       )
+      console.log(data.length)
       return data;
     } catch (error) {
       error.status = 500;
       throw error;
     }
   };
-  findSearchProduct = async (page, text) =>{
+  findSearchProduct = async (page, text, pageCount) =>{
+    let offset = 0;
+    if(page > 0){
+      offset = (Number(page)-1)*pageCount
+    }
     const data = await sequelize.query(
       `SELECT id, productImage, productName, productInfo, price, category From Products 
       WHERE productName like '%` + text + `%' or category like '%` + text + `%' 
-      ORDER BY createdAt DESC LIMIT `+ Number(page) + `, 5`,
+      ORDER BY createdAt DESC LIMIT `+ Number(offset) + `, ` + Number(pageCount),
       {
         raw:true,
         nest:true,

@@ -8,7 +8,7 @@ function show_Product(page, text) {
   $.ajax({
     type: "POST",
     url: "/product/index",
-    data: {"page": page, "text": text},
+    data: {"page": page, "text": text, width: screen.width},
     success: function (response) {
       let rows = response["data"];
 
