@@ -13,9 +13,9 @@
 				<% for (const roomList of room) { %>
 				<div class="chatListBox">
 					<a style="font-size: 12px;" onclick="openAdminChat('<%-roomList.user_key%>', '<%-roomList.room_key%>')"><%- roomList.user_key %></a>
-					<div class="adminMsgLine" id="admin<%-roomList.room_key%>">
+					<div class="adminMsgLine" id="adminChat<%-roomList.room_key%>">
 					</div>
-					<div id="adminMsgInput">
+					<div id="adminInput<%-roomList.room_key%>">
 
 					</div>
 				</div>
@@ -35,17 +35,17 @@
 		<div id="guestChatView">
 			<div class="msgLine">
 				<div class="me">
-					<%if (chat == '') { %>
+					<%if (Object.keys(chat).length != 0) { %>
 						<% for (const chatList of chat) { %>
 							<% if (chatList.chat_person == user.user_email) { %>
 							<div class="meChat">
-								<p><%-chatList.message %></p>
-								<p style="font-size:8px"><%-chatList.createdAt %></p>
+								<p class="leftChat"><%-chatList.message %></p>
+								<p class="leftDate"><%-chatList.createdAt %></p>
 							</div>
 							<% } else { %>
 							<div class="adminChat">
-								<p><%-chatList.message %></p>
-								<p style="font-size:8px"><%-chatList.createdAt %></p>
+								<p class="rightChat"><%-chatList.message %></p>
+								<p class="rightDate"><%-chatList.createdAt %></p>
 							</div>	
 							<% } %>
 						<% } %> 

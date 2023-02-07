@@ -116,3 +116,29 @@ section {
   /* transform: scale(0.9) transLateY(-5px); */
   cursor: pointer;
 }
+.rightChat{
+  width: 100px;
+  word-wrap: break-word;
+  font-size:12px; 
+  text-align:right;
+  margin-left:90px;
+}
+.rightDate{
+  width: 100px;
+  word-wrap: break-word;
+  font-size:8px; 
+  text-align:right;
+  margin-left:90px;
+}
+.leftChat{
+  width: 100px;
+  word-wrap: break-word;
+  font-size:12px; 
+  text-align:left;
+}
+.leftDate{
+  width: 100px;
+  word-wrap: break-word;
+  font-size:8px; 
+  text-align:left;
+}

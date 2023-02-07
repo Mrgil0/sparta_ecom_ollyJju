@@ -59,15 +59,13 @@
 #openChat:hover{
   background: pink;
 }
-.adminMsgLine p{
-  text-align: right;
-}
 .adminMsgLine{
   overflow: auto;
 }
 .me{
   overflow: auto;
   height:400px;
+  width:fit-content;
 }
 .me::-webkit-scrollbar {
   width: 10px;  /* 스크롤바의 너비 */
@@ -80,12 +78,6 @@
 }
 .me::-webkit-scrollbar-track {
   background: #f7ede6;  /*스크롤바 뒷 배경 색상*/
-}
-.meChat p{
-  text-align: right;
-}
-.adminChat p{
-  text-align: left;
 }
 .msgLine, .adminMe{
   display: inline-block;
