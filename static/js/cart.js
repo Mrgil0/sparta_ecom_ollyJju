@@ -12,13 +12,8 @@ $(document).ready(function () {
         let rows = response["data"]
         let f = cartSum()
         
-        if (rows.length === 0) {
-          alert('장바구니가 비었습니다.')
-        }
-        
         for (let i = 0; i < rows.length; i++) {
           let proIdx = rows[i].product_idx
-          let proIdx2 = rows[i].product_idx
           let proName = rows[i].Product.productName
           let proImage = rows[i].Product.productImage
           let proPrice = rows[i].Product.price
@@ -52,29 +47,6 @@ $(document).ready(function () {
                           `;
           $("#product").append(temp_html)
         }
-        
-        // let temp_html = `
-        //                   <table id="testTable">
-        //                     <tr>
-        //                       <td>총 상품 가격</td>
-        //                       <td>${f}</td>
-        //                     </tr>
-        //                     <tr>
-        //                       <td>배송비</td>
-        //                       <td>0</td>
-        //                     </tr>
-        //                     <tr>
-        //                       <td>총 주문 금액</td>
-        //                       <td>0</td>
-        //                     </tr>
-        //                     <tr>
-        //                       <td>
-        //                           <button type="button">구매하기</button>
-        //                       </td>
-        //                     </tr>
-        //                   </table>
-        //                 `
-        // $("#productPrice").append(temp_html)
       }
     })
   }
