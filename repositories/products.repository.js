@@ -24,7 +24,6 @@ class ProductRepository {
           type: sequelize.QueryTypes.SELECT,
         }
       )
-      console.log(data.length)
       return data;
     } catch (error) {
       error.status = 500;

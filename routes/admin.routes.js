@@ -5,7 +5,6 @@ const fs = require("fs");
 const path = require("path");
 const authmiddleware = require("../middlewares/auth.middleware");
 const ChatRepository = require('../repositories/chats.repository');
-const {user} = require("../models")
 
 
 const AdminConteroller = require("../controllers/admin.controller");

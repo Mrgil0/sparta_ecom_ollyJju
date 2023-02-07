@@ -28,8 +28,7 @@ class UserRepository {
     user_phone,
     user_address
   ) => {
-    console.log(Users)
-    console.log(user_email)
+
     let point = 1000000;
     try {
       await Users.create({
