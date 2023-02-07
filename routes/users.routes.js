@@ -52,7 +52,7 @@ router.get('/mypage', authMiddleware, async (req, res) => {
 
   const getOrderIdx = await order.findAll({ where: { "user_idx": userIdx }
   })
-  console.log(getOrderIdx[0].order_idx)
+  // console.log(getOrderIdx[0].order_idx)
   
   const orderIdx = []
   for (let i = 0; i < getOrderIdx.length; i++) {

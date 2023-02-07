@@ -9,13 +9,7 @@
 }
 body{
     background-color: rgb(245, 237, 231);
-    -ms-overflow-style: none;
 }
-
-::-webkit-scrollbar {
-    display: none;
-}
-
 section{
     padding: 100px 14%;
 }
@@ -65,7 +59,6 @@ img {
     padding: 5px 10px;
     color: #fff;
     font-weight: bold;
-    cursor: pointer;
 }
 
 .view {
