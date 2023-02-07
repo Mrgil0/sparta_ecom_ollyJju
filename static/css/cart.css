@@ -7,8 +7,12 @@
     text-decoration: none;
     scroll-behavior: smooth;
 }
+body{
+    background: rgb(245, 237, 231);
+    background-clip: border-box;
+}
 section{
-    background-color: rgb(255, 245, 237);
+    background-color: rgb(255, 255, 255);
     padding-top: 50px;
     max-width: 1300px;
     padding: 100px 14%;
@@ -33,9 +37,13 @@ section{
 .cart-page{
     padding: 0;
     margin: 80px auto;
+    border-bottom: 1px solid #ede5dd;
+    border-left: 1px solid #ede5dd;
+    border-right: 1px solid #ede5dd;
+
 }
 table{
-    background-color: #ffffff;
+    background-color: #fcfaf7;
     border-collapse: collapse;
     width: 100%;
 }
@@ -50,11 +58,21 @@ table{
     right: 50px; /* ●●●●●●●●●●●●●●●● */
     
 }
+#productPrice .user-info .table{
+    color: red;
+    background-color: rgb(255, 185, 185);
+    justify-content: flex-start;
+    align-items: left;
+    width: 450px;
+}
+#productPrice .user-info{
+    width: 700px;
+}
 th{
     text-align: left;
     padding: 5px;
     color: #000000;
-    background: rgb(230, 89, 89);
+    background: #73685d;
     font-weight: normal;
 }
 td{
@@ -95,10 +113,13 @@ td img{
 .total-price{
     display: flex;
     justify-content: flex-end;
-    background-color: rgb(255, 245, 237);
+    background-color: rgb(255, 255, 255);
+    border-top: 1px solid #ede5dd;
 }
 .total-price table{
-    border-top: 3px solid #ff523b;
+    border-top: 2px solid #73685d;
+    border-left: 1px solid #ede5dd;
+
     width: 100%;
     max-width: 400px;
 }

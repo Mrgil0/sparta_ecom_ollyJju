@@ -16,7 +16,10 @@ body {
 #mySidenav{
     display:none;
     text-align: center;
-    font-size: 26px;
+}
+#mySidenav a{
+    font-size: 28px;
+    cursor: pointer;
 }
 
 .sideNav a {
