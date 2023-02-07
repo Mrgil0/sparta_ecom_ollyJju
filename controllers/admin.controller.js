@@ -33,6 +33,10 @@ class AdminConteroller {
   showAllProduct = async (req, res) => {
     const data = await this.adminService.showAllProduct();
 
+    if (!data) {
+      res.status(500).json({message: "데이터가 없습니다."})
+    } 
+
     res.status(200).json({data});
   }
 
