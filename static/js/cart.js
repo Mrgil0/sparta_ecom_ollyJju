@@ -3,7 +3,6 @@ $(document).ready(function () {
   });
 
   function cartProduct() {
-    
     $.ajax({
       type: 'GET',
       url: '/page/cartpagePro',
@@ -30,7 +29,7 @@ $(document).ready(function () {
                             <table>
                               <tr>
                                 <td>
-                                  <input type='checkbox'  name='cart' value=${total},${proIdx} onclick='cartSum()'/>
+                                  <input type='checkbox'  name='cart' value=${total},${proIdx},${proCount} onclick='cartSum()'/>
                                   <!-- onchange 상태 변화 체크로 체크가 되면 상품의 가격을 아래 총 가격에 더한다. -->
                                 </td>
                                 <td>
@@ -84,6 +83,7 @@ $(document).ready(function () {
   function cartSum() {
     let addPrice = []
     addProductId = []
+    sendCount = []
     sumTotal = Number()
     let len = $("input[name='cart']:checked").length;
     let delivery = 0
@@ -93,6 +93,7 @@ $(document).ready(function () {
         division = $(this).val().split(',')
         addPrice.push(division[0])
         addProductId.push(division[1])
+        sendCount.push(division[2])
         delivery = 2500
       });
     }
@@ -138,6 +139,7 @@ $(document).ready(function () {
   function cartPurchase_btn() {
     addProductId
     sumTotal
+    sendCount
 
     if (addProductId.length === 0) {
       return alert('구매할 상품을 체크해주세요.')
@@ -156,21 +158,22 @@ $(document).ready(function () {
       },
       error: function (error) { 
         alert('보내기 실패' + error)
+        
       }
     })
 
-    let tt = '전송!'
     $.ajax({
       type: 'POST',           
       url: '/page/cartpagePro',    
       data: { 
         "addProductId": addProductId,
+        "sendCount": sendCount
       },
       success: function (response) { 
-        alert(response['message'])
+        console.log(response['message'])
       },
       error: function (error) { 
-        alert('보내기 실패' + error)
+        console.log('보내기 실패' + JSON.stringify(error))
       }
     })
   }
