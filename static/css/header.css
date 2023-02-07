@@ -39,10 +39,16 @@ header a{
 .navlist a:hover{
     color: rgb(86, 66, 41);
 }
+.header-icons{
+    display:flex;
+}
+.header-icons p{
+    line-height: 50px;
+}
 .header-icons i{
     font-size: 32px;
     color: black;
-    margin-right: 20px;
+    margin-right: 5px;
     transition: all .36s ease;
 }
 .header-icons i:hover{

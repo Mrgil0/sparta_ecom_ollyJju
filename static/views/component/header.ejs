@@ -21,8 +21,13 @@
 	</ul>
 
 	<div class="header-icons">
-			<a href="#"><i class="uil uil-shopping-bag"></i>
-					<div class="uil uil-menu" id="menu-icon"></div>
-			</a>
+		<%if (user) { %>
+		<a href="#"><i class="uil uil-shopping-bag"></i>
+				<div class="uil uil-menu" id="menu-icon"></div>
+		</a>
+		<p><%- user.user_point%> point</p>
+		<%} else {%>
+
+		<% } %>
 	</div>
 </header>

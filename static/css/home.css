@@ -33,6 +33,9 @@ section {
   width:30%;
   height: 30%;
 }
+.home-text{
+  margin-top:30px;
+}
 .home-text h1 {
   color: rgb(85, 73, 58);
   font-size: 60px;
