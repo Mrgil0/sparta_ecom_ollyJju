@@ -15,10 +15,16 @@ body {
 }
 #mySidenav{
     display:none;
+    position: fixed;
+    left:50px;
+    margin-top: 30px;
     text-align: center;
 }
-#mySidenav a{
+.chatLogin{
     font-size: 28px;
+    position: fixed;
+    top: 90%;
+    left:8px;
     cursor: pointer;
 }
 
