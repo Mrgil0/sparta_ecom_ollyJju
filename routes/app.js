@@ -52,12 +52,18 @@ app.get('/product_detail', authMiddleware, async (req, res) => {
 
 app.get("/manage_product", authMiddleware, async (req, res) => {
   const user = res.locals.user;
-  res.render("manage_product", {user : user});
+  const room = await chatRepository.findAllRoom()
+  const chat = await chatRepository.findAllChat(user?.user_email);
+  const category = await productRepository.findAllCategory();
+  res.render("manage_product", { user: user, room: room, chat: chat, category: category});
 });
 
 app.get("/manage_user", authMiddleware, async (req, res) => {
   const user = res.locals.user;
-  res.render("manage_user", {user : user});
+  const room = await chatRepository.findAllRoom()
+  const chat = await chatRepository.findAllChat(user?.user_email);
+  const category = await productRepository.findAllCategory();
+  res.render("manage_user", { user: user, room: room, chat: chat, category: category});
 });
 
 /* router */

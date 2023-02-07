@@ -12,7 +12,6 @@ function show_user() {
         data: {},
         success: function (response) {
             let rows = response["users"];
-            console.log(rows)
 
             for (let i = 0; i < rows.length; i++) {
                 let user_idx = rows[i]["user_idx"];
@@ -47,5 +46,4 @@ function delete_user(user_idx) {
             modalOpen("유저 탈퇴 성공 !");
         }
     })
-
 }

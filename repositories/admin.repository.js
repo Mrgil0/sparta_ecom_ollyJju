@@ -1,13 +1,30 @@
 const { Product } = require("../models");
+const {user} = require("../models")
 
 class AdminRepository {
+
+  showAllUser = async () => {
+    const users = await user.findAll({
+      where: {user_type: "guest"}
+    });
+
+    return users;
+  }
+
+  deleteUser = async (user_idx) => {
+    await user.destroy({
+      where: {user_idx},
+    });
+
+    return;
+  }
 
   showAllProduct = async () => {
     const data = await Product.findAll({
       order: [['createdAt', 'DESC']],
     });
 
-    return data
+    return data;
   }
 
   createProduct = async (productName, productInfo, price, productImage, category) => {
