@@ -18,17 +18,13 @@ class ProductController {
   }
 
   showAllProduct = async (req, res) => {
-    let {page, text} = req.body;
-    let offset = 0;
+    let {page, text, full_width, window_width} = req.body;
     let data = []
-    if(page > 0){
-      offset = (Number(page)-1)*5
-    }
     try {
       if(text == '' || text == undefined){
-        data = await this.productService.showAllProduct(offset, text);
+        data = await this.productService.showAllProduct(page, full_width, window_width);
       } else {
-        data = await this.productService.findSearchProduct(offset, text);
+        data = await this.productService.findSearchProduct(page, text, full_width, window_width);
       }
       res.status(200).json({ "data": data, "text": text});
     } catch (error) {

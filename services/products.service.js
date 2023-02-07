@@ -3,9 +3,13 @@ const ProductRepository = require("../repositories/products.repository");
 class ProductService {
   productRepository = new ProductRepository();
 
-  showAllProduct = async (page, text) => {
+  showAllProduct = async (page, full_width, window_width) => {
+    let pageCount = 5; 
+    if(Number(full_width) > 1920 && parseFloat(window_width / full_width)*100 > 70){
+      pageCount = 9
+    }
     try {
-      const data = await this.productRepository.showAllProduct(page, text);
+      const data = await this.productRepository.showAllProduct(page, pageCount);
 
       return data;
     } catch (error) {
@@ -13,9 +17,13 @@ class ProductService {
     }
   };
 
-  findSearchProduct = async (page, text) => {
+  findSearchProduct = async (page, text, width) => {
+    let pageCount = 5; 
+    if(Number(width) > 1920){
+      pageCount = 9
+    }
     try {
-      const data = await this.productRepository.findSearchProduct(page, text);
+      const data = await this.productRepository.findSearchProduct(page, text, pageCount);
 
       return data;
     } catch (error) {

@@ -8,7 +8,7 @@ function show_Product(page, text) {
   $.ajax({
     type: "POST",
     url: "/product/index",
-    data: {"page": page, "text": text},
+    data: {"page": page, "text": text, "full_width": screen.width, "window_width": top.window.outerWidth},
     success: function (response) {
       let rows = response["data"];
 
@@ -35,6 +35,7 @@ function show_Product(page, text) {
                 `;
 
         $("#bestProduct").append(temp_html);
+        $('#targetBox').css('display', 'block')
       }
     },
   });
@@ -50,14 +51,13 @@ const option = {
 
 const callback = (entries, observer) => {
   entries.forEach(entry => {
-      if (!entry.isIntersecting) {
-        return; 
-      }
-      if(entry.isIntersecting) {
-          page ++; // 2부터 시
-          //console.log(page);
-          show_Product(page, searchText)
-      }
+    if (!entry.isIntersecting) {
+      return; 
+    }
+    if(entry.isIntersecting) {
+        page ++; // 2부터 시
+        show_Product(page, searchText)
+    }
   });
 };
 
