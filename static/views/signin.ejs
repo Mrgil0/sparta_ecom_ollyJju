@@ -35,6 +35,11 @@
 <script type="text/javascript" src="../js/modal.js"></script>
 <script>
     let refresh = 0;
+    $('#login_user_password').keyup(function(event){
+        if(event.which == 13){
+            signin()
+        }
+    })
     function signin(){
         let user_email = $('#login_user_email').val()
         let user_password = $('#login_user_password').val()
