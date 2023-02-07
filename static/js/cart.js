@@ -185,6 +185,7 @@ function selectAll(selectAll) {
   let addPrice = []
   addProductId = []
   sumTotal = Number()
+  sendCount
   let len = $("input[name='cart']:checked").length;
   let delivery = 0
 
@@ -193,6 +194,7 @@ function selectAll(selectAll) {
       division = $(this).val().split(',')
       addPrice.push(division[0])
       addProductId.push(division[1])
+      sendCount.push(division[2])
       delivery = 2500
     });
   }
