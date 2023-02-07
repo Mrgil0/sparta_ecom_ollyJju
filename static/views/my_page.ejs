@@ -45,14 +45,24 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>이름</td>
-                            <td>이름</td>
-                            <td>이름</td>
-                            <td>이름</td>
-                            <td>이름</td>
+                            <td><%= info.userInfo.user_name %></td>
+                            <td><%= info.userInfo.user_email %></td>
+                            <td><%= info.userInfo.user_phone %></td>
+                            <td><%= info.userInfo.user_address %></td>
+                            <td><%= info.userInfo.user_point %></td>
                         </tr>
                     </tbody>
                 </table>
+                <div id="my_modal">
+                    <p>변경할 비밀번호: <input type="text" id="password"></p>
+                    <p>변경할 주소: <input type="text" id="address"></p>
+                    <p>변경할 전화번호: <input type="text" id="phone"></p>
+                    <button class="modal_button" onclick="edit_btn()">수정</button>
+                    <a class="modal_close_btn">X</a>
+                </div>
+                <div class="patch_btn">
+                    <button id="popup_open_btn">회원정보 수정</button>
+                </div>
         </section>
         <section class="userTable">
             <table class="tableHeader">
@@ -63,18 +73,20 @@
                         <th>수량</th>
                     </tr>
                 </thead>
+                <% for (let i = 0; i < list.getOrderInfo.length; i++) {%>
                 <tbody>
                     <tr>
-                        <td>이름</td>
-                        <td>이름</td>
-                        <td>이름</td>
+                        <td><%= list.getOrderInfo[i].order_idx %></td>
+                        <td><%= list.getOrderInfo[i].productName %></td>
+                        <td><%= list.getOrderInfo[i].order_count %></td>                     
                     </tr>
                 </tbody>
+                <%}%>
             </table>
             </div>
         </section>
 
-        <section class="contact" id="contact">
+        <!-- <section class="contact" id="contact">
             <div class="my_page_content">
                 <h3>이메일: <%= info.userInfo.user_email %>
                 </h3>
@@ -96,12 +108,12 @@
                 <div class="patch_btn">
                     <button id="popup_open_btn">회원정보 수정</button>
                 </div>
-            </div>
-        </section>
+            </div> -->
+        <!-- </section>
         <h1>구입목록</h1>
         <h3>주문번호</h3>
         <h3>상품명</h3>
-        <h3>수량</h3>
+        <h3>수량</h3> -->
         <%-include('component/modal.ejs')%>
 </body>
 <script type="text/javascript" src="../js/modal.js"></script>
