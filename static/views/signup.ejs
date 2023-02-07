@@ -103,6 +103,7 @@
     }
     function emailCheck(){
         let user_email = $('#user_email').val()
+        console.log(user_email)
         $.ajax({
             type : "POST",
             url : "/users/emailCheck/",
