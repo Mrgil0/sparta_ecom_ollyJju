@@ -41,7 +41,7 @@ router.get("/logout", authMiddleware, async (req, res) => {
 });
 
 //이호균 page
-const { user, Product, cart, order, order_detail, sequelize } = require('../models');
+const { user, Product, cart, order, order_detail } = require('../models');
 
 // ●●●●●●●●●●●●●●●●●●● 마이페이지 조회 ●●●●●●●●●●●●●●●●●●●
 router.get('/mypage', authMiddleware, async (req, res) => {
@@ -53,34 +53,32 @@ router.get('/mypage', authMiddleware, async (req, res) => {
   try {
     res.render('my_page', { info: userInfo , purchaseList: purchaseList  })
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    res.status(500).json({ message: false })
   }
 })
 
 // ●●●●●●●●●●●●●●●●●●● 마이페이지 회원정보 수정 ●●●●●●●●●●●●●●●●●●● 
 router.patch('/mypage', authMiddleware, async (req, res) => {
   const currentUser = res.locals.user 
-  const { user_password, user_address, user_phone } = req.body
+  const { cur_password, next_password, user_address, user_phone } = req.body
   
   const userInfo = await user.findByPk(currentUser.user_idx)
   
-  if (userInfo) {
-    if (user_password) {
-      userInfo.user_password = user_password
-    }
-    if (user_address) {
-      userInfo.user_address = user_address
-    }
-    if (user_phone) {
-      userInfo.user_phone = user_phone
-    }
+  if (cur_password != userInfo.user_password) {
+    return res.json({message: '불일치'})
   }
+    
 
   try {
-    await userInfo.save()
-    res.json({message: '수정 완료'})
+    await userInfo.update({
+      user_password: next_password, 
+      user_address: user_address, 
+      user_phone: user_phone},
+      {where: {user_idx: currentUser.user_idx}})
+    res.json({message: '회원정보가 수정되었습니다.'})
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    console.log(error);
+    res.json({ message: false })
   }
 })
 
@@ -100,7 +98,7 @@ router.get('/cartpagePro', authMiddleware, async (req, res) => {
     res.status(200).json({ "data": data })
     console.log('전송!')
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    res.status(500).json({ message: false })
   }
 })
 
@@ -114,7 +112,7 @@ router.delete('/cartpagePro',authMiddleware, async (req, res) => {
     await cart.destroy({ where: { product_idx: proId, user_email }  })
     res.status(200).json({ message: '삭제 완료' })
   } catch (error) {
-    res.status(500).json({ message: error.message})
+    res.status(500).json({ message: false})
   }
 })
 // ●●●●●●●●●●●●●●●●●●● 장바구니 구입기능 ●●●●●●●●●●●●●●●●●●●
@@ -138,7 +136,7 @@ router.patch('/cartpagePro',authMiddleware, async (req, res) => {
     await userInfo.save()
     res.status(200).json({ message: '구입이 완료되었습니다.' })
   } catch (error) {
-    res.status(500).json({ message: error.message})
+    res.status(500).json({ message: false})
   }
 })
 // ●●●●●●●●●●●●●●●●●●● 구입한 상품 DB에 저장 ●●●●●●●●●●●●●●●●●●●

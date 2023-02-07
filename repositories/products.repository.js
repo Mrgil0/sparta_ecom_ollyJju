@@ -109,11 +109,11 @@ class ProductRepository {
   findMyProduct = async (userIdx) => {
     try {
       const purchaseList = await sequelize.query(
-        `SELECT oi.order_idx, od.product_idx, od.order_count, pd.productName, pd.price
-         FROM orders oi
-         INNER JOIN order_details od ON oi.order_idx = od.order_idx
-         INNER JOIN Products pd on od.product_idx = pd.id
-         WHERE oi.user_idx = ${userIdx}`
+        `SELECT oi.order_idx, oi.order_status, od.product_idx, od.order_count, pd.productName, pd.price 
+        FROM orders oi
+        INNER JOIN order_details od ON oi.order_idx = od.order_idx
+        INNER JOIN Products pd on od.product_idx = pd.id
+        WHERE oi.user_idx = ${userIdx}`
       )
       return purchaseList[0];
     } catch (error) {
