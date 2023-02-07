@@ -158,6 +158,21 @@ $(document).ready(function () {
         alert('보내기 실패' + error)
       }
     })
+
+    let tt = '전송!'
+    $.ajax({
+      type: 'POST',           
+      url: '/page/cartpagePro',    
+      data: { 
+        "addProductId": addProductId,
+      },
+      success: function (response) { 
+        alert(response['message'])
+      },
+      error: function (error) { 
+        alert('보내기 실패' + error)
+      }
+    })
   }
 
   // ●●●●●●●●●●●●●● 장바구니 삭제 ●●●●●●●●●●●●●●●●●●●●●

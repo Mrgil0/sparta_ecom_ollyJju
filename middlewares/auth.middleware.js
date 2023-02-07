@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
   const { user_email } = getAccessTokenPayload(accessToken);
   try {
     user.findOne({
-      attributes: ['user_idx', 'user_email', 'user_name', 'user_address', 'user_type', 'user_point'],
+      attributes: ['user_idx', 'user_email', 'user_name', 'user_address', 'user_type', 'user_phone','user_point'],
       where: {user_email: user_email},
       raw: true
     }).then((loginUser) => {
