@@ -55,7 +55,13 @@ app.get("/manage_product", authMiddleware, async (req, res) => {
   const room = await chatRepository.findAllRoom()
   const chat = await chatRepository.findAllChat(user?.user_email);
   const category = await productRepository.findAllCategory();
-  res.render("manage_product", { user: user, room: room, chat: chat, category: category});
+  const todaypick = await productRepository.findTodayPick();
+  if (user.user_type === "admin") {
+    res.render("manage_product", { user: user, room: room, chat: chat, category: category, todaypick: todaypick });
+  } else {
+    res.render("home", { user: user, room: room, chat: chat, category: category, todaypick: todaypick })
+  }
+
 });
 
 app.get("/manage_user", authMiddleware, async (req, res) => {
@@ -63,7 +69,13 @@ app.get("/manage_user", authMiddleware, async (req, res) => {
   const room = await chatRepository.findAllRoom()
   const chat = await chatRepository.findAllChat(user?.user_email);
   const category = await productRepository.findAllCategory();
-  res.render("manage_user", { user: user, room: room, chat: chat, category: category});
+  const todaypick = await productRepository.findTodayPick();
+  if (user.user_type === "admin") {
+    res.render("manage_user", { user: user, room: room, chat: chat, category: category, todaypick: todaypick });
+  } else {
+    res.render("home", { user: user, room: room, chat: chat, category: category, todaypick: todaypick })
+  }
+
 });
 
 /* router */

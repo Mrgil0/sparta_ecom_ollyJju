@@ -33,6 +33,10 @@ class AdminConteroller {
   showAllProduct = async (req, res) => {
     const data = await this.adminService.showAllProduct();
 
+    if (!data) {
+      res.status(500).json({message: "데이터가 없습니다."})
+    } 
+
     res.status(200).json({data});
   }
 
@@ -58,7 +62,7 @@ class AdminConteroller {
         category
       );
 
-      res.send({ message: true });     
+      res.send({ message: "상품 등록 완료 !" });     
     } catch (error) {
       res.status(error.status).json({ message: error.message });
     }
