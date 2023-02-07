@@ -3,6 +3,18 @@ const AdminRepository = require("../repositories/admin.repository");
 class AdminService {
   adminRepository = new AdminRepository();
 
+  showAllUser = async () => {
+    const users = await this.adminRepository.showAllUser();
+
+    return users;
+  }
+
+  deleteUser = async (user_idx) => {
+    await this.adminRepository.deleteUser(user_idx);
+
+    return;
+  }
+
   showAllProduct = async () => {
     const data = await this.adminRepository.showAllProduct();
 

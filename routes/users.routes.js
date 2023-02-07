@@ -28,7 +28,7 @@ router.get("/cart", authMiddleware, async (req, res) => {
   const user = res.locals.user;
   const room = await chatRepository.findAllRoom()
   const chat = await chatRepository.findAllChat(user?.user_email);
-  const category = await productRepository.fincAllCategory();
+  const category = await productRepository.findAllCategory();
   res.render("cart", { user: user, room: room, chat: chat, category: category });
 })
 

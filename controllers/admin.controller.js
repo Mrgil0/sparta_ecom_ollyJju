@@ -3,6 +3,33 @@ const AdminService = require("../services/admin.service");
 class AdminConteroller {
   adminService = new AdminService();
 
+  showAllUser = async (req, res) => {
+    const user_type = res.locals.user.user_type;
+    if (user_type === "admin") {
+      const users = await this.adminService.showAllUser();
+
+      res.status(200).json({users});
+    } else {
+      res.status(500).json({message: "정보가 없습니다."});
+    }
+
+  }
+
+  deleteUser = async (req, res) => {
+    const {user_idx} = req.params;
+    console.log(user_idx)
+    const user_type = res.locals.user.user_type;
+
+    if (user_type === "admin") {
+      await this.adminService.deleteUser(user_idx);
+
+      res.status(200).json({message: "탈퇴 성공 !"});
+    } else {
+      res.status(500).json({message: "정보가 없습니다."});
+    }
+
+  }
+
   showAllProduct = async (req, res) => {
     const data = await this.adminService.showAllProduct();
 
