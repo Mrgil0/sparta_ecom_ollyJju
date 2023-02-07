@@ -1,0 +1,30 @@
+<div id="wrapper">
+	<div id="slider-wrap">
+			<ul id="slider">
+				<%for (const today of todaypick) { %>
+				<li>
+					<a href="/product_detail?id=<%- today.id%>">
+						<div id="slideBox">
+							<h3><%- today.productName%></h3>
+							<span><%- today.price%></span>
+							<h2><%- today.productInfo%></h2>
+						</div> 
+						<img src="<%- today.productImage%>">
+					</a>       
+				</li>
+				<% } %>
+			</ul>
+			
+			<!--controls-->
+			<div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
+			<div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div>
+			<div id="counter"></div>
+			
+			<div id="pagination-wrap">
+				<ul>
+				</ul>
+			</div>
+			<!--controls--> 
+	</div>
+
+</div>
