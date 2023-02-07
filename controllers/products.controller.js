@@ -49,33 +49,21 @@ class ProductController {
       const { productId } = req.params;
       const { product_quantity } = req.body;
       const user_email = res.locals.user.user_email
-      
-      const count = product_quantity
-      
-      const dbproductId = await this.productService.findProductId(productId);
-      
-      const product_idx = dbproductId
 
-      const isProduct = await cart.findOne({ where: { product_idx, user_email }})
+      const isProduct = await cart.findOne({ where: { product_idx: productId, user_email }})
      
       if (!isProduct) {
-        const cartDB = await cart.create({ product_idx, user_email ,count })
-        console.log(cartDB)
+        await cart.create({ product_idx: productId, user_email ,count: product_quantity })
       } else {
-        return res.status(201).json({ message: '이미 장바구니에 담겨있는 상품입니다.'})
+        await cart.update({ count: Number(product_quantity) + 1}, {where: { product_idx: productId, user_email}})
       }
-      if (dbproductId === undefined) {
+      if (productId === undefined) {
         res.status(412).json({ message: "해당하는 상품이 존재하지 않습니다." });
       }
 
       if (Number(product_quantity) < 1) {
-        const error = new Error();
-        error.status = 412;
-        error.message = "개수를 정해주세요.";
-        throw error;
+        res.status(412).json({ message: "1개 이상의 상품을 담아주세요." });
       }
-
-      product = { productId, product_quantity };
       
       res.status(201).json({ message: "장바구니에 담았습니다." });
     } catch (error) {

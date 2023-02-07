@@ -157,7 +157,7 @@ router.delete('/cartpagePro',authMiddleware, async (req, res) => {
 // ●●●●●●●●●●●●●●●●●●● 장바구니 구입기능 ●●●●●●●●●●●●●●●●●●●
 router.patch('/cartpagePro',authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
-  const {user_idx, user_email, user_name, user_phone, user_address} = currentUser
+  const {user_idx, user_email} = currentUser
   const {addProductId, sumTotal} = req.body
   const savePoint = Number(sumTotal) * 0.05
 
@@ -167,7 +167,7 @@ router.patch('/cartpagePro',authMiddleware, async (req, res) => {
     }
     const userInfo = await user.findByPk(user_idx)
     const currentPoint = userInfo.user_point 
-    const totalPoint = currentPoint + savePoint
+    const totalPoint = currentPoint - sumTotal + savePoint
 
     userInfo.user_point = totalPoint
     
@@ -181,31 +181,25 @@ router.patch('/cartpagePro',authMiddleware, async (req, res) => {
 // ●●●●●●●●●●●●●●●●●●● 구입한 상품 DB에 저장 ●●●●●●●●●●●●●●●●●●●
 router.post('/cartpagePro', authMiddleware, async(req, res) => {
   const currentUser = res.locals.user
-  const {user_idx, user_name, user_phone, user_address} = currentUser
-  
-  const order_address = user_address
+  const {user_idx} = currentUser
+  const {user_name, user_phone, user_address, addProductId, sendCount} = req.body;
+
   const order_status = '배송 준비 중'
-  const receiver_name = user_name
-  const receiver_phone = user_phone
-  console.log(user_idx, order_address, order_status, receiver_name, receiver_phone)
-  const {addProductId, sendCount} = req.body
-  console.log('프로덕트 아이디:', addProductId)
-  console.log('가져온 수량:', sendCount)
 
   try {
-    await order.create({user_idx, order_address, order_status, receiver_name, receiver_phone})
+    await order.create({user_idx, order_address: user_address, order_status, receiver_name: user_name, receiver_phone: user_phone})
     
     const orderDB = await order.findAll({ order: [["order_idx", "desc"]], limit: 1 })
     const orderKey = orderDB[0].order_idx
-   
+  
     for (let i = 0; i < addProductId.length; i++) {
       await order_detail.create({ "order_idx":orderKey, "product_idx": addProductId[i], "order_count": Number(sendCount[i])})
     }
     
-    res.status(200).json({ message: '구입 목록 추가!'})
+    res.status(200).json({ message: true})
   } catch (error) {
     console.log(error.message)
-    res.status(500).json({ message: error.message})
+    res.status(500).json({ message: false})
   }
   
 })

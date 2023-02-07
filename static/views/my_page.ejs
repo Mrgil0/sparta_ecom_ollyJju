@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
         rel="stylesheet" />
-     <!-- icon -->
+    <!-- icon -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.1/css/line.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="../css/cart.css" type="text/css">
     <link rel="stylesheet" href="../css/header.css" type="text/css">
     <link rel="stylesheet" href="../css/chatroom.css" type="text/css">
     <link rel="stylesheet" href="../css/sidebar.css" type="text/css">
@@ -21,38 +21,92 @@
     <link href="../css/modal.css" rel="stylesheet" type="text/css">
 
 </head>
+
 <body>
     <%-include('component/header.ejs')%>
-    <section class="page-header">
-        <h1>마이페이지</h1>
-    </section>
-    <section class="contact" id="contact">
-        <div class="my_page_content">
-            <h3>이메일: <%= info.userInfo.user_email %></h3>
-            <h3>이름: <%= info.userInfo.user_name %></h3>
-            <h3>주소: <%= info.userInfo.user_address %></h3>
-            <h3>핸드폰 번호: <%= info.userInfo.user_phone %></h3>
-            <h3>보유 포인트: <%= info.userInfo.user_point %></h3>
-            <div id="my_modal">
-                <p>변경할 비밀번호: <input type="text" id="password"></p>
-                <p>변경할 주소: <input type="text" id="address"></p>
-                <p>변경할 핸드폰 번호: <input type="text" id="phone"></p>
-                <button class="modal_button" onclick="edit_btn()">수정</button>
-                <a class="modal_close_btn">X</a>
+        <section class="page-header">
+            <h1>마이페이지</h1>
+        </section>
+
+        <section class="userTable">
+
+            <div class="tableContainer">
+
+                <table class="tableHeader">
+
+                    <thead>
+                        <tr>
+                            <th>이름</th>
+                            <th>이메일</th>
+                            <th>전화번호</th>
+                            <th>주소</th>
+                            <th>보유포인트</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>이름</td>
+                            <td>이름</td>
+                            <td>이름</td>
+                            <td>이름</td>
+                            <td>이름</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </section>
+        <section class="userTable">
+            <table class="tableHeader">
+                <thead>
+                    <tr>
+                        <th>주문번호</th>
+                        <th>상품명</th>
+                        <th>수량</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>이름</td>
+                        <td>이름</td>
+                        <td>이름</td>
+                    </tr>
+                </tbody>
+            </table>
             </div>
-            <div class="patch_btn">
-                <button id="popup_open_btn">회원정보 수정</button>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="my_page_content">
+                <h3>이메일: <%= info.userInfo.user_email %>
+                </h3>
+                <h3>이름: <%= info.userInfo.user_name %>
+                </h3>
+                <h3>주소: <%= info.userInfo.user_address %>
+                </h3>
+                <h3>핸드폰 번호: <%= info.userInfo.user_phone %>
+                </h3>
+                <h3>보유 포인트: <%= info.userInfo.user_point %>
+                </h3>
+                <div id="my_modal">
+                    <p>변경할 비밀번호: <input type="text" id="password"></p>
+                    <p>변경할 주소: <input type="text" id="address"></p>
+                    <p>변경할 핸드폰 번호: <input type="text" id="phone"></p>
+                    <button class="modal_button" onclick="edit_btn()">수정</button>
+                    <a class="modal_close_btn">X</a>
+                </div>
+                <div class="patch_btn">
+                    <button id="popup_open_btn">회원정보 수정</button>
+                </div>
             </div>
-        </div>
-    </section>
-    <h1>구입목록</h1>
-    <h3>주문번호:</h3>
-    <h3>상품명:</h3>
-    <h3>수량:</h3>
-    <%-include('component/modal.ejs')%>
+        </section>
+        <h1>구입목록</h1>
+        <h3>주문번호</h3>
+        <h3>상품명</h3>
+        <h3>수량</h3>
+        <%-include('component/modal.ejs')%>
 </body>
 <script type="text/javascript" src="../js/modal.js"></script>
 <script type="text/javascript" src="../js/my_page.js"></script>
 <script src="../js/sticky-bar.js" type="text/javascript"></script>
 <script src="../js/sidebar.js" type="text/javascript"></script>
+
 </html>
