@@ -3,9 +3,9 @@ const ProductRepository = require("../repositories/products.repository");
 class ProductService {
   productRepository = new ProductRepository();
 
-  showAllProduct = async (page, width) => {
+  showAllProduct = async (page, full_width, window_width) => {
     let pageCount = 5; 
-    if(Number(width) > 1920){
+    if(Number(full_width) > 1920 && parseFloat(window_width / full_width)*100 > 70){
       pageCount = 9
     }
     try {
