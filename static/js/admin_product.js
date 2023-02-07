@@ -2,6 +2,8 @@ $(document).ready(function () {
   show_Product();
 });
 
+let refresh = 0;
+
 function show_Product() {
   $.ajax({
     type: "GET",
@@ -40,8 +42,6 @@ function show_Product() {
     },
   });
 }
-
-let refresh = 0;
 
 function create_product() {
   const name = $("#name").val();
