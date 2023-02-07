@@ -49,22 +49,9 @@ router.get('/mypage', authMiddleware, async (req, res) => {
   const userInfo = await user.findByPk(currentUser.user_idx)
   const userIdx = userInfo.user_idx
 
-  const purchaseList = await sequelize.query(
-    `SELECT oi.order_idx, od.product_idx, od.order_count, pd.productName
-     FROM orders oi
-     INNER JOIN order_details od ON oi.order_idx = od.order_idx
-     INNER JOIN Products pd on od.product_idx = pd.id
-     WHERE oi.user_idx = ${userIdx}`
-  )
-
-  const getOrderInfo = purchaseList[0]
-
-  if (!currentUser) {
-    return res.status(412).json({ message: '로그인이 필요한 서비스입니다.'})
-  }
-
+  const purchaseList = await productRepository.findMyProduct(userIdx)
   try {
-    res.render('my_page', { info: { userInfo }, list: { getOrderInfo } })
+    res.render('my_page', { info: userInfo , purchaseList: purchaseList  })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }

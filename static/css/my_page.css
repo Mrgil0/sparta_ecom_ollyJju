@@ -121,7 +121,10 @@ h3 {
 }
 
 #popup_open_btn {
-    margin: 0 auto 10px 180px;
+    /* margin: auto; */
+    position: relative;
+    left: 45%;
+    top: 20px;
     width: 150px;
     height: 40px;
     background-color: rgb(241, 220, 203);
