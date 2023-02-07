@@ -21,21 +21,6 @@ class ProductRepository {
         }
       )
       return data;
-      
-
-      // const returndata = data.map((data) => {
-      //   const { id, productImage, productName, price, productInfo } = data;
-
-      //   return {
-      //     id,
-      //     productImage,
-      //     productName,
-      //     price,
-      //     productInfo,
-      //   };
-      // });
-
-      // return returndata;
     } catch (error) {
       error.status = 500;
       throw error;
