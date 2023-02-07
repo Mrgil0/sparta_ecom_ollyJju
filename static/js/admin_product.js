@@ -49,7 +49,7 @@ function create_product() {
   const price = $("#price").val();
   const category = $("#category").val();
   const image = $('input[name="chooseFile"]').get(0).files[0];
-  console.log(image);
+
   const formData = new FormData();
 
   formData.append("productName", name);
@@ -79,7 +79,7 @@ function update_product(productId) {
         let name = document.getElementById("name"+productId).value;
         let Info = document.getElementById("Info"+productId).value;
         let price = document.getElementById("price"+productId).value;
-        console.log(name, Info, price)
+
         const data = {
             productName: name,
             productInfo: Info,

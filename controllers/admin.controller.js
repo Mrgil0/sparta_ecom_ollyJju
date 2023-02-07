@@ -17,7 +17,6 @@ class AdminConteroller {
 
   deleteUser = async (req, res) => {
     const {user_idx} = req.params;
-    console.log(user_idx)
     const user_type = res.locals.user.user_type;
 
     if (user_type === "admin") {
@@ -72,7 +71,7 @@ class AdminConteroller {
     try {
       const { productId } = req.params;
       const { productName, productInfo, price }  = req.body;
-      console.log(productId, productName, productInfo, price);
+
       if (!productName || !productInfo || !price) {
         const error = new Error();
         error.status = 412;

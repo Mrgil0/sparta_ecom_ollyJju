@@ -4,7 +4,6 @@ $(document).ready(function () {
 
 function show_Product_detail() {
     const productId = new URLSearchParams(location.search).get('id')
-    console.log(productId);
 
     $.ajax({
         type: "GET",
@@ -17,7 +16,6 @@ function show_Product_detail() {
             const name = data.productName;
             const price = data.price;
             const info = data.productInfo;
-            console.log(productId, image, name, price, info)
 
             let temp_html = `
             <div id="${productId}" class="row">

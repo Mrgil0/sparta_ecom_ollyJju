@@ -35,7 +35,6 @@ class ProductController {
   findOneProduct = async (req, res) => {
     try {
       const {productId} = req.params;
-      console.log(productId)
       const data = await this.productService.findOneProduct(productId);
 
       res.status(200).json({data})
