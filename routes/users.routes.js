@@ -32,11 +32,12 @@ router.get("/cart", authMiddleware, async (req, res) => {
   res.render("cart", { user: user, room: room, chat: chat, category: category });
 })
 
-router.get("/logout", authMiddleware, (req, res) => {
+router.get("/logout", authMiddleware, async (req, res) => {
   res.cookie("accessToken", '');
   res.cookie("refreshToken", '');
   console.log("res.cookie : " + res.cookie);
-  res.render("home", { user: null, room: null, chat: null });
+  const todaypick = await productRepository.findTodayPick();
+  res.render("home", { user: null, room: null, chat: null, todaypick: todaypick });
 });
 
 module.exports = router;
