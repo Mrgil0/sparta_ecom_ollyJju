@@ -69,7 +69,7 @@ $(document).ready(function () {
         delivery = 2500
       });
     }
-
+    console.log('1번째 곳', sendCount)
     let sum = Number('')
     
     
@@ -112,7 +112,7 @@ $(document).ready(function () {
     addProductId
     sumTotal
     sendCount
-    
+    console.log('2번째 곳', sendCount)
     if (addProductId.length === 0) {
       return modalOpen('구매할 상품을 체크해주세요.')
     }
@@ -129,7 +129,7 @@ $(document).ready(function () {
         modalOpen(response['message'])
       },
       error: function (error) { 
-        alert('보내기 실패' + error)
+        alert('보내기 실패' + JSON.stringify(error))
       }
     })
 
@@ -178,6 +178,7 @@ $(document).ready(function () {
     let addPrice = []
     addProductId = []
     sumTotal = Number()
+    sendCount
     let len = $("input[name='cart']:checked").length;
     let delivery = 0
 
@@ -186,6 +187,7 @@ $(document).ready(function () {
         division = $(this).val().split(',')
         addPrice.push(division[0])
         addProductId.push(division[1])
+        sendCount.push(division[2])
         delivery = 2500
       });
     }

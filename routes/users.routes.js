@@ -41,30 +41,46 @@ router.get("/logout", authMiddleware, async (req, res) => {
 });
 
 //이호균 page
-const { user, Product, cart, order, order_detail } = require('../models');
+const { user, Product, cart, order, order_detail, sequelize } = require('../models');
 
 // ●●●●●●●●●●●●●●●●●●● 마이페이지 조회 ●●●●●●●●●●●●●●●●●●●
 router.get('/mypage', authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
   const userInfo = await user.findByPk(currentUser.user_idx)
   const userIdx = userInfo.user_idx
-  console.log(userIdx)
 
-  const getOrderIdx = await order.findAll({ where: { "user_idx": userIdx }
-  })
-  console.log(getOrderIdx[0].order_idx)
+  const purchaseList = await sequelize.query(
+    `SELECT oi.order_idx, od.product_idx, od.order_count 
+     FROM orders as oi
+     INNER JOIN order_details as od
+     ON oi.order_idx = od.order_idx
+     WHERE oi.user_idx = ${userIdx}`
+  )
+
+ 
+  const getOrderInfo = purchaseList[0]
+  console.log(getOrderInfo)
+
+  // const postOrderInfo = []
+  // for (let i = 0; i < getOrderInfo.length; i++) {
+  //   postOrderInfo.push(getOrderInfo[i])
+  // }
+  // console.log(postOrderInfo)
+
+
+  // const getOrderIdx = await order.findAll({ where: { "user_idx": userIdx } })
   
-  const orderIdx = []
-  for (let i = 0; i < getOrderIdx.length; i++) {
-    orderIdx.push(getOrderIdx[i].order_idx)
-  }
-  console.log(orderIdx)
+  // const orderIdx = []
+  // for (let i = 0; i < getOrderIdx.length; i++) {
+  //   orderIdx.push(getOrderIdx[i].order_idx)
+  // }
+  // console.log(orderIdx)
 
   // const getOrderInfo = []
-  // for (let i = 0; i < orderIdx.length; i++) {
-  // getOrderInfo.push(await order_detail.findAll({ where: {"order_idx": orderIdx[i]}}))
-  // }
-  // console.log(getOrderInfo[0].product_idx)
+  
+  // getOrderInfo.push(await order_detail.findAll({ where: {"order_idx": orderIdx}}))
+  
+  // console.log('나온 결과 값:', getOrderInfo)
 
 
   if (!currentUser) {
@@ -156,7 +172,7 @@ router.patch('/cartpagePro',authMiddleware, async (req, res) => {
     userInfo.user_point = totalPoint
     
     await userInfo.save()
-    console.log('장바구니는 성공!')
+    
     res.status(200).json({ message: '구입 완료' })
   } catch (error) {
     res.status(500).json({ message: error.message})
