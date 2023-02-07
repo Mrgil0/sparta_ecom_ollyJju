@@ -116,7 +116,9 @@ function cartPurchase_btn() {
   let user_phone = $('#content3').val()
   let user_address = $('#content2').val()
   
-  if (addProductId.length === 0) {
+  if([user_name, user_phone, user_address].includes('')){
+    return modalOpen('필수 정보들을 입력해주세요.')
+  } else if(addProductId.length === 0){
     return modalOpen('구매할 상품을 체크해주세요.')
   }
   $.ajax({
@@ -127,6 +129,7 @@ function cartPurchase_btn() {
       "sumTotal": sumTotal,
     },
     success: function (response) { 
+      modalOpen(response['message'])
     },
     error: function (error) { 
       modalOpen('보내기 실패')
