@@ -35,9 +35,9 @@ router.get("/cart", authMiddleware, async (req, res) => {
 router.get("/logout", authMiddleware, async (req, res) => {
   res.cookie("accessToken", '');
   res.cookie("refreshToken", '');
-  console.log("res.cookie : " + res.cookie);
   const todaypick = await productRepository.findTodayPick();
-  res.render("home", { user: null, room: null, chat: null, todaypick: todaypick });
+  const category = await productRepository.findAllCategory();
+  res.render("home", { user: null, room: null, chat: null, todaypick: todaypick, category: category });
 });
 
 //이호균 page
@@ -143,21 +143,21 @@ router.patch('/cartpagePro',authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
   const {user_idx, user_email} = currentUser
   const {addProductId, sumTotal} = req.body
-  const savePoint = Number(sumTotal) * 0.05
-
+  if(currentUser.user_point < sumTotal){
+    res.status(200).json({ message: '포인트가 부족합니다.' })
+  }
   try {
     for(let purchaseProduct of addProductId) {
       await cart.destroy({ where: { product_idx: purchaseProduct, user_email }  })
     }
     const userInfo = await user.findByPk(user_idx)
     const currentPoint = userInfo.user_point 
-    const totalPoint = currentPoint - sumTotal + savePoint
+    const totalPoint = currentPoint - sumTotal
 
     userInfo.user_point = totalPoint
     
     await userInfo.save()
-    console.log('장바구니는 성공!')
-    res.status(200).json({ message: '구입 완료' })
+    res.status(200).json({ message: '구입이 완료되었습니다.' })
   } catch (error) {
     res.status(500).json({ message: error.message})
   }
