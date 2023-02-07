@@ -112,8 +112,9 @@ td img{
 }
 .total-price{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     background-color: rgb(255, 255, 255);
+    width:fit-content;
     border-top: 1px solid #ede5dd;
 }
 .total-price table{
@@ -123,12 +124,25 @@ td img{
     width: 100%;
     max-width: 400px;
 }
+#content2{
+    width:100%;
+    height: 6.25em;
+    border: 1px solid #ede5dd;
+    resize: none;
+}
+#content1, #content3{
+    width:100%;
+    border: 1px solid #ede5dd;
+    resize: none;
+}
 td:last-child{
     text-align: right;
 
-    width: 200px;  /* ●●●●●●●●●●●●●●●● */
     height: 80px; /* ●●●●●●●●●●●●●●●● */
 }
+.left_tr td:first-child{
+    text-align: left!important;
+} 
 th:first-child{
     width:50px;
     

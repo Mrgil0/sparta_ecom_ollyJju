@@ -38,19 +38,30 @@
             </table>
         </div>
         <div class="small-container cart-page total-price" id="productPrice">
-            <div class="user-info">
-                <table>
-                    <tr>
-                        <td>이름<textarea id="content" placeholder="내용"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td><textarea id="content" placeholder="내용"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td><textarea id="content" placeholder="내용"></textarea></td>
-                    </tr>
-                </table>
-            </div>
+            <table>
+                <tr class="left_tr">
+                    <td>
+                        <span class="input-name">받는 사람</span>
+                        <input id="content1" type="text" placeholder="받는 사람">
+                    </td>
+                </tr>
+                <tr class="left_tr">
+                    <td>
+                        <span class="input-name">배송 주소</span>
+                        <textarea id="content2" placeholder="배송 주소"><%- user.user_address %></textarea>
+                    </td>
+                </tr>
+                <tr class="left_tr">
+                    <td>
+                        <span class="input-name">연락처</span>
+                        <input id="content3" type="text" placeholder="연락처" value="<%- user.user_phone %>">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height:80px">
+                    </td>
+                </tr>
+            </table>
         </div>
     </section>
     <%-include('component/sidebar.ejs')%>
