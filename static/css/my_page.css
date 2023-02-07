@@ -69,7 +69,10 @@ section {
     width: 500px;
     display: flex;
     flex-direction: column;
-    background-color: red;
+    background-color: white;
+    position: relative;
+    right: 365px;
+    bottom: 130px;
 }
 
 h3 {
@@ -77,9 +80,11 @@ h3 {
 }
 
 #popup_open_btn {
+    margin: 0 auto 10px 180px;
     width: 150px;
     height: 40px;
     background-color: rgb(241, 220, 203);
     border: 2px solid;
     border-radius: 10px;
 }
+
