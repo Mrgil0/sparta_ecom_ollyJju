@@ -47,7 +47,7 @@
     <%-include('component/sidebar.ejs')%>
 
     <script>
-        let socket = io.connect('ws://localhost:3001')
+        let socket = io.connect('ws://sparta-gil.shop/:3001')
         socket.on('message', (data) =>{
             "<%if(user) {%>" 
             if(data.chat_person != 'admin@admin.com') { 
