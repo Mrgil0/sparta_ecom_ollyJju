@@ -35,9 +35,9 @@ router.get("/cart", authMiddleware, async (req, res) => {
 router.get("/logout", authMiddleware, async (req, res) => {
   res.cookie("accessToken", '');
   res.cookie("refreshToken", '');
-  console.log("res.cookie : " + res.cookie);
   const todaypick = await productRepository.findTodayPick();
-  res.render("home", { user: null, room: null, chat: null, todaypick: todaypick });
+  const category = await productRepository.findAllCategory();
+  res.render("home", { user: null, room: null, chat: null, todaypick: todaypick, category: category });
 });
 
 //이호균 page
@@ -49,22 +49,9 @@ router.get('/mypage', authMiddleware, async (req, res) => {
   const userInfo = await user.findByPk(currentUser.user_idx)
   const userIdx = userInfo.user_idx
 
-  const purchaseList = await sequelize.query(
-    `SELECT oi.order_idx, od.product_idx, od.order_count, pd.productName
-     FROM orders oi
-     INNER JOIN order_details od ON oi.order_idx = od.order_idx
-     INNER JOIN Products pd on od.product_idx = pd.id
-     WHERE oi.user_idx = ${userIdx}`
-  )
-
-  const getOrderInfo = purchaseList[0]
-
-  if (!currentUser) {
-    return res.status(412).json({ message: '로그인이 필요한 서비스입니다.'})
-  }
-
+  const purchaseList = await productRepository.findMyProduct(userIdx)
   try {
-    res.render('my_page', { info: { userInfo }, list: { getOrderInfo } })
+    res.render('my_page', { info: userInfo , purchaseList: purchaseList  })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
@@ -135,21 +122,21 @@ router.patch('/cartpagePro',authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
   const {user_idx, user_email} = currentUser
   const {addProductId, sumTotal} = req.body
-  const savePoint = Number(sumTotal) * 0.05
-
+  if(currentUser.user_point < sumTotal){
+    res.status(200).json({ message: '포인트가 부족합니다.' })
+  }
   try {
     for(let purchaseProduct of addProductId) {
       await cart.destroy({ where: { product_idx: purchaseProduct, user_email }  })
     }
     const userInfo = await user.findByPk(user_idx)
     const currentPoint = userInfo.user_point 
-    const totalPoint = currentPoint - sumTotal + savePoint
+    const totalPoint = currentPoint - sumTotal
 
     userInfo.user_point = totalPoint
     
     await userInfo.save()
-    
-    res.status(200).json({ message: '구입 완료' })
+    res.status(200).json({ message: '구입이 완료되었습니다.' })
   } catch (error) {
     res.status(500).json({ message: error.message})
   }
