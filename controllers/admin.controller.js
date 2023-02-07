@@ -62,7 +62,7 @@ class AdminConteroller {
         category
       );
 
-      res.send({ message: "상품 등록 완료 !" });     
+      res.send({ message: true });     
     } catch (error) {
       res.status(error.status).json({ message: error.message });
     }
