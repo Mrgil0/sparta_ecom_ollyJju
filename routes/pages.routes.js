@@ -5,17 +5,7 @@ const ProductController = require("../controllers/products.controller");
 const productController = new ProductController();
 
 //이호균 page
-// router.get("/cartcart", authMiddleware, async (req, res) => {
-//   const currentUser = res.locals.user
-
-//   if (!currentUser) {
-//     return res.status(412).json({ message: '로그인이 필요한 서비스입니다.'})
-//   }
-  
-//   res.render("./Hogyun");
-// });
-
-const { user, Product, cart } = require('../models')
+const { user, Product, cart, order, order_detail } = require('../models');
 // const ChatRepository = require("../repositories/chats.repository");
 // ●●●●●●●●●●●●●●●●●●● 마이페이지 조회 ●●●●●●●●●●●●●●●●●●●
 router.get('/mypage', authMiddleware, async (req, res) => {
@@ -95,32 +85,60 @@ router.delete('/cartpagePro',authMiddleware, async (req, res) => {
     res.status(500).json({ message: error.message})
   }
 })
-// ●●●●●●●●●●●●●●●●●●● 장바구니 구입 ●●●●●●●●●●●●●●●●●●●
+// ●●●●●●●●●●●●●●●●●●● 장바구니 구입기능 ●●●●●●●●●●●●●●●●●●●
 router.patch('/cartpagePro',authMiddleware, async (req, res) => {
   const currentUser = res.locals.user
-  const user_email = currentUser.user_email
+  const {user_idx, user_email, user_name, user_phone, user_address} = currentUser
   const {addProductId, sumTotal} = req.body
   const savePoint = Number(sumTotal) * 0.05
-  
 
   try {
-    for( let purchaseProduct of addProductId) {
+    for(let purchaseProduct of addProductId) {
       await cart.destroy({ where: { product_idx: purchaseProduct, user_email }  })
     }
-
-    const userInfo = await user.findByPk(currentUser.user_idx)
+    const userInfo = await user.findByPk(user_idx)
     const currentPoint = userInfo.user_point 
-    
     const totalPoint = currentPoint + savePoint
-    
+
     userInfo.user_point = totalPoint
+    
     await userInfo.save()
-  
+    console.log('장바구니는 성공!')
     res.status(200).json({ message: '구입 완료' })
   } catch (error) {
     res.status(500).json({ message: error.message})
   }
 })
+// ●●●●●●●●●●●●●●●●●●● 구입한 상품 DB에 저장 ●●●●●●●●●●●●●●●●●●●
+router.post('/cartpagePro', authMiddleware, async(req, res) => {
+  const currentUser = res.locals.user
+  const {user_idx, user_name, user_phone, user_address} = currentUser
+  
+  const order_address = user_address
+  const order_status = '배송 준비 중'
+  const receiver_name = user_name
+  const receiver_phone = user_phone
+  console.log(user_idx, order_address, order_status, receiver_name, receiver_phone)
+  const {addProductId, sendCount} = req.body
+  console.log('프로덕트 아이디:', addProductId)
+  console.log('가져온 수량:', sendCount)
 
+  try {
+    await order.create({user_idx, order_address, order_status, receiver_name, receiver_phone})
+    
+    const orderDB = await order.findAll({ order: [["order_idx", "desc"]], limit: 1 })
+    const orderKey = orderDB[0].order_idx
+   
+    for (let i = 0; i < addProductId.length; i++) {
+      await order_detail.create({ "order_idx":orderKey, "product_idx": addProductId[i], "order_count": Number(sendCount[i])})
+    }
+    
+    res.status(200).json({ message: '구입 목록 추가!'})
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).json({ message: error.message})
+  }
+  
+})
 
 module.exports = router;
