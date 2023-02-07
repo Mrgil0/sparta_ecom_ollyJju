@@ -29,7 +29,7 @@ class UserRepository {
     user_address
   ) => {
 
-    let point = 1000000;
+    let point = 200000;
     try {
       await Users.create({
         user_email,
