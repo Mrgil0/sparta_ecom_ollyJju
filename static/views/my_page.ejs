@@ -54,14 +54,15 @@
                     </tbody>
                 </table>
                 <div id="my_modal">
-                    <p>변경할 비밀번호: <input type="text" id="password"></p>
+                    <p>현재 비밀번호: <input type="text" id="cur_password"></p>
+                    <p>변경할 비밀번호: <input type="text" id="next_password"></p>
                     <p>변경할 주소: <input type="text" id="address"></p>
                     <p>변경할 전화번호: <input type="text" id="phone"></p>
-                    <button class="modal_button" onclick="edit_btn()">수정</button>
+                    <button class="modal_button" type="button" onclick="edit_btn()">수정</button>
                     <a class="modal_close_btn">X</a>
                 </div>
                 <div class="patch_btn">
-                    <button id="popup_open_btn">회원정보 수정</button>
+                    <button type="button" id="popup_open_btn">회원정보 수정</button>
                 </div>
         </section>
         <section class="userTable">
@@ -72,6 +73,7 @@
                         <th>상품명</th>
                         <th>수량</th>
                         <th>가격</th>
+                        <th>진행상태</th>
                     </tr>
                 </thead>
                 <% for (const list of purchaseList) {%>
@@ -82,7 +84,8 @@
                             <a href='/product_detail?id=<%= list.product_idx%>'><%= list.productName %></a>
                         </td>
                         <td><%= list.order_count %></td> 
-                        <td><%= list.order_count * list.price %></td>                    
+                        <td><%= list.order_count * list.price %></td>     
+                        <td><%= list.order_status %></td>                 
                     </tr>
                 </tbody>
                 <%}%>

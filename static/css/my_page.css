@@ -90,7 +90,11 @@ a:hover { color : cyan; }
     border: 2px solid;
     border-radius: 5px;
     border-color: rgb(119, 109, 101);
-    margin-top: 3px;
+    margin-left: 40%;
+    margin-top: 5px;
+}
+.modal_button:hover{
+    background-color: rgb(175, 164, 155);
 }
 /*       */
 

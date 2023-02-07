@@ -1,6 +1,6 @@
 // ※※※※※※※※※※※※※※※※※※※※모달창 코드※※※※※※※※※※※※※※※※※※※※
 function modal(id) {
-    let zIndex = 9999;
+    let zIndex = 999;
     let modal = document.getElementById(id);
 
     // 모달 div 뒤에 희끄무레한 레이어
@@ -55,27 +55,31 @@ document.getElementById('popup_open_btn').addEventListener('click', function () 
 
 // ※※※※※※※※※※※※※※※※※※※※서버로 POST※※※※※※※※※※※※※※※※※※※※
 function edit_btn() {
-    let user_password = $('#password').val()
+    let cur_password = $('#cur_password').val()
+    let next_password = $('#next_password').val()
     let user_address = $('#address').val()
     let user_phone = $('#phone').val()
-    if (user_password === '' && user_address === '' && user_phone === '') {
-        alert('내용을 입력하세요.')
+    if ([cur_password, next_password, user_address, user_phone].includes('')) { 
+        modalOpen('내용을 입력하세요.')
         return
     }
     $.ajax({
         type: 'PATCH',           // 타입 (get, post, put 등등)
         url: '/users/mypage',    // 요청할 서버url
         data: { 
-            "user_password": user_password,
+            "cur_password" : cur_password,
+            "next_password": next_password,
             "user_address": user_address,
             "user_phone": user_phone
         },
         success: function (response) { // 결과 성공 콜백함수
-            alert(response['message'])
-            window.location.reload()
-        },
-        error: function (error) { // 결과 에러 콜백함수
-            alert('보내기 실패' + error)
+            if(response["message"] == "불일치"){
+                modalOpen('비밀번호가 일치하지 않습니다.')
+                return
+            }
+            refresh = 1;
+            url = '/users/mypage'
+            modalOpen(response['message'])
         }
     })
 }
