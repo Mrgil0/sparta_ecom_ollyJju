@@ -66,8 +66,10 @@ section {
 }
 
 .my_page_content {
+    width: 500px;
     display: flex;
     flex-direction: column;
+    background-color: red;
 }
 
 h3 {

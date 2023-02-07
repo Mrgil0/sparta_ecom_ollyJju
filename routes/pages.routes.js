@@ -124,19 +124,15 @@ router.post('/cartpagePro', authMiddleware, async(req, res) => {
   console.log('가져온 수량:', sendCount)
 
   try {
-    console.log('order DB에 정보 넣기 시작')
     await order.create({user_idx, order_address, order_status, receiver_name, receiver_phone})
-    console.log('이 문구가 뜨면 정보 넣기 성공')
+    
     const orderDB = await order.findAll({ order: [["order_idx", "desc"]], limit: 1 })
     const orderKey = orderDB[0].order_idx
-    console.log('나오면:',orderKey)
-    console.log('준비시작!')
-    console.log(addProductId)
-    console.log(sendCount)
+   
     for (let i = 0; i < addProductId.length; i++) {
-      await order_detail.create({ "order_idx":orderKey, "product_idx": addProductId[i], "order_count": sendCount[i]})
+      await order_detail.create({ "order_idx":orderKey, "product_idx": addProductId[i], "order_count": Number(sendCount[i])})
     }
-    console.log('준비끝!')
+    
     res.status(200).json({ message: '구입 목록 추가!'})
   } catch (error) {
     console.log(error.message)

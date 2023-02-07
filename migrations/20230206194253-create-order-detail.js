@@ -15,6 +15,9 @@ module.exports = {
       product_idx: {
         type: Sequelize.INTEGER
       },
+      order_count: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
