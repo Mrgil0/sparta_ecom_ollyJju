@@ -14,20 +14,23 @@ class ProductController {
       next()
     }
     res.locals.product = product 
-    console.log(res.locals.product)
     next()
   }
 
   showAllProduct = async (req, res) => {
-    let {page} = req.body;
+    let {page, text} = req.body;
     let offset = 0;
+    let data = []
     if(page > 0){
       offset = (Number(page)-1)*5
     }
     try {
-      const data = await this.productService.showAllProduct(offset);
-
-      res.status(200).json({ "data": data});
+      if(text == '' || text == undefined){
+        data = await this.productService.showAllProduct(offset, text);
+      } else {
+        data = await this.productService.findSearchProduct(offset, text);
+      }
+      res.status(200).json({ "data": data, "text": text});
     } catch (error) {
       res.status(error.status).json({ message: error.message });
     }
