@@ -55,9 +55,9 @@ class UsersController {
   // }
 
   checkEmail = async (req, res, next) => {
-    const { user_email } = req.params;
-
-    const findUser = await this.userService.findUserbyEmail(user_email);
+    const { email_give } = req.body;
+    console.log(email_give)
+    const findUser = await this.userService.findUserbyEmail(email_give);
     if (findUser.length > 0) {
       return res.send({ msg: true });
     }

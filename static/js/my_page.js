@@ -64,7 +64,7 @@ function edit_btn() {
     }
     $.ajax({
         type: 'PATCH',           // 타입 (get, post, put 등등)
-        url: '/page/mypage',    // 요청할 서버url
+        url: '/users/mypage',    // 요청할 서버url
         data: { 
             "user_password": user_password,
             "user_address": user_address,
