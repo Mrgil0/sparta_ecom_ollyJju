@@ -1,5 +1,6 @@
 const ProductService = require("../services/products.service");
 const ChatRepository = require("../repositories/chats.repository");
+const { cart } = require('../models')
 
 let product = {}
 
@@ -13,20 +14,23 @@ class ProductController {
       next()
     }
     res.locals.product = product 
-    console.log(res.locals.product)
     next()
   }
 
   showAllProduct = async (req, res) => {
-    let {page} = req.body;
+    let {page, text} = req.body;
     let offset = 0;
+    let data = []
     if(page > 0){
       offset = (Number(page)-1)*5
     }
     try {
-      const data = await this.productService.showAllProduct(offset);
-
-      res.status(200).json({ "data": data});
+      if(text == '' || text == undefined){
+        data = await this.productService.showAllProduct(offset, text);
+      } else {
+        data = await this.productService.findSearchProduct(offset, text);
+      }
+      res.status(200).json({ "data": data, "text": text});
     } catch (error) {
       res.status(error.status).json({ message: error.message });
     }
@@ -43,13 +47,30 @@ class ProductController {
       res.status(error.status).json({ message: error.message });
     }
   };
-
+  
   productAddCart = async (req, res) => {
     try {
       const { productId } = req.params;
       const { product_quantity } = req.body;
+      const user_email = res.locals.user.user_email
+      
+      const count = product_quantity
+      
+      const dbproductId = await this.productService.findProductId(productId);
+      
+      const product_idx = dbproductId
 
-      await this.productService.findProductId(productId);
+      const isProduct = await cart.findOne({ where: { product_idx, user_email }})
+     
+      if (!isProduct) {
+        const cartDB = await cart.create({ product_idx, user_email ,count })
+        console.log(cartDB)
+      } else {
+        return res.status(201).json({ message: '이미 장바구니에 담겨있는 상품입니다.'})
+      }
+      if (dbproductId === undefined) {
+        res.status(412).json({ message: "해당하는 상품이 존재하지 않습니다." });
+      }
 
       if (Number(product_quantity) < 1) {
         const error = new Error();

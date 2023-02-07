@@ -3,6 +3,7 @@
 	<a href="/home" class="logo">올쮸</a>
 
 	<ul class="navlist">
+			<input type="text" id="searchBtn" placeholder="검색">
 			<li><a href="/home">홈</a></li>
 			<%if (user) { %>
 				<%if(user.user_type == "admin") {%>
@@ -10,7 +11,7 @@
 				<li><a href="/manage_user">고객관리</a></li>
 				<li><a href="/users/logout">로그아웃</a></li>
 				<%} else { %>
-				<li><a href="/mypage">마이페이지</a></li>
+				<li><a href="/page/mypage">마이페이지</a></li>
 				<li><a href="/users/cart">장바구니</a></li>
 				<li><a href="/users/logout">로그아웃</a></li>
 				<%}%>

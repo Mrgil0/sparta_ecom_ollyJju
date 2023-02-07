@@ -8,8 +8,6 @@ module.exports = (req, res, next) => {
   const accessToken = req.cookies.accessToken;
   const refreshToken = req.cookies.refreshToken;
 
-  console.log('액세스 토큰' + accessToken)
-
   if (!refreshToken) return next();
   if (!accessToken) return next();
 
@@ -31,7 +29,7 @@ module.exports = (req, res, next) => {
   const { user_email } = getAccessTokenPayload(accessToken);
   try {
     user.findOne({
-      attributes: ['user_idx', 'user_email', 'user_name', 'user_address', 'user_type', 'user_point'],
+      attributes: ['user_idx', 'user_email', 'user_name', 'user_address', 'user_type', 'user_phone','user_point'],
       where: {user_email: user_email},
       raw: true
     }).then((loginUser) => {

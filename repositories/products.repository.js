@@ -9,40 +9,72 @@ const sequelize = new Sequelize("olly_jju", "rooyt", env.password,{
 });
 
 class ProductRepository {
-  showAllProduct = async (page) => {
+  showAllProduct = async (page, text) => {
     try {
       const data = await sequelize.query(
-        `SELECT id, productImage, productName, productInfo, price, category From Products ORDER BY createdAt DESC LIMIT `+ Number(page) + `, 5`,
+        `SELECT id, productImage, productName, productInfo, price, category From Products 
+        ORDER BY createdAt DESC LIMIT `+ Number(page) + `, 5`,
         {
           raw:true,
           nest:true,
           type: sequelize.QueryTypes.SELECT,
         }
       )
+      return data;
+      
 
-      const returndata = data.map((data) => {
-        const { id, productImage, productName, price, productInfo } = data;
+      // const returndata = data.map((data) => {
+      //   const { id, productImage, productName, price, productInfo } = data;
 
-        return {
-          id,
-          productImage,
-          productName,
-          price,
-          productInfo,
-        };
-      });
+      //   return {
+      //     id,
+      //     productImage,
+      //     productName,
+      //     price,
+      //     productInfo,
+      //   };
+      // });
 
-      return returndata;
+      // return returndata;
     } catch (error) {
       error.status = 500;
       throw error;
     }
   };
+  findSearchProduct = async (page, text) =>{
+    const data = await sequelize.query(
+      `SELECT id, productImage, productName, productInfo, price, category From Products 
+      WHERE productName like '%` + text + `%' or category like '%` + text + `%' 
+      ORDER BY createdAt DESC LIMIT `+ Number(page) + `, 5`,
+      {
+        raw:true,
+        nest:true,
+        type: sequelize.QueryTypes.SELECT,
+      }
+    )
+    return data;
+  }
 
-  fincAllCategory = async () =>{
+  findAllCategory = async () =>{
     try {
       const data = await sequelize.query(
         `SELECT category From Products where id in (select id from Products group by category having count(category)>=1)`,
+        {
+          raw:true,
+          nest:true,
+          type: sequelize.QueryTypes.SELECT,
+        }
+      )
+      return data;
+    }catch (error) {
+      return false
+    }
+  }
+  findTodayPick = async () =>{
+    try {
+      const data = await sequelize.query(
+        `SELECT id, productImage, productName, productInfo, price, category 
+        From Products ORDER BY rand() LIMIT 3`,
         {
           raw:true,
           nest:true,

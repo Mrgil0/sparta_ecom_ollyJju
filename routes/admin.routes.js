@@ -36,26 +36,12 @@ const upload = multer({
 });
 /*       */
 
-
-router.get("/product", authmiddleware, adminConteroller.showAllProduct)
+router.get("/users", authmiddleware, adminConteroller.showAllUser);
+router.delete("/users/:user_idx", authmiddleware, adminConteroller.deleteUser);
+router.get("/product", authmiddleware, adminConteroller.showAllProduct);
 router.post("/product", upload.single("productImage"), authmiddleware, adminConteroller.createProduct);
 router.patch("/product/:productId", authmiddleware, adminConteroller.updateProduct);
 router.delete("/product/:productId", authmiddleware, adminConteroller.deleteProduct);
-
-// admin 유저 관리자 페이지 수정해야함
-router.get("/users", authmiddleware, async (req, res) => {
-  const user_type = res.locals.user.user_type;
-  console.log(user_type)
-  if ( user_type === "admin") {
-    const users = await user.findAll({
-      where: {user_type: "guest"}
-    })
-
-    res.status(200).json({users});
-  } else {
-    res.status(403).json({message: "관리자만 접근 가능한 페이지 입니다."});
-  }
-});
 
 
 

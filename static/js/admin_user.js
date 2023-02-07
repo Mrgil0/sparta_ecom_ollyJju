@@ -1,6 +1,8 @@
 $(document).ready(function () {
     show_user();
+
 });
+
 
 let refresh = 0;
 
@@ -17,6 +19,7 @@ function show_user() {
                 let name = rows[i]["user_name"];
                 let phone = rows[i]["user_phone"];
                 let email = rows[i]["user_email"];
+
                 let temp_html = `
                     <tr>
                         <td>${name}</td>

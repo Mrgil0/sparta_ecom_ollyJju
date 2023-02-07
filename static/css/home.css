@@ -11,12 +11,18 @@
 body {
   background: white;
   color: black;
+  -ms-overflow-style: none;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 section {
-  padding: 100px 14%;
+  padding: 80px 14%;
 }
 .home {
-  min-height: 100vh;
+  min-height: 40vh;
   width: 100%;
   background-color: rgb(245, 237, 231);
   background-size: cover;
@@ -28,6 +34,8 @@ section {
 }
 .home img {
   float: right;
+  width:30%;
+  height: 30%;
 }
 .home-text h1 {
   color: rgb(85, 73, 58);
@@ -36,9 +44,11 @@ section {
   line-height: 1.2;
   letter-spacing: 0.6rem;
   margin-bottom: 1.4rem;
+  text-align: center;
 }
 .home-text span {
   font-size: 24px;
+  text-align: center;
 }
 .home-text p {
   color: rgb(85, 73, 58);
