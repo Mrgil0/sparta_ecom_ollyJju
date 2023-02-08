@@ -46,12 +46,11 @@
     <%-include('component/sidebar.ejs')%>
 
     <script>
-        let socket = io.connect('ws://sparta-gil.shop/:3001')
+        let socket = io.connect('ws://localhost/:3001')
         socket.on('message', (data) =>{
             "<%if(user) {%>" 
             if(data.chat_person != 'admin@admin.com') { 
             let msgLine = $("#adminChat"+data.room_key);
-            console.log(data.createdAt)
             let line = `<p class="rightChat">` + data.message + `</p>
                         <p class="rightDate">` + formatDate(new Date(data.createdAt)) + `</p>`;
             msgLine.append(line);
@@ -63,7 +62,6 @@
             me.append(line2);
             }
             "<% } %>"
-
         })
         $('#msg').keyup(function(event){
             if(event.which == 13){
